@@ -53,7 +53,7 @@ public class MusicWorld {
 	
 	private void updateSuperman(float deltaTime, float accelX){
 		superman.velocity.x = -accelX / 10 * Superman.SUPERMAN_MOVE_VELOCITY;
-		System.out.println(superman.velocity.x);
+		//System.out.println(superman.velocity.x);
 		superman.update(deltaTime);
 	}
 	
