@@ -16,12 +16,26 @@ public class MusicWorldRender {
 	private OrthographicCamera cam;
 	private static final float camSpeed = 5;
 //	private static float backgroundSpeed;
+	float scaleBackgroundHeight;
+	float scaleBackgroundWidth;
+	private float backgroundPositionRate = 0.7f; 
+	private static float bottom = 0f;
 	
 	public MusicWorldRender(MusicWorld musicWorld, SpriteBatch spriteBatch) {
 		this.musicWorld = musicWorld;
 		this.cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);		
 		this.cam.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
 		this.spriteBatch = spriteBatch;
+		
+		float scaleHeight = Gdx.graphics.getHeight()/FRUSTUM_HEIGHT;
+		float scaleWidth = Gdx.graphics.getWidth()/FRUSTUM_WIDTH;
+		scaleBackgroundHeight = Art.backgroundRegion.getRegionHeight()/scaleHeight;
+//		scaleBackgroundWidth = Art.backgroundRegion.getRegionHeight()/scaleWidth;
+		scaleBackgroundWidth = Art.backgroundRegion.getRegionWidth()/scaleHeight;
+		
+		//backgroundPositionRate = (MusicWorld.WORLD_HEIGHT - scaleBackgroundHeight)/(MusicWorld.WORLD_HEIGHT - FRUSTUM_HEIGHT);
+		System.out.println(backgroundPositionRate);
+		
 	}
 	
 	public void render(){
@@ -38,7 +52,14 @@ public class MusicWorldRender {
 	}
 	
 	public void renderBackground(){
-		spriteBatch.draw(Art.backgroundRegion, cam.position.x - FRUSTUM_WIDTH / 2, cam.position.y - FRUSTUM_HEIGHT / 2, FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
+	//	spriteBatch.draw(Art.backgroundRegion, 0, 0, scaleBackgroundWidth,scaleBackgroundHeight);
+		spriteBatch.draw(Art.backgroundRegion, (cam.position.x - FRUSTUM_WIDTH / 2) * backgroundPositionRate, bottom + (cam.position.y - FRUSTUM_HEIGHT / 2) * backgroundPositionRate, scaleBackgroundWidth,scaleBackgroundHeight);
+		if((cam.position.y - FRUSTUM_HEIGHT/ 2) * backgroundPositionRate + scaleBackgroundHeight < cam.position.y + FRUSTUM_HEIGHT / 2){
+			spriteBatch.draw(Art.backgroundRegion, (cam.position.x - FRUSTUM_WIDTH / 2) * backgroundPositionRate, bottom + (cam.position.y - FRUSTUM_HEIGHT/ 2) * backgroundPositionRate + scaleBackgroundHeight, scaleBackgroundWidth,scaleBackgroundHeight);
+		}
+		if((cam.position.y - FRUSTUM_HEIGHT/ 2) * backgroundPositionRate + scaleBackgroundHeight + bottom < cam.position.y - FRUSTUM_HEIGHT / 2){
+			bottom += scaleBackgroundHeight;
+		}
 		//spriteBatch.draw(Art.backgroundRegion, 0, 0);
 	}
 	
