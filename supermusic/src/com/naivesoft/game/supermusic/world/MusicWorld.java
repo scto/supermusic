@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.naivesoft.game.supermusic.entity.MusicNote;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
 import com.naivesoft.game.supermusic.entity.Superman;
+import com.naivesoft.game.supermusic.system.Stats;
 import com.naivesoft.game.supermusic.util.Enums;
 import com.naivesoft.game.supermusic.util.OverlapTester;
 
@@ -18,7 +19,7 @@ public class MusicWorld {
 	
 	public static final float WORLD_WIDTH = 10;
     public static final float WORLD_HEIGHT = 15 * 20;
-	public static final Vector2 gravity = new Vector2(0, -1);
+	public static final Vector2 gravity = new Vector2(0, 0);
 	
 	public final Superman superman;
 	public final List<MusicNote> musicNotes;
@@ -37,8 +38,8 @@ public class MusicWorld {
 	
 	private void generateLevel(){
 		int start = 0;
-		while(start<WORLD_HEIGHT){
-			start +=4;
+		while(start < WORLD_HEIGHT){
+			start += superman.velocity.y * Stats.currentSong.getPauseTime() / 1000;
 			MusicNote musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, start,Enums.random(MUSICNOTE_KIND.class));
 			musicNotes.add(musicNote);
 		}
@@ -69,11 +70,11 @@ public class MusicWorld {
 				musicWorldListener.catchNote(musicNote.musicKind);
 				musicNotes.remove(musicNote);
 				len = musicNotes.size();
-				if(new Random().nextInt(6) > 1){
-					superman.velocity.y = superman.velocity.y + 2 > 10 ? 10 : superman.velocity.y + 2;
-				}else{
-					superman.velocity.y = superman.velocity.y - 1 < 0 ? 0 : superman.velocity.y - 1;
-				}
+//				if(new Random().nextInt(6) > 1){
+//					superman.velocity.y = superman.velocity.y + 2 > 10 ? 10 : superman.velocity.y + 2;
+//				}else{
+//					superman.velocity.y = superman.velocity.y - 1 < 0 ? 0 : superman.velocity.y - 1;
+//				}
 				
 			}
 		}

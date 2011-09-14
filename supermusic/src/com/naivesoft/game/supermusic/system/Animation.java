@@ -1,4 +1,4 @@
-package com.naivesoft.game.supermusic;
+package com.naivesoft.game.supermusic.system;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 

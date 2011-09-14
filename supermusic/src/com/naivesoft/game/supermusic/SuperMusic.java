@@ -3,8 +3,12 @@ package com.naivesoft.game.supermusic;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
+import com.naivesoft.game.supermusic.control.IMusicControl;
 import com.naivesoft.game.supermusic.screen.Screen;
-import com.naivesoft.game.supermusic.screen.TestScreen;
+import com.naivesoft.game.supermusic.screen.StartScreen;
+import com.naivesoft.game.supermusic.screen.JumpGameScreen;
+import com.naivesoft.game.supermusic.system.Art;
+import com.naivesoft.game.supermusic.system.GameSound;
 
 public class SuperMusic implements ApplicationListener{
 	public static final int GAME_WIDTH = 320;
@@ -12,11 +16,26 @@ public class SuperMusic implements ApplicationListener{
 
 	private Screen screen;
 	
+	private  IMusicControl control;
+	
+	public SuperMusic() {
+		super();
+	}
+	
+	public SuperMusic(IMusicControl control) {
+		super();
+		this.control = control;
+	}
+	
+	public IMusicControl getControl(){
+		return this.control;
+	}
+
 	@Override
 	public void create() {
 		Art.load();
 		GameSound.load();
-		setScreen(new TestScreen());
+		setScreen(new StartScreen());
 	}
 
 	public void setScreen(Screen newScreen) {
