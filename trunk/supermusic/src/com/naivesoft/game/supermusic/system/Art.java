@@ -1,4 +1,4 @@
-package com.naivesoft.game.supermusic;
+package com.naivesoft.game.supermusic.system;
 
 import java.util.EnumMap;
 
@@ -12,15 +12,44 @@ import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
 public class Art {
 	
 	public static Texture background;
+	public static TextureRegion startBackground;
+	public static TextureRegion startButton;
 	public static TextureRegion backgroundRegion;
 	public static TextureRegion timerAndroid;
 	public static Texture musicNotesTexture;
 	public static EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> musicNotes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 	public static BitmapFont font;
 	
+	//menu screen
+	private static Texture menuTexture;
+	public static TextureRegion menuButton;
+	public static TextureRegion menuMusic1;
+	public static TextureRegion menuMusic2;
+	public static TextureRegion menuMusic3;
+	
+	//game screen
+	private static Texture timeTexture;
+	public static TextureRegion time3;
+	public static TextureRegion time2;
+	public static TextureRegion time1;
+	
 	public static void load(){
 		background = loadTexture("images/background2.png");
 		backgroundRegion = new TextureRegion(background, 400, 0, (int)(856/1.5), 856);
+		startBackground = load("images/mainbackground.jpg", 320, 480);
+		startButton = load("images/start.png", 128, 128);
+		
+		menuTexture = loadTexture("images/menu.png");
+		menuButton = new TextureRegion(menuTexture, 0, 0, 90, 30);
+		menuMusic1 = new TextureRegion(menuTexture, 0, 32, 90, 16);
+		menuMusic2 = new TextureRegion(menuTexture, 0, 48, 90, 16);
+		menuMusic3 = new TextureRegion(menuTexture, 0, 64, 90, 16);
+		
+		timeTexture = loadTexture("images/time321.png");
+		time3 = new TextureRegion(timeTexture, 0, 0, 32, 56);
+		time2 = new TextureRegion(timeTexture, 0, 56, 32, 56);
+		time1 = new TextureRegion(timeTexture, 0, 112, 32, 56);
+		
 		//backgroundRegion = load("images/background.png", 320, 480);
 		timerAndroid = load("images/timerandroid.png", 64, 64);
 		musicNotesTexture = loadTexture("images/musicnote.png");

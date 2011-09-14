@@ -1,4 +1,4 @@
-package com.naivesoft.game.supermusic;
+package com.naivesoft.game.supermusic.system;
 
 public class Settings {
 	

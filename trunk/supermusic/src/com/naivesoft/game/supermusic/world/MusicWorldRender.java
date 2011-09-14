@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.naivesoft.game.supermusic.Art;
 import com.naivesoft.game.supermusic.entity.MusicNote;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
+import com.naivesoft.game.supermusic.system.Art;
 
 public class MusicWorldRender {
 	static final float FRUSTUM_WIDTH = 10;
@@ -39,19 +39,18 @@ public class MusicWorldRender {
 	}
 	
 	public void render(){
-		cam.position.add(0, camSpeed*Gdx.graphics.getDeltaTime(), 0);
+		//cam.position.add(0, camSpeed*Gdx.graphics.getDeltaTime(), 0);
 		if(musicWorld.superman.position.y > cam.position.y) cam.position.y = musicWorld.superman.position.y;
+		if(musicWorld.superman.position.y < cam.position.y - FRUSTUM_HEIGHT / 2) cam.position.y = musicWorld.superman.position.y;
 		cam.update();
 		spriteBatch.setProjectionMatrix(cam.combined);
-		spriteBatch.enableBlending();
-		spriteBatch.begin();
 		renderBackground();
-		renderSuperman();
-		renderMusicNote();
-		spriteBatch.end();
+		renderObjects();
 	}
 	
 	public void renderBackground(){
+		spriteBatch.disableBlending();
+		spriteBatch.begin();
 	//	spriteBatch.draw(Art.backgroundRegion, 0, 0, scaleBackgroundWidth,scaleBackgroundHeight);
 		spriteBatch.draw(Art.backgroundRegion, (cam.position.x - FRUSTUM_WIDTH / 2) * backgroundPositionRate, bottom + (cam.position.y - FRUSTUM_HEIGHT / 2) * backgroundPositionRate, scaleBackgroundWidth,scaleBackgroundHeight);
 		if((cam.position.y - FRUSTUM_HEIGHT/ 2) * backgroundPositionRate + scaleBackgroundHeight < cam.position.y + FRUSTUM_HEIGHT / 2){
@@ -61,7 +60,17 @@ public class MusicWorldRender {
 			bottom += scaleBackgroundHeight;
 		}
 		//spriteBatch.draw(Art.backgroundRegion, 0, 0);
+		spriteBatch.end();
 	}
+	
+	private void renderObjects() {
+		spriteBatch.enableBlending();
+		spriteBatch.begin();
+		renderSuperman();
+		renderMusicNote();
+		spriteBatch.end();
+	}
+	
 	
 	public void renderSuperman(){
 		TextureRegion superman = Art.timerAndroid;
@@ -80,7 +89,7 @@ public class MusicWorldRender {
 		TextureRegion textureRegion;
 		for(int i = 0; i < len; i++){
 			musicNote = musicWorld.musicNotes.get(i);
-			textureRegion = Art.musicNotes.get(musicNote.musicKind);
+			textureRegion = Art.time1;//Art.musicNotes.get(musicNote.musicKind);
 			spriteBatch.draw(textureRegion, musicNote.position.x - 0.5f, musicNote.position.y - 0.5f, 1f, 1f);
 		}
 	}

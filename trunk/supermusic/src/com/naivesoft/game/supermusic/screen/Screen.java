@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.naivesoft.game.supermusic.SuperMusic;
 
 public abstract class Screen {
-	private SuperMusic superMusic;
+	protected SuperMusic superMusic;
 	public SpriteBatch spriteBatch;
 	
 	public void removed(){
