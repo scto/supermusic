@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, SuperMusicActivity!</string>
+    <string name="hello">Supermusic</string>
     <string name="app_name">supermusic-android</string>
+    <string name="raw_shuaicong">甩葱歌</string>
+    <string name="raw_beatit">Beat It</string>
+    <string name="raw_gowest">Go West</string>
 </resources>
