@@ -32,6 +32,9 @@ public class Art {
 	public static TextureRegion time3;
 	public static TextureRegion time2;
 	public static TextureRegion time1;
+	private static Texture processTexture;
+	public static TextureRegion processBar;
+	public static TextureRegion processElement;
 	
 	public static void load(){
 		background = loadTexture("images/background2.png");
@@ -50,6 +53,10 @@ public class Art {
 		time2 = new TextureRegion(timeTexture, 0, 56, 32, 56);
 		time1 = new TextureRegion(timeTexture, 0, 112, 32, 56);
 		
+		processTexture = loadTexture("images/processbar.png");
+		processBar = new TextureRegion(processTexture, 0, 0, 24, 176);
+		processElement = new TextureRegion(processTexture, 0, 184, 24, 16);
+		
 		//backgroundRegion = load("images/background.png", 320, 480);
 		timerAndroid = load("images/timerandroid.png", 64, 64);
 		musicNotesTexture = loadTexture("images/musicnote.png");
@@ -60,7 +67,8 @@ public class Art {
 		musicNotes.put(MUSICNOTE_KIND.SO, new TextureRegion(musicNotesTexture, 1266, 777, 184, 290));
 		musicNotes.put(MUSICNOTE_KIND.LA, new TextureRegion(musicNotesTexture, 1477, 645, 157, 261));
 		musicNotes.put(MUSICNOTE_KIND.XI, new TextureRegion(musicNotesTexture, 1621, 548, 157, 214));
-		//font = new BitmapFont(Gdx.files.internal("data/font.fnt"), Gdx.files.internal("data/font.png"), false);
+		
+		font = new BitmapFont(Gdx.files.internal("images/font.fnt"), Gdx.files.internal("images/font.png"), false);
 	}
 	
 	public static TextureRegion load (String name, int width, int height) {

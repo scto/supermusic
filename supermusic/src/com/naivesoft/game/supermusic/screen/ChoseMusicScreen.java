@@ -37,10 +37,10 @@ public class ChoseMusicScreen extends Screen{
 			
 			if (OverlapTester.pointInRectangle(music1, touchPoint.x, touchPoint.y)) {
 				//GameSound.playSound(GameSound.hit);
-				Stats.currentSong = superMusic.getControl().getJetList().get(0);
-				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(0).getFileID());
-				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
-				setScreen(new JumpGameScreen());
+//				Stats.currentSong = superMusic.getControl().getJetList().get(0);
+//				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(0).getFileID());
+//				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
+				setScreen(new FlyGameScreen());
 				return;
 			}
 			if (OverlapTester.pointInRectangle(music2, touchPoint.x, touchPoint.y)) {
