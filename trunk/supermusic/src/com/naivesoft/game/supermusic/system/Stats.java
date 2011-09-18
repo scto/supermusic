@@ -7,7 +7,16 @@ public class Stats {
 	public static final int MIN_BLOOD = 0;
 	
 	public static MidiSong currentSong;
+	
+	/**
+	 * 0 - 10
+	 */
 	public static int blood;
+	
+	/**
+	 * 0 - 1
+	 */
+	public static float magnetism;//ci li
 	
 	public static void addBlood(int newBlood) {
 		blood = blood + newBlood > MAX_BLOOD ? MAX_BLOOD : blood + newBlood;

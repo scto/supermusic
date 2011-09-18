@@ -60,6 +60,7 @@ public class FlyGameScreen extends Screen{
 		
 		scoreString = "SCORE: 0";
 		Stats.blood = 5;
+		Stats.magnetism = 5f;
 	}
 	
 	@Override

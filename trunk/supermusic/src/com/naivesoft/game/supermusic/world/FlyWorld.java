@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
+import com.naivesoft.game.supermusic.entity.GameObject;
 import com.naivesoft.game.supermusic.entity.MusicNote;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
 import com.naivesoft.game.supermusic.entity.Superman;
@@ -49,7 +50,7 @@ public class FlyWorld {
 	public void update(float deltaTime, float accelX, float accelY){
 		updateSuperman(deltaTime, accelX, accelY);
 		
-		checkCollisions();
+		checkCollisions(deltaTime);
 	}
 	
 	private void updateSuperman(float deltaTime, float accelX, float accelY){
@@ -62,14 +63,20 @@ public class FlyWorld {
 		superman.update(deltaTime);
 	}
 	
-	private void checkCollisions(){
-		checkMusicNoteCollision();
+	private void updateMusicNote() {//put the function to the checkMusicNoteCollision
+		int len = musicNotes.size();
 	}
 	
-	private void checkMusicNoteCollision(){
+	private void checkCollisions(float deltaTime){
+		checkMusicNoteCollision(deltaTime);
+	}
+	
+	//have the ability to update music note, to avoid double for
+	private void checkMusicNoteCollision(float deltaTime){
 		int len = musicNotes.size();
 		for(int i = 0; i < len; i++){
 			MusicNote musicNote = musicNotes.get(i);
+			updateMusicNotePosition(deltaTime, musicNote);
 			if(OverlapTester.overlapRectangles(superman.bounds, musicNote.bounds)){
 				flyWorldListener.catchNote(musicNote.musicKind);
 				musicNotes.remove(musicNote);
@@ -82,5 +89,20 @@ public class FlyWorld {
 				
 			}
 		}
+	}
+	
+	private void updateMusicNotePosition(float deltaTime, MusicNote musicNote) {
+		if(musicNote.position.y > superman.position.y - FlyWorldRender.FRUSTUM_HEIGHT
+				&& musicNote.position.y < superman.position.y + FlyWorldRender.FRUSTUM_HEIGHT) {
+			float distanceFactor = 1 / (float)calTwoObjectDistance(superman, musicNote);
+			musicNote.position.x += (superman.position.x - musicNote.position.x) * deltaTime * Stats.magnetism * distanceFactor;
+			musicNote.position.y += (superman.position.y - musicNote.position.y) * deltaTime * Stats.magnetism * distanceFactor;
+			musicNote.resetBoundsWithPosition();
+		}
+	}
+	
+	private double calTwoObjectDistance(GameObject object1, GameObject object2) {
+		return Math.sqrt((object1.position.x - object2.position.x) * (object1.position.x - object2.position.x)
+				+ (object1.position.y - object2.position.y) * (object1.position.y - object2.position.y));
 	}
 }
