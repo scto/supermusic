@@ -11,4 +11,9 @@ public class GameObject {
         this.position = new Vector2(x,y);
         this.bounds = new Rectangle(x-width/2, y-height/2, width, height);
     }
+    
+    public void resetBoundsWithPosition() {
+    	this.bounds.x = this.position.x - this.bounds.width/2;
+    	this.bounds.y = this.position.y - this.bounds.height/2;
+    }
 }
