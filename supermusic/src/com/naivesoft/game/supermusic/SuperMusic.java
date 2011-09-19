@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.naivesoft.game.supermusic.control.IMusicControl;
+import com.naivesoft.game.supermusic.screen.LoadingScreen;
 import com.naivesoft.game.supermusic.screen.Screen;
 import com.naivesoft.game.supermusic.screen.StartScreen;
 import com.naivesoft.game.supermusic.screen.JumpGameScreen;
@@ -33,6 +34,12 @@ public class SuperMusic implements ApplicationListener{
 
 	@Override
 	public void create() {
+		//To avoid long wait, load a image first, and show
+		Art.loadPre();
+		setScreen(new LoadingScreen());
+		//TODO using render(); ?
+		render();
+		
 		Art.load();
 		GameSound.load();
 		setScreen(new StartScreen());
@@ -47,12 +54,6 @@ public class SuperMusic implements ApplicationListener{
 	}
 	
 	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void render() {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		screen.update(Gdx.graphics.getDeltaTime());
@@ -61,20 +62,21 @@ public class SuperMusic implements ApplicationListener{
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
+		screen.resize(width, height);
 	}
 
 	@Override
+	public void resume() {
+		screen.resume();
+	}
+	
+	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
+		screen.pause();
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		screen.dispose();
 	}
-
 }

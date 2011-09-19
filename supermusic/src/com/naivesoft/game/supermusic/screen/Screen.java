@@ -32,9 +32,15 @@ public abstract class Screen {
 	}
 	
 	public abstract void update(float deltaTime);
+	
 	public abstract void render();
 	
-//	public void tick(Input input){
-//		
-//	}
+	//below methods implement by sub class, however not all are necessary, so without abstract
+	public void resize(int width, int height) {}
+	
+	public void pause() {}
+	
+	public void resume() {}
+	
+	public void dispose() {}
 }
