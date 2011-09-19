@@ -141,4 +141,12 @@ public class JumpGameScreen extends Screen{
 		}
 	}
 
+	@Override
+	public void pause() {
+		superMusic.getControl().pause();
+	}
+	
+	@Override
+	public void dispose() {
+	}
 }
