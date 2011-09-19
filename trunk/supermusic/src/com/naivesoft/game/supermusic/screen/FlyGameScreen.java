@@ -144,11 +144,6 @@ public class FlyGameScreen extends Screen{
 		if(Gdx.app.getType() == Application.ApplicationType.Android) { 
 			flyWorld.update(deltaTime, Gdx.input.getAccelerometerX(), Gdx.input.getAccelerometerY());
 		}
-		time += deltaTime;
-		if(time > 3f) {
-			Stats.removeBlood(1);
-			time = 0f;
-		}
 		else {
 			float accelX = 0;
 			float accelY = 0;
@@ -161,6 +156,11 @@ public class FlyGameScreen extends Screen{
 			if(Gdx.input.isKeyPressed(Keys.DPAD_UP))
 				accelY = -5f;
 			flyWorld.update(deltaTime, accelX, accelY);
+		}
+		time += deltaTime;
+		if(time > 3f) {
+			Stats.removeBlood(1);
+			time = 0f;
 		}
 	}
 
