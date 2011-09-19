@@ -36,6 +36,18 @@ public class Art {
 	public static TextureRegion processBar;
 	public static TextureRegion processElement;
 	
+	/**
+	 * load the resource for the loading page
+	 */
+	public static void loadPre() {
+		background = loadTexture("images/background2.png");
+		backgroundRegion = new TextureRegion(background, 400, 0, (int)(856/1.5), 856);
+		startBackground = load("images/mainbackground.jpg", 320, 480);
+	}
+	
+	/**
+	 * load all the resources
+	 */
 	public static void load(){
 		background = loadTexture("images/background2.png");
 		backgroundRegion = new TextureRegion(background, 400, 0, (int)(856/1.5), 856);
