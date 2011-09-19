@@ -34,11 +34,13 @@ public class SuperMusic implements ApplicationListener{
 
 	@Override
 	public void create() {
+		// may be should set in android
 		//To avoid long wait, load a image first, and show
-		Art.loadPre();
-		setScreen(new LoadingScreen());
+//		Art.loadPre();
+//		LoadingScreen loadingScreen = new LoadingScreen();
+//		setScreen(loadingScreen);
+//		loadingScreen.display();
 		//TODO using render(); ?
-		render();
 		
 		Art.load();
 		GameSound.load();
