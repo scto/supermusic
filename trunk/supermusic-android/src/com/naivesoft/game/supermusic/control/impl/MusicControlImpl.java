@@ -25,14 +25,9 @@ public class MusicControlImpl implements IMusicControl{
 	
 	public void init(Context context) {
 		this.context = context;
-		
-//		jetPlayer = JetPlayer.getJetPlayer();
-//		jetPlayer.queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
+
 		jetPlayer = JetPlayer.getJetPlayer();
-		//jetPlayer.loadJetFile(context.getResources().openRawResourceFd(R.raw.shuaicong));
-       
-     //  jetPlayer.play();
-		
+
 		musicList = new ArrayList<MidiSong>();
 		musicList.add(new MidiSong(R.raw.shuaicong,120,new int[]{1,5,6}));
 		musicList.add(new MidiSong(R.raw.beatit,138,new int[]{6,8,9,10}));
@@ -50,39 +45,33 @@ public class MusicControlImpl implements IMusicControl{
 
 	@Override
 	public boolean loadJetFile(int rawId) {
-		jetPlayer.loadJetFile(context.getResources().openRawResourceFd(rawId));
-		return false;
+		return jetPlayer.loadJetFile(context.getResources().openRawResourceFd(rawId));
 	}
 
 	@Override
 	public boolean play() {
-		jetPlayer.play();
-		return false;
+		return jetPlayer.play();
 	}
 
 	@Override
 	public boolean pause() {
-		jetPlayer.pause();
-		return false;
+		return jetPlayer.pause();
 	}
 	
 	@Override
 	public boolean clearQueue() {
-		jetPlayer.clearQueue();
-		return false;
+		return jetPlayer.clearQueue();
 	}
 
 	@Override
 	public boolean setMuteFlag(int trackId, boolean muteFlag, boolean sync) {
-		jetPlayer.setMuteFlag(trackId, muteFlag, sync);
-		return false;
+		return jetPlayer.setMuteFlag(trackId, muteFlag, sync);
 	}
 
 	@Override
 	public boolean queueJetSegment(int segmentNum, int libNum, int repeatCount,
 			int transpose, int muteFlags, byte userID) {
-		jetPlayer.queueJetSegment(segmentNum, libNum, repeatCount, transpose, muteFlags, userID);
-		return false;
+		return jetPlayer.queueJetSegment(segmentNum, libNum, repeatCount, transpose, muteFlags, userID);
 	}
 
 }
