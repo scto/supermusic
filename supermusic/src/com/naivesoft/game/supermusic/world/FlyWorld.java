@@ -7,7 +7,10 @@ import java.util.Random;
 import com.badlogic.gdx.math.Vector2;
 import com.naivesoft.game.supermusic.entity.GameObject;
 import com.naivesoft.game.supermusic.entity.MusicNote;
+import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNODE_LEVEL;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
+import com.naivesoft.game.supermusic.entity.RandomBackground.RAND_BACKGROUND;
+import com.naivesoft.game.supermusic.entity.RandomBackground;
 import com.naivesoft.game.supermusic.entity.Superman;
 import com.naivesoft.game.supermusic.system.Stats;
 import com.naivesoft.game.supermusic.util.Enums;
@@ -15,7 +18,7 @@ import com.naivesoft.game.supermusic.util.OverlapTester;
 
 public class FlyWorld {
 	public interface FlyWorldListener {
-		public void catchNote(MUSICNOTE_KIND kind);
+		public void catchNote(MUSICNODE_LEVEL level, MUSICNOTE_KIND kind);
 	}
 	
 	public static final float WORLD_WIDTH = 10;
@@ -24,6 +27,7 @@ public class FlyWorld {
 	
 	public final Superman superman;
 	public final List<MusicNote> musicNotes;
+	public final List<RandomBackground> randomBackgrounds;
 	
 	public final FlyWorldListener flyWorldListener;
 	public final Random rand;
@@ -31,6 +35,7 @@ public class FlyWorld {
 	public FlyWorld(FlyWorldListener flyWorldListener){
 		this.superman = new Superman(5, 1);
 		this.musicNotes = new ArrayList<MusicNote>();
+		this.randomBackgrounds = new ArrayList<RandomBackground>();
 		
 		this.flyWorldListener = flyWorldListener;
 		rand = new Random();
@@ -39,10 +44,36 @@ public class FlyWorld {
 	
 	private void generateLevel(){
 		int start = 0;
+		MusicNote musicNote = null;
+		RandomBackground randomBackground = null;
 		while(start < WORLD_HEIGHT){
 			start += 4;//superman.velocity.y * Stats.currentSong.getPauseTime() / 1000;
-			MusicNote musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, start,Enums.random(MUSICNOTE_KIND.class));
+			int factor = rand.nextInt(10) + 1;
+			switch(factor) {
+			case 8:
+			case 9:
+				musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, start,
+						Enums.random(MUSICNOTE_KIND.class),
+						MUSICNODE_LEVEL.LEVEL2);
+				break;
+			case 10:
+				musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, start,
+						Enums.random(MUSICNOTE_KIND.class),
+						MUSICNODE_LEVEL.LEVEL3);
+				break;
+			default:
+				musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, start,
+						Enums.random(MUSICNOTE_KIND.class),
+						MUSICNODE_LEVEL.LEVEL1);
+			}
 			musicNotes.add(musicNote);
+			
+			factor = rand.nextInt(10);
+			if(factor < 2) {
+				randomBackground = new RandomBackground(rand.nextFloat()*WORLD_WIDTH, start + rand.nextInt(5) - 2,
+						Enums.random(RAND_BACKGROUND.class));
+				randomBackgrounds.add(randomBackground);
+			}
 		}
 		
 	}
@@ -78,7 +109,7 @@ public class FlyWorld {
 			MusicNote musicNote = musicNotes.get(i);
 			updateMusicNotePosition(deltaTime, musicNote);
 			if(OverlapTester.overlapRectangles(superman.bounds, musicNote.bounds)){
-				flyWorldListener.catchNote(musicNote.musicKind);
+				flyWorldListener.catchNote(musicNote.musicLevel, musicNote.musicKind);
 				musicNotes.remove(musicNote);
 				len = musicNotes.size();
 //				if(new Random().nextInt(6) > 1){

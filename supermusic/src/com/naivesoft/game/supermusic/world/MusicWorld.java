@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
 import com.naivesoft.game.supermusic.entity.MusicNote;
+import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNODE_LEVEL;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
 import com.naivesoft.game.supermusic.entity.Superman;
 import com.naivesoft.game.supermusic.system.Stats;
@@ -40,7 +41,9 @@ public class MusicWorld {
 		int start = 0;
 		while(start < WORLD_HEIGHT){
 			start += superman.velocity.y * Stats.currentSong.getPauseTime() / 1000;
-			MusicNote musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, start,Enums.random(MUSICNOTE_KIND.class));
+			MusicNote musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, start,
+					Enums.random(MUSICNOTE_KIND.class),
+					Enums.random(MUSICNODE_LEVEL.class));
 			musicNotes.add(musicNote);
 		}
 		

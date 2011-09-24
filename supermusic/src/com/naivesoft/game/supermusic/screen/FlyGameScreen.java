@@ -3,13 +3,16 @@ package com.naivesoft.game.supermusic.screen;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNODE_LEVEL;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
 import com.naivesoft.game.supermusic.service.MusicService;
+import com.naivesoft.game.supermusic.style.GameStyle;
 import com.naivesoft.game.supermusic.system.Art;
 import com.naivesoft.game.supermusic.system.GameSound;
 import com.naivesoft.game.supermusic.system.Stats;
@@ -49,18 +52,36 @@ public class FlyGameScreen extends Screen{
 		flyWorldListener = new FlyWorldListener() {
 			
 			@Override
-			public void catchNote(MUSICNOTE_KIND kind) {
+			public void catchNote(MUSICNODE_LEVEL level, MUSICNOTE_KIND kind) {
 				GameSound.noteSounds.get(kind).play(1);
-				//musicService.setMuteOff();
-				Stats.addBlood(1);
+				switch(level) {
+				case LEVEL1:
+					Stats.addBlood(1);
+					Stats.addScore(10);
+					break;
+				case LEVEL2:
+					Stats.addBlood(2);
+					Stats.addScore(20);
+					break;
+				case LEVEL3:
+					Stats.addBlood(3);
+					Stats.addScore(30);
+					break;
+				}
+				changeScoreString();
 			}
 		};
 		flyWorld = new FlyWorld(flyWorldListener);
 		flyWorldRender = new FlyWorldRender(flyWorld, spriteBatch);
 		
 		scoreString = "SCORE: 0";
+		Stats.score = 0;
 		Stats.blood = 5;
 		Stats.magnetism = 5f;
+	}
+	
+	private void changeScoreString() {
+		scoreString = "SCORE: " + Stats.score;
 	}
 	
 	@Override
@@ -77,9 +98,11 @@ public class FlyGameScreen extends Screen{
 		spriteBatch.begin();
 		switch(state) {
 		case GAME_PREPARING:
+			FlyWorldRender.camSpeed = 0;
 			renderPreparing();
 			break;
 		case GAME_RUNNING:
+			FlyWorldRender.camSpeed = 5;
 			renderRunning();
 			break;
 		case GAME_PAUSE:

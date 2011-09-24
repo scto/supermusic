@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.naivesoft.game.supermusic.style.GameStyle;
 import com.naivesoft.game.supermusic.system.Art;
 import com.naivesoft.game.supermusic.system.Stats;
 import com.naivesoft.game.supermusic.util.OverlapTester;
@@ -40,15 +41,17 @@ public class ChoseMusicScreen extends Screen{
 //				Stats.currentSong = superMusic.getControl().getJetList().get(0);
 //				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(0).getFileID());
 //				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
+				Stats.gameStyle = GameStyle.STYLE1;
 				setScreen(new FlyGameScreen());
 				return;
 			}
 			if (OverlapTester.pointInRectangle(music2, touchPoint.x, touchPoint.y)) {
 				//GameSound.playSound(GameSound.hit);
-				Stats.currentSong = superMusic.getControl().getJetList().get(1);
-				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(1).getFileID());
-				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
-				setScreen(new JumpGameScreen());
+//				Stats.currentSong = superMusic.getControl().getJetList().get(1);
+//				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(1).getFileID());
+//				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
+				Stats.gameStyle = GameStyle.STYLE2;
+				setScreen(new FlyGameScreen());
 				return;
 			}
 			if (OverlapTester.pointInRectangle(music3, touchPoint.x, touchPoint.y)) {
