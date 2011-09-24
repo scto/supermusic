@@ -6,7 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.naivesoft.game.supermusic.entity.MusicNote;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
+import com.naivesoft.game.supermusic.entity.RandomBackground;
+import com.naivesoft.game.supermusic.entity.RandomBackground.RAND_BACKGROUND;
+import com.naivesoft.game.supermusic.style.GameStyle;
 import com.naivesoft.game.supermusic.system.Art;
+import com.naivesoft.game.supermusic.system.Stats;
+import com.naivesoft.game.supermusic.util.Enums;
 
 public class FlyWorldRender {
 	static final float FRUSTUM_WIDTH = 10;
@@ -14,7 +19,7 @@ public class FlyWorldRender {
 	private FlyWorld flyWorld;
 	private SpriteBatch spriteBatch;
 	private OrthographicCamera cam;
-	private static final float camSpeed = 5;
+	public static float camSpeed = 0;
 //	private static float backgroundSpeed;
 	float scaleBackgroundHeight;
 	float scaleBackgroundWidth;
@@ -27,11 +32,18 @@ public class FlyWorldRender {
 		this.cam.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
 		this.spriteBatch = spriteBatch;
 		
+		//set current style
+		Art.currentBackground = Art.backgrounds.get(Stats.gameStyle);
+		Art.current_nodes_level1 = Art.nodes_level1.get(Stats.gameStyle);
+		Art.current_nodes_level2 = Art.nodes_level2.get(Stats.gameStyle);
+		Art.current_nodes_level3 = Art.nodes_level3.get(Stats.gameStyle);
+		Art.current_random_backgrounds = Art.random_backgrounds.get(Stats.gameStyle);
+		
 		float scaleHeight = Gdx.graphics.getHeight()/FRUSTUM_HEIGHT;
 		float scaleWidth = Gdx.graphics.getWidth()/FRUSTUM_WIDTH;
-		scaleBackgroundHeight = Art.backgroundRegion.getRegionHeight()/scaleHeight;
+		scaleBackgroundHeight = Art.currentBackground.getRegionHeight()/scaleHeight;
 //		scaleBackgroundWidth = Art.backgroundRegion.getRegionHeight()/scaleWidth;
-		scaleBackgroundWidth = Art.backgroundRegion.getRegionWidth()/scaleHeight;
+		scaleBackgroundWidth = Art.currentBackground.getRegionWidth()/scaleHeight;
 		
 		//backgroundPositionRate = (FlyWorld.WORLD_HEIGHT - scaleBackgroundHeight)/(FlyWorld.WORLD_HEIGHT - FRUSTUM_HEIGHT);
 		System.out.println(backgroundPositionRate);
@@ -53,6 +65,7 @@ public class FlyWorldRender {
 		cam.update();
 		spriteBatch.setProjectionMatrix(cam.combined);
 		renderBackground();
+//		renderRandomBackground();
 		renderObjects();
 	}
 	
@@ -60,9 +73,9 @@ public class FlyWorldRender {
 		spriteBatch.disableBlending();
 		spriteBatch.begin();
 	//	spriteBatch.draw(Art.backgroundRegion, 0, 0, scaleBackgroundWidth,scaleBackgroundHeight);
-		spriteBatch.draw(Art.backgroundRegion, (cam.position.x - FRUSTUM_WIDTH / 2) * backgroundPositionRate, bottom + (cam.position.y - FRUSTUM_HEIGHT / 2) * backgroundPositionRate, scaleBackgroundWidth,scaleBackgroundHeight);
+		spriteBatch.draw(Art.currentBackground, (cam.position.x - FRUSTUM_WIDTH / 2) * backgroundPositionRate, bottom + (cam.position.y - FRUSTUM_HEIGHT / 2) * backgroundPositionRate, scaleBackgroundWidth,scaleBackgroundHeight);
 		if((cam.position.y - FRUSTUM_HEIGHT/ 2) * backgroundPositionRate + scaleBackgroundHeight < cam.position.y + FRUSTUM_HEIGHT / 2){
-			spriteBatch.draw(Art.backgroundRegion, (cam.position.x - FRUSTUM_WIDTH / 2) * backgroundPositionRate, bottom + (cam.position.y - FRUSTUM_HEIGHT/ 2) * backgroundPositionRate + scaleBackgroundHeight, scaleBackgroundWidth,scaleBackgroundHeight);
+			spriteBatch.draw(Art.currentBackground, (cam.position.x - FRUSTUM_WIDTH / 2) * backgroundPositionRate, bottom + (cam.position.y - FRUSTUM_HEIGHT/ 2) * backgroundPositionRate + scaleBackgroundHeight, scaleBackgroundWidth,scaleBackgroundHeight);
 		}
 		if((cam.position.y - FRUSTUM_HEIGHT/ 2) * backgroundPositionRate + scaleBackgroundHeight + bottom < cam.position.y - FRUSTUM_HEIGHT / 2){
 			bottom += scaleBackgroundHeight;
@@ -70,6 +83,20 @@ public class FlyWorldRender {
 		//spriteBatch.draw(Art.backgroundRegion, 0, 0);
 		spriteBatch.end();
 	}
+	
+//	private void renderRandomBackground() {
+//		spriteBatch.enableBlending();
+//		spriteBatch.begin();
+//		int len = flyWorld.randomBackgrounds.size();
+//		RandomBackground randomBackground;
+//		TextureRegion textureRegion;
+//		for(int i = 0; i < len; i++){
+//			randomBackground = flyWorld.randomBackgrounds.get(i);
+//			textureRegion = Art.current_random_backgrounds.get(randomBackground.type);
+//			spriteBatch.draw(textureRegion, randomBackground.position.x - 1f, (randomBackground.position.y - 1f)*3, 2f, 2f);
+//		}
+//		spriteBatch.end();
+//	}
 	
 	private void renderObjects() {
 		spriteBatch.enableBlending();
@@ -97,7 +124,18 @@ public class FlyWorldRender {
 		TextureRegion textureRegion;
 		for(int i = 0; i < len; i++){
 			musicNote = flyWorld.musicNotes.get(i);
-			textureRegion = Art.time1;//Art.musicNotes.get(musicNote.musicKind);
+			textureRegion = Art.current_nodes_level1.get(musicNote.musicKind);
+			switch(musicNote.musicLevel) {
+			case LEVEL1:
+				textureRegion = Art.current_nodes_level1.get(musicNote.musicKind);
+				break;
+			case LEVEL2:
+				textureRegion = Art.current_nodes_level2.get(musicNote.musicKind);
+				break;
+			case LEVEL3:
+				textureRegion = Art.current_nodes_level3.get(musicNote.musicKind);
+				break;
+			}
 			spriteBatch.draw(textureRegion, musicNote.position.x - 0.5f, musicNote.position.y - 0.5f, 1f, 1f);
 		}
 	}
