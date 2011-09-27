@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.naivesoft.game.supermusic.entity.MusicNote;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
+import com.naivesoft.game.supermusic.entity.Prop.PROP_KIND;
 import com.naivesoft.game.supermusic.entity.RandomBackground;
 import com.naivesoft.game.supermusic.style.GameStyle;
 
@@ -37,6 +38,17 @@ public class Art {
 	private static Texture processTexture;
 	public static TextureRegion processBar;
 	public static TextureRegion processElement;
+	
+	//props
+	public static TextureRegion prop_magnet_positive;
+	public static TextureRegion prop_magnet_negative;
+	public static TextureRegion prop_eatAll;
+	public static TextureRegion prop_fillBlood;
+	public static TextureRegion prop_halfBlood;
+	public static TextureRegion prop_doubleScores;
+	public static TextureRegion prop_maxNotes;
+	public static TextureRegion prop_protective;
+	public static EnumMap<PROP_KIND, TextureRegion> props = new EnumMap<PROP_KIND, TextureRegion>(PROP_KIND.class);
 	
 	//styles
 	public static EnumMap<GameStyle, TextureRegion> backgrounds = new EnumMap<GameStyle, TextureRegion>(GameStyle.class);
@@ -87,6 +99,7 @@ public class Art {
 		
 		loadStyle1();
 		loadStyle2();
+		loadProps();
 		
 		//backgroundRegion = load("images/background.png", 320, 480);
 		timerAndroid = load("images/timerandroid.png", 64, 64);
@@ -100,6 +113,33 @@ public class Art {
 		musicNotes.put(MUSICNOTE_KIND.XI, new TextureRegion(musicNotesTexture, 1621, 548, 157, 214));
 		
 		font = new BitmapFont(Gdx.files.internal("images/font.fnt"), Gdx.files.internal("images/font.png"), false);
+	}
+	
+	private static void loadProps() {
+		props.put(PROP_KIND.magnet_positive, new TextureRegion(
+				loadTexture("images/props/prop_magnet_positive.png"),
+				0, 0, 140, 180));
+		props.put(PROP_KIND.magnet_negative, new TextureRegion(
+				loadTexture("images/props/prop_magnet_positive.png"),
+				0, 0, 140, 180));
+		props.put(PROP_KIND.protective, new TextureRegion(
+				loadTexture("images/props/prop_magnet_positive.png"),
+				0, 0, 140, 180));
+		props.put(PROP_KIND.maxNotes, new TextureRegion(
+				loadTexture("images/props/prop_magnet_positive.png"),
+				0, 0, 140, 180));
+		props.put(PROP_KIND.doubleScores, new TextureRegion(
+				loadTexture("images/props/prop_magnet_positive.png"),
+				0, 0, 140, 180));
+		props.put(PROP_KIND.eatAll, new TextureRegion(
+				loadTexture("images/props/prop_magnet_positive.png"),
+				0, 0, 140, 180));
+		props.put(PROP_KIND.fillBlood, new TextureRegion(
+				loadTexture("images/props/prop_magnet_positive.png"),
+				0, 0, 140, 180));
+		props.put(PROP_KIND.halfBlood, new TextureRegion(
+				loadTexture("images/props/prop_magnet_positive.png"),
+				0, 0, 140, 180));
 	}
 	
 	private static void loadStyle1() {

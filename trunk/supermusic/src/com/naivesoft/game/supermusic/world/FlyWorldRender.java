@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.naivesoft.game.supermusic.entity.MusicNote;
+import com.naivesoft.game.supermusic.entity.Prop;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
 import com.naivesoft.game.supermusic.entity.RandomBackground;
 import com.naivesoft.game.supermusic.entity.RandomBackground.RAND_BACKGROUND;
@@ -103,6 +104,7 @@ public class FlyWorldRender {
 		spriteBatch.begin();
 		renderSuperman();
 		renderMusicNote();
+		renderProps();
 		spriteBatch.end();
 	}
 	
@@ -137,6 +139,17 @@ public class FlyWorldRender {
 				break;
 			}
 			spriteBatch.draw(textureRegion, musicNote.position.x - 0.5f, musicNote.position.y - 0.5f, 1f, 1f);
+		}
+	}
+	
+	private void renderProps() {
+		int len = flyWorld.props.size();
+		Prop prop;
+		TextureRegion textureRegion;
+		for(int i = 0; i < len; i++){
+			prop = flyWorld.props.get(i);
+			textureRegion = Art.props.get(prop.kind);
+			spriteBatch.draw(textureRegion, prop.position.x - 0.5f, prop.position.y - 0.5f, 1f, 1f);
 		}
 	}
 }
