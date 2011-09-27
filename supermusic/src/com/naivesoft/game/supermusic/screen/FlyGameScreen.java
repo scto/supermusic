@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNODE_LEVEL;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
+import com.naivesoft.game.supermusic.entity.Prop.PROP_KIND;
 import com.naivesoft.game.supermusic.service.MusicService;
 import com.naivesoft.game.supermusic.style.GameStyle;
 import com.naivesoft.game.supermusic.system.Art;
@@ -27,6 +28,7 @@ public class FlyGameScreen extends Screen{
 	
 	private int state;
 	private float time = 0f;
+	private int threeSecond = 0;
 	
 	private OrthographicCamera guiCam;
 	private Vector3 touchPoint;	
@@ -39,6 +41,7 @@ public class FlyGameScreen extends Screen{
 	//private MusicService musicService;
 	
 	private String scoreString;
+	private String magnetismString;
 	
 	public FlyGameScreen(){
 		super();
@@ -70,18 +73,53 @@ public class FlyGameScreen extends Screen{
 				}
 				changeScoreString();
 			}
+
+			@Override
+			public void catchProp(PROP_KIND kind) {
+				switch(kind) {
+				case magnet_positive:
+					Stats.addMagnetLevel();
+					changeMagnetismString();
+					break;
+				case magnet_negative:
+					Stats.cutDownMagnetLevel();
+					changeMagnetismString();
+					break;
+				case protective:
+					break;
+				case maxNotes:
+					break;
+				case eatAll:
+					break;
+				case doubleScores:
+					Stats.doubleScore();
+					break;
+				case fillBlood:
+					Stats.fillBlood();
+					break;
+				case halfBlood:
+					Stats.halfBlood();
+					break;
+				}
+				
+			}
 		};
 		flyWorld = new FlyWorld(flyWorldListener);
 		flyWorldRender = new FlyWorldRender(flyWorld, spriteBatch);
 		
-		scoreString = "SCORE: 0";
 		Stats.score = 0;
 		Stats.blood = 5;
-		Stats.magnetism = 5f;
+		Stats.magnetism = 1f;
+		changeScoreString();
+		changeMagnetismString();
 	}
 	
 	private void changeScoreString() {
 		scoreString = "SCORE: " + Stats.score;
+	}
+	
+	private void changeMagnetismString() {
+		magnetismString = "MAGNET: " + Stats.magnetism;
 	}
 	
 	@Override
@@ -119,13 +157,18 @@ public class FlyGameScreen extends Screen{
 		} else if(time < 3f) {
 			spriteBatch.draw(Art.time1, 160 - 16, 240 - 28, 32, 56);
 		}
-		Art.font.draw(spriteBatch, scoreString, 16, 480 - 20);
+		renderStats();
 		renderProcessBar();
 	}
 	
 	private void renderRunning() {
-		Art.font.draw(spriteBatch, scoreString, 16, 480 - 20);
+		renderStats();
 		renderProcessBar();
+	}
+	
+	private void renderStats() {
+		Art.font.draw(spriteBatch, scoreString, 16, 480 - 20);
+		Art.font.draw(spriteBatch, magnetismString, 16, 480 - 40);
 	}
 	
 	private void renderProcessBar() {
@@ -181,9 +224,15 @@ public class FlyGameScreen extends Screen{
 			flyWorld.update(deltaTime, accelX, accelY);
 		}
 		time += deltaTime;
-		if(time > 3f) {
-			Stats.removeBlood(1);
+		if(time > 1f) {
+			Stats.removeEffect();
+			threeSecond += 1;
 			time = 0f;
+			changeMagnetismString();
+		}
+		if(threeSecond == 3) {
+			threeSecond = 0;
+			Stats.removeBlood(1);
 		}
 	}
 
