@@ -88,8 +88,10 @@ public class FlyGameScreen extends Screen{
 				case protective:
 					break;
 				case maxNotes:
+					flyWorld.generateMaxNotesInScreen(flyWorldRender.getCurrentCamPosition());
 					break;
 				case eatAll:
+					flyWorld.catchAllNotesInScreen(flyWorldRender.getCurrentCamPosition());
 					break;
 				case doubleScores:
 					Stats.doubleScore();

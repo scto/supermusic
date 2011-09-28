@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector3;
 import com.naivesoft.game.supermusic.entity.MusicNote;
 import com.naivesoft.game.supermusic.entity.Prop;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
@@ -51,6 +52,10 @@ public class FlyWorldRender {
 		
 	}
 	
+	public Vector3 getCurrentCamPosition() {
+		return cam.position;
+	}
+	
 	public void render(){
 		cam.position.add(0, camSpeed*Gdx.graphics.getDeltaTime(), 0);
 		//if(flyWorld.superman.position.y > cam.position.y) cam.position.y = flyWorld.superman.position.y;
@@ -70,7 +75,7 @@ public class FlyWorldRender {
 		renderObjects();
 	}
 	
-	public void renderBackground() {
+	private void renderBackground() {
 		spriteBatch.disableBlending();
 		spriteBatch.begin();
 	//	spriteBatch.draw(Art.backgroundRegion, 0, 0, scaleBackgroundWidth,scaleBackgroundHeight);
@@ -109,7 +114,7 @@ public class FlyWorldRender {
 	}
 	
 	
-	public void renderSuperman(){
+	private void renderSuperman(){
 		TextureRegion superman = Art.timerAndroid;
 		float side = flyWorld.superman.velocity.x <0 ? -1 : 1;
 		if(side < 0){
@@ -120,7 +125,7 @@ public class FlyWorldRender {
 		//spriteBatch.draw(superman, flyWorld.superman.position.x, flyWorld.superman.position.y,32,32);
 	}
 	
-	public void renderMusicNote(){
+	private void renderMusicNote(){
 		int len = flyWorld.musicNotes.size();
 		MusicNote musicNote;
 		TextureRegion textureRegion;

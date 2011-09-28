@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.naivesoft.game.supermusic.entity.GameObject;
 import com.naivesoft.game.supermusic.entity.MusicNote;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNODE_LEVEL;
@@ -47,34 +48,40 @@ public class FlyWorld {
 		generateLevel();
 	}
 	
+	public void catchAllNotesInScreen(Vector3 currentCamPosition) {
+		int len = musicNotes.size();
+		for(int i = 0; i < len; i++){
+			MusicNote musicNote = musicNotes.get(i);
+			if(musicNote.position.y > currentCamPosition.y - FlyWorldRender.FRUSTUM_HEIGHT / 2
+					&& musicNote.position.y < currentCamPosition.y + FlyWorldRender.FRUSTUM_HEIGHT / 2) {
+				flyWorldListener.catchNote(musicNote.musicLevel, musicNote.musicKind);
+				musicNotes.remove(musicNote);
+				len = musicNotes.size();
+			}
+		}
+	}
+	
+	public void generateMaxNotesInScreen(Vector3 currentCamPosition) {
+		for(float i = currentCamPosition.y - FlyWorldRender.FRUSTUM_HEIGHT / 2;
+				i < currentCamPosition.y + FlyWorldRender.FRUSTUM_HEIGHT / 2;
+				i++) {
+			int factor = rand.nextInt(2);
+			if(factor == 0) {
+				generateMusicNote(i);
+			}
+		}
+	}
+	
 	private void generateLevel(){
 		int start = 0;
-		MusicNote musicNote = null;
 		RandomBackground randomBackground = null;
 		Prop prop = null;
 		while(start < WORLD_HEIGHT){
 			start += 4;//superman.velocity.y * Stats.currentSong.getPauseTime() / 1000;
-			int factor = rand.nextInt(10) + 1;
-			switch(factor) {
-			case 8:
-			case 9:
-				musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, start,
-						Enums.random(MUSICNOTE_KIND.class),
-						MUSICNODE_LEVEL.LEVEL2);
-				break;
-			case 10:
-				musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, start,
-						Enums.random(MUSICNOTE_KIND.class),
-						MUSICNODE_LEVEL.LEVEL3);
-				break;
-			default:
-				musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, start,
-						Enums.random(MUSICNOTE_KIND.class),
-						MUSICNODE_LEVEL.LEVEL1);
-			}
-			musicNotes.add(musicNote);
 			
-			factor = rand.nextInt(10);
+			generateMusicNote(start);
+			
+			int factor = rand.nextInt(10);
 			if(factor < 2) {
 				randomBackground = new RandomBackground(rand.nextFloat()*WORLD_WIDTH, start + rand.nextInt(5) - 2,
 						Enums.random(RAND_BACKGROUND.class));
@@ -88,6 +95,29 @@ public class FlyWorld {
 			}
 		}
 		
+	}
+	
+	private void generateMusicNote(float position) {
+		MusicNote musicNote = null;
+		int factor = rand.nextInt(10) + 1;
+		switch(factor) {
+		case 8:
+		case 9:
+			musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, position,
+					Enums.random(MUSICNOTE_KIND.class),
+					MUSICNODE_LEVEL.LEVEL2);
+			break;
+		case 10:
+			musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, position,
+					Enums.random(MUSICNOTE_KIND.class),
+					MUSICNODE_LEVEL.LEVEL3);
+			break;
+		default:
+			musicNote = new MusicNote(rand.nextFloat()*WORLD_WIDTH, position,
+					Enums.random(MUSICNOTE_KIND.class),
+					MUSICNODE_LEVEL.LEVEL1);
+		}
+		musicNotes.add(musicNote);
 	}
 	
 	public void update(float deltaTime, float accelX, float accelY){
