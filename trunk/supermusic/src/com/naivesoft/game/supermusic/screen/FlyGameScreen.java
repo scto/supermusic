@@ -3,7 +3,6 @@ package com.naivesoft.game.supermusic.screen;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,8 +11,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNODE_LEVEL;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
 import com.naivesoft.game.supermusic.entity.Prop.PROP_KIND;
-import com.naivesoft.game.supermusic.service.MusicService;
-import com.naivesoft.game.supermusic.style.GameStyle;
 import com.naivesoft.game.supermusic.system.Art;
 import com.naivesoft.game.supermusic.system.GameSound;
 import com.naivesoft.game.supermusic.system.Stats;
@@ -31,8 +28,6 @@ public class FlyGameScreen extends Screen{
 	private int threeSecond = 0;
 	
 	private OrthographicCamera guiCam;
-	private Vector3 touchPoint;	
-	
 	private FlyWorld flyWorld;
 	private FlyWorldListener flyWorldListener;
 	private FlyWorldRender flyWorldRender;
@@ -49,7 +44,7 @@ public class FlyGameScreen extends Screen{
 		
 		guiCam = new OrthographicCamera(320, 480);		
 		guiCam.position.set(320 / 2, 480 / 2, 0);
-		touchPoint = new Vector3();
+		new Vector3();
 		spriteBatch = new SpriteBatch();
 		
 		flyWorldListener = new FlyWorldListener() {

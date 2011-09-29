@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.naivesoft.game.supermusic.system.Art;
-import com.naivesoft.game.supermusic.system.GameSound;
 import com.naivesoft.game.supermusic.util.OverlapTester;
 
 public class StartScreen extends Screen {

@@ -145,7 +145,7 @@ public class FlyWorld {
 		checkPropsCollision(deltaTime);
 	}
 	
-	//have the ability to update music note, to avoid double for
+	//have the ability to update music note, to avoid double 'for'
 	private void checkMusicNoteCollision(float deltaTime){
 		int len = musicNotes.size();
 		for(int i = 0; i < len; i++){
