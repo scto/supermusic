@@ -7,13 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.naivesoft.game.supermusic.entity.MusicNote;
 import com.naivesoft.game.supermusic.entity.Prop;
-import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
-import com.naivesoft.game.supermusic.entity.RandomBackground;
-import com.naivesoft.game.supermusic.entity.RandomBackground.RAND_BACKGROUND;
-import com.naivesoft.game.supermusic.style.GameStyle;
 import com.naivesoft.game.supermusic.system.Art;
 import com.naivesoft.game.supermusic.system.Stats;
-import com.naivesoft.game.supermusic.util.Enums;
 
 public class FlyWorldRender {
 	static final float FRUSTUM_WIDTH = 10;

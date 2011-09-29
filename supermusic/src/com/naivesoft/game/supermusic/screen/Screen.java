@@ -2,7 +2,6 @@ package com.naivesoft.game.supermusic.screen;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Matrix4;
 import com.naivesoft.game.supermusic.SuperMusic;
 
 public abstract class Screen {
@@ -15,10 +14,6 @@ public abstract class Screen {
 	
 	public final void init(SuperMusic superMusic){
 		this.superMusic = superMusic;
-//		Matrix4 projection = new Matrix4();
-//		projection.setToOrtho(0, SuperMusic.GAME_WIDTH, SuperMusic.GAME_HEIGHT, 0, -1, 1);//make the x y to the top left
-//		spriteBatch = new SpriteBatch();
-//		spriteBatch.setProjectionMatrix(projection);
 	}
 	
 	protected void setScreen(Screen screen){
