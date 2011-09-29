@@ -27,7 +27,7 @@ public class Stats {
 	public static float magnetism = 1f;//ci li
 	
 	public static int magnetTime = 0;
-	public static int projectiveTime = 0;//TODO
+	public static int projectiveTime = 0;//when 0, there is no effect
 	public static int doubleScoreTime = 0;
 	
 	public static void addBlood(int newBlood) {
@@ -46,6 +46,7 @@ public class Stats {
 	}
 	
 	public static void halfBlood() {
+		if(projectiveTime != 0) return;
 		blood /= 2;
 	}
 	
@@ -70,10 +71,15 @@ public class Stats {
 	}
 	
 	public static void cutDownMagnetLevel() {
+		if(projectiveTime != 0) return;
 		if(magnetism != MIN_MAGNET) {
 			magnetism /= 2.5f;
 		}
 		magnetTime = 5;
+	}
+	
+	public static void addProjectiveEffect() {
+		projectiveTime = 6;
 	}
 	
 	/**
@@ -89,7 +95,7 @@ public class Stats {
 		if(projectiveTime > 0) {
 			projectiveTime -= 1;
 			if(projectiveTime == 0) {
-				//TODO remove projective effect
+				//it will lose projective effect automatically
 			}
 		}
 		if(doubleScoreTime > 0) {
