@@ -86,6 +86,7 @@ public class FlyGameScreen extends Screen{
 					changeMagnetismString();
 					break;
 				case protective:
+					Stats.addProjectiveEffect();
 					break;
 				case maxNotes:
 					flyWorld.generateMaxNotesInScreen(flyWorldRender.getCurrentCamPosition());
