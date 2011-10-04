@@ -1,15 +1,18 @@
 package com.naivesoft.game.supermusic.system;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.naivesoft.game.supermusic.entity.AnimationBackground;
 import com.naivesoft.game.supermusic.entity.MusicNote;
+import com.naivesoft.game.supermusic.entity.RandomBackground;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
 import com.naivesoft.game.supermusic.entity.Prop.PROP_KIND;
-import com.naivesoft.game.supermusic.entity.RandomBackground;
+import com.naivesoft.game.supermusic.entity.RandomBackground.RAND_BACKGROUND;
 import com.naivesoft.game.supermusic.style.GameStyle;
 
 public class Art {
@@ -55,14 +58,19 @@ public class Art {
 	public static EnumMap<GameStyle, EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>> nodes_level1 = new EnumMap<GameStyle, EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>>(GameStyle.class);
 	public static EnumMap<GameStyle, EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>> nodes_level2 = new EnumMap<GameStyle, EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>>(GameStyle.class);
 	public static EnumMap<GameStyle, EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>> nodes_level3 = new EnumMap<GameStyle, EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>>(GameStyle.class);
-	public static EnumMap<GameStyle, EnumMap<RandomBackground.RAND_BACKGROUND, TextureRegion>> random_backgrounds = new EnumMap<GameStyle, EnumMap<RandomBackground.RAND_BACKGROUND, TextureRegion>>(GameStyle.class);
-
+	public static EnumMap<GameStyle, EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>>> random_backgrounds = new EnumMap<GameStyle, EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>>>(GameStyle.class);
+	
+	//AnimationBackground对象，表示移动的背景元素
+	public static EnumMap<GameStyle, EnumMap<RandomBackground.RAND_BACKGROUND, AnimationBackground>> changeRates = new EnumMap<GameStyle, EnumMap<RandomBackground.RAND_BACKGROUND, AnimationBackground>>(GameStyle.class);
+	
 	//current styles
 	public static TextureRegion currentBackground;
 	public static EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> current_nodes_level1;
 	public static EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> current_nodes_level2;
 	public static EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> current_nodes_level3;
-	public static EnumMap<RandomBackground.RAND_BACKGROUND, TextureRegion> current_random_backgrounds;
+	public static EnumMap<RAND_BACKGROUND, ArrayList<TextureRegion>> current_random_backgrounds;
+	
+	public static EnumMap<RAND_BACKGROUND, AnimationBackground> current_change_rates;
 	
 	/**
 	 * load the resource for the loading page
@@ -144,7 +152,7 @@ public class Art {
 	
 	private static void loadStyle1() {
 		backgrounds.put(GameStyle.STYLE1, new TextureRegion(
-				loadTexture("images/style1/background.png"), 0, 0, (int)(330/1.5), 330));
+				loadTexture("images/star/bg.png"),0,0,320,600));
 		
 		EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
@@ -197,19 +205,27 @@ public class Art {
 				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
 		nodes_level3.put(GameStyle.STYLE1, nodes);
 		
-		EnumMap<RandomBackground.RAND_BACKGROUND, TextureRegion> rbs = new EnumMap<RandomBackground.RAND_BACKGROUND, TextureRegion>(RandomBackground.RAND_BACKGROUND.class);
-		rbs.put(RandomBackground.RAND_BACKGROUND.RB1,new TextureRegion(
-				loadTexture("images/style1/random_background1.png"), 0, 0, 200, 200));
-		rbs.put(RandomBackground.RAND_BACKGROUND.RB2,new TextureRegion(
-				loadTexture("images/style1/random_background2.png"), 0, 0, 200, 200));
-		rbs.put(RandomBackground.RAND_BACKGROUND.RB3,new TextureRegion(
-				loadTexture("images/style1/random_background3.png"), 0, 0, 180, 180));
-		rbs.put(RandomBackground.RAND_BACKGROUND.RB4,new TextureRegion(
-				loadTexture("images/style1/random_background4.png"), 0, 0, 300, 300));
-		rbs.put(RandomBackground.RAND_BACKGROUND.RB5,new TextureRegion(
-				loadTexture("images/style1/random_background5.png"), 0, 0, 180, 150));
-		rbs.put(RandomBackground.RAND_BACKGROUND.RB6,new TextureRegion(
-				loadTexture("images/style1/random_background6.png"), 0, 0, 300, 300));
+		EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>> rbs = new EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>>(RandomBackground.RAND_BACKGROUND.class);
+		EnumMap<RAND_BACKGROUND, AnimationBackground> changeRate = new EnumMap<RAND_BACKGROUND, AnimationBackground>(RAND_BACKGROUND.class);
+		
+		ArrayList<TextureRegion> tr = new ArrayList<TextureRegion>();
+		tr.add(new TextureRegion(loadTexture("images/style1/random_background1.png"), 0, 0, 200, 200));
+		tr.add(new TextureRegion(loadTexture("images/style1/random_background2.png"), 0, 0, 200, 200));
+		rbs.put(RandomBackground.RAND_BACKGROUND.RB1, tr);
+		changeRate.put(RandomBackground.RAND_BACKGROUND.RB1, new AnimationBackground(200, 0.9f, 0.9f, false));
+		
+		tr = new ArrayList<TextureRegion>();
+		tr.add(new TextureRegion(loadTexture("images/style1/random_background3.png"), 0, 0, 200, 200));
+		tr.add(new TextureRegion(loadTexture("images/style1/random_background4.png"), 0, 0, 200, 200));
+		rbs.put(RandomBackground.RAND_BACKGROUND.RB2, tr);
+		changeRate.put(RandomBackground.RAND_BACKGROUND.RB2, new AnimationBackground(60, 0.5f, 0.5f, true));
+		
+		tr = new ArrayList<TextureRegion>();
+		tr.add(new TextureRegion(loadTexture("images/style1/random_background5.png"), 0, 0, 200, 200));
+		rbs.put(RandomBackground.RAND_BACKGROUND.RB3, tr);
+		changeRate.put(RandomBackground.RAND_BACKGROUND.RB3, new AnimationBackground(60, 0, 0.9f, false));
+		
+		changeRates.put(GameStyle.STYLE1, changeRate);
 		random_backgrounds.put(GameStyle.STYLE1, rbs);
 	}
 	

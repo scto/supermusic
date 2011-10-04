@@ -37,6 +37,7 @@ public class FlyGameScreen extends Screen{
 	
 	private String scoreString;
 	private String magnetismString;
+	private MusicService musicService;
 	
 	public FlyGameScreen(){
 		super();
@@ -51,18 +52,21 @@ public class FlyGameScreen extends Screen{
 			
 			@Override
 			public void catchNote(MUSICNODE_LEVEL level, MUSICNOTE_KIND kind) {
-				GameSound.noteSounds.get(kind).play(1);
+				//GameSound.noteSounds.get(kind).play(1);
 				switch(level) {
 				case LEVEL1:
 					Stats.addBlood(1);
+					updateMuteState();
 					Stats.addScore(10);
 					break;
 				case LEVEL2:
 					Stats.addBlood(2);
+					updateMuteState();
 					Stats.addScore(20);
 					break;
 				case LEVEL3:
 					Stats.addBlood(3);
+					updateMuteState();
 					Stats.addScore(30);
 					break;
 				}
@@ -200,9 +204,8 @@ public class FlyGameScreen extends Screen{
 	
 	private void updateRunning(float deltaTime) {
 		if(!isPlaying) {
-	//		superMusic.getControl().play();
-	//		musicService = new MusicService(superMusic.getControl(), Stats.currentSong);
-	//		musicService.start();
+			superMusic.getControl().play();
+			musicService = new MusicService(superMusic.getControl(), Stats.currentSong);
 			isPlaying = true;
 		}
 		if(Gdx.app.getType() == Application.ApplicationType.Android) { 
@@ -231,7 +234,22 @@ public class FlyGameScreen extends Screen{
 		if(threeSecond == 3) {
 			threeSecond = 0;
 			Stats.removeBlood(1);
+			updateMuteState();
 		}
 	}
-
+	
+	//更新静音状态，更改血的时候调用，传入更改，减少传入负数
+	private void updateMuteState() {
+		//血为零时全静音
+		if(Stats.blood <= 0)
+			musicService.setAllTracksMute();
+		//血为5以下静音部分音轨
+		else if (Stats.blood <= 9) {
+			musicService.setMuteOff();
+			musicService.setTrackMute();
+		}
+		//血在5以上
+		else 
+			musicService.setMuteOff();
+	}
 }

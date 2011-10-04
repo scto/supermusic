@@ -15,6 +15,7 @@ import com.naivesoft.game.supermusic.entity.Prop.PROP_KIND;
 import com.naivesoft.game.supermusic.entity.RandomBackground.RAND_BACKGROUND;
 import com.naivesoft.game.supermusic.entity.RandomBackground;
 import com.naivesoft.game.supermusic.entity.Superman;
+import com.naivesoft.game.supermusic.system.Art;
 import com.naivesoft.game.supermusic.system.Stats;
 import com.naivesoft.game.supermusic.util.Enums;
 import com.naivesoft.game.supermusic.util.OverlapTester;
@@ -76,13 +77,15 @@ public class FlyWorld {
 		int start = 0;
 		RandomBackground randomBackground = null;
 		Prop prop = null;
+		
+		Art.current_change_rates = Art.changeRates.get(Stats.gameStyle);
 		while(start < WORLD_HEIGHT){
 			start += 4;//superman.velocity.y * Stats.currentSong.getPauseTime() / 1000;
 			
 			generateMusicNote(start);
 			
 			int factor = rand.nextInt(10);
-			if(factor < 2) {
+			if(factor < 10) {
 				randomBackground = new RandomBackground(rand.nextFloat()*WORLD_WIDTH, start + rand.nextInt(5) - 2,
 						Enums.random(RAND_BACKGROUND.class));
 				randomBackgrounds.add(randomBackground);

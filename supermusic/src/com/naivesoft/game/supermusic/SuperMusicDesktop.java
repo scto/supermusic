@@ -7,5 +7,4 @@ public class SuperMusicDesktop {
 	public static void main(String[] args){
 		new LwjglApplication(new SuperMusic(), "Game", 320, 480, false);
 	}
-
 }
