@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.media.JetPlayer;
+import android.util.Log;
 
 import com.naivesoft.game.supermusic.R;
 import com.naivesoft.game.supermusic.control.IMusicControl;
@@ -29,9 +30,10 @@ public class MusicControlImpl implements IMusicControl{
 		jetPlayer = JetPlayer.getJetPlayer();
 
 		musicList = new ArrayList<MidiSong>();
-		musicList.add(new MidiSong(R.raw.shuaicong,120,new int[]{1,5,6}));
-		musicList.add(new MidiSong(R.raw.beatit,138,new int[]{6,8,9,10}));
-		musicList.add(new MidiSong(R.raw.gowest,120,new int[]{4,7}));
+		musicList.add(new MidiSong(R.raw.star, new int[] {4}, 239 ));
+		musicList.add(new MidiSong(R.raw.shuaicong,new int[]{1,5,6}, 200));
+		musicList.add(new MidiSong(R.raw.beatit,new int[]{6,8,9,10}, 200));
+		musicList.add(new MidiSong(R.raw.gowest,new int[]{4,7}, 200));
 	}
 	
 	public static MusicControlImpl getMusicControlImpl() {
@@ -73,5 +75,21 @@ public class MusicControlImpl implements IMusicControl{
 			int transpose, int muteFlags, byte userID) {
 		return jetPlayer.queueJetSegment(segmentNum, libNum, repeatCount, transpose, muteFlags, userID);
 	}
-
+	
+	@Override
+	public boolean setAllTrackMute() {
+		boolean[] flags = new boolean[JetPlayer.getMaxTracks()];
+		for(int i = 0; i < JetPlayer.getMaxTracks(); i++)
+			flags[i] = true;
+		return jetPlayer.setMuteArray(flags, false);
+	}
+	
+	@Override
+	public boolean setAllTrackMuteOff() {
+		boolean[] flags = new boolean[JetPlayer.getMaxTracks()];
+		for(int i = 0; i < JetPlayer.getMaxTracks(); i++)
+			flags[i] = false;
+		return jetPlayer.setMuteArray(flags, false);
+	}
+	
 }
