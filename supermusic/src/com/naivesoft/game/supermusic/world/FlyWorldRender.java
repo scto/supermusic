@@ -10,8 +10,13 @@ import com.badlogic.gdx.math.Vector3;
 import com.naivesoft.game.supermusic.entity.AnimationBackground;
 import com.naivesoft.game.supermusic.entity.MusicNote;
 import com.naivesoft.game.supermusic.entity.Prop;
+import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
+import com.naivesoft.game.supermusic.entity.RandomBackground;
+import com.naivesoft.game.supermusic.entity.RandomBackground.RAND_BACKGROUND;
+import com.naivesoft.game.supermusic.style.GameStyle;
 import com.naivesoft.game.supermusic.system.Art;
 import com.naivesoft.game.supermusic.system.Stats;
+import com.naivesoft.game.supermusic.util.Enums;
 
 public class FlyWorldRender {
 	//考虑到手机屏幕的长宽比不一样，所以FRUSTUM_HEIGHT要根据屏幕比例动态的计算
