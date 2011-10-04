@@ -39,6 +39,10 @@ public interface IMusicControl {
 	 */
 	public boolean setMuteFlag(int trackId, boolean muteFlag, boolean sync);
 	
+	public boolean setAllTrackMute();
+	
+	public boolean setAllTrackMuteOff();
+	
 	public boolean queueJetSegment(int segmentNum, int libNum, int repeatCount, int transpose, int muteFlags, byte userID);
 	
 }

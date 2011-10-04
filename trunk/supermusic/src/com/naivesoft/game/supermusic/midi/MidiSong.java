@@ -13,13 +13,13 @@ public class MidiSong {
 	private int[] muteTracks;
 	
 	//总时间
-	private int totalTime = 146;
+	private float totalTime;
 	
-	public MidiSong(int fileID, double bPM, int[] muteTracks) {
+	public MidiSong(int fileID, int[] muteTracks, float totalTime) {
 		super();
 		this.fileID = fileID;
-		BPM = bPM;
 		this.muteTracks = muteTracks;
+		this.totalTime = totalTime;
 	}
 	
 	//根据BPM计算静音间隔

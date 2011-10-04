@@ -17,7 +17,7 @@ public class SuperMusic implements ApplicationListener{
 
 	private Screen screen;
 	
-	private  IMusicControl control;
+	private IMusicControl control;
 	
 	public SuperMusic() {
 		super();
@@ -43,7 +43,7 @@ public class SuperMusic implements ApplicationListener{
 		//TODO using render(); ?
 		
 		Art.load();
-		GameSound.load();
+		//GameSound.load();
 		setScreen(new StartScreen());
 	}
 

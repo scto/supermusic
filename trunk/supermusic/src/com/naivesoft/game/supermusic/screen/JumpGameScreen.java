@@ -125,7 +125,6 @@ public class JumpGameScreen extends Screen{
 		if(!isPlaying) {
 			superMusic.getControl().play();
 			musicService = new MusicService(superMusic.getControl(), Stats.currentSong);
-			musicService.start();
 			isPlaying = true;
 		}
 		if(Gdx.app.getType() == Application.ApplicationType.Android) { 
