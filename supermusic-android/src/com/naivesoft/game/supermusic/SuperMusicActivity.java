@@ -23,7 +23,7 @@ public class SuperMusicActivity extends AndroidApplication{
         initialize(new SuperMusic(control), false);
 //        setContentView(R.layout.main);
 //        MidiSong midiSong = new MidiSong(R.raw.shuaicong,120,new int[]{1,5,6});
-//        JetPlayer jetPlayer = JetPlayer.getJetPlayer();
+//        JetPlayer jetPlayer = JzetPlayer.getJetPlayer();
 //        jetPlayer.loadJetFile(getResources().openRawResourceFd(R.raw.shuaicong));
 //        byte sSegmentID = 0;
 //        jetPlayer.queueJetSegment(0, -1, 0, 0, 0, sSegmentID);
