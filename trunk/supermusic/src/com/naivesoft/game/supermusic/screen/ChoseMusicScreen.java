@@ -42,6 +42,7 @@ public class ChoseMusicScreen extends Screen{
 				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(0).getFileID());
 				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
 				Stats.gameStyle = GameStyle.STYLE1;
+				Stats.currentWorldHeight = superMusic.getControl().getJetList().get(0).getTotalTime() * 5;
 				setScreen(new FlyGameScreen());
 				return;
 			}
@@ -59,7 +60,7 @@ public class ChoseMusicScreen extends Screen{
 				Stats.currentSong = superMusic.getControl().getJetList().get(2);
 				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(2).getFileID());
 				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
-				setScreen(new JumpGameScreen());
+				setScreen(new FlyGameScreen());
 				return;
 			}
 		}

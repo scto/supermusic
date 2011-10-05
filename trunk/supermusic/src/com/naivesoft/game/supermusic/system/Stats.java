@@ -12,6 +12,8 @@ public class Stats {
 	
 	public static MidiSong currentSong;
 	
+	public static float currentWorldHeight;
+	
 	/**
 	 * 0 - 10 DO NOT SET IT BY YOURSELF 
 	 */

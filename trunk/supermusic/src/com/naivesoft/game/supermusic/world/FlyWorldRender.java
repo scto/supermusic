@@ -158,19 +158,26 @@ public class FlyWorldRender {
 		TextureRegion textureRegion;
 		for(int i = 0; i < len; i++){
 			musicNote = flyWorld.musicNotes.get(i);
-			textureRegion = Art.current_nodes_level1.get(musicNote.musicKind);
-			switch(musicNote.musicLevel) {
-			case LEVEL1:
+			if(musicNote.position.y < cam.position.y - FRUSTUM_HEIGHT / 2) {
+				continue;
+			} else if (musicNote.position.y > cam.position.y + FRUSTUM_HEIGHT / 2) {
+				break;
+			} else {
 				textureRegion = Art.current_nodes_level1.get(musicNote.musicKind);
-				break;
-			case LEVEL2:
-				textureRegion = Art.current_nodes_level2.get(musicNote.musicKind);
-				break;
-			case LEVEL3:
-				textureRegion = Art.current_nodes_level3.get(musicNote.musicKind);
-				break;
+				switch(musicNote.musicLevel) {
+				case LEVEL1:
+					textureRegion = Art.current_nodes_level1.get(musicNote.musicKind);
+					break;
+				case LEVEL2:
+					textureRegion = Art.current_nodes_level2.get(musicNote.musicKind);
+					break;
+				case LEVEL3:
+					textureRegion = Art.current_nodes_level3.get(musicNote.musicKind);
+					break;
+				}
+				spriteBatch.draw(textureRegion, musicNote.position.x - 0.5f, musicNote.position.y - 0.5f, 1f, 1f);
 			}
-			spriteBatch.draw(textureRegion, musicNote.position.x - 0.5f, musicNote.position.y - 0.5f, 1f, 1f);
+			
 		}
 	}
 	

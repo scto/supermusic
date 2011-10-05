@@ -22,6 +22,18 @@ public class MusicService {
 		return isPlaying;
 	}
 	
+	public void pause() {
+		control.pause();
+	}
+	
+	public void play() {
+		control.play();
+	}
+	
+	public void release() {
+		control.release();
+	}
+	
 	//…Ë÷√Õ£÷πæ≤“Ù£¨≤•∑≈“ÙπÏ
 	public void setMuteOff() {
 		control.setAllTrackMuteOff();
