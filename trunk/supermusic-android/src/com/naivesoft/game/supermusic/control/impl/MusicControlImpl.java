@@ -91,5 +91,10 @@ public class MusicControlImpl implements IMusicControl{
 			flags[i] = false;
 		return jetPlayer.setMuteArray(flags, false);
 	}
+
+	@Override
+	public void release() {
+		jetPlayer.release();
+	}
 	
 }
