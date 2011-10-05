@@ -25,10 +25,12 @@ public class FlyGameScreen extends Screen{
 	static final int GAME_PREPARING = 0;
 	static final int GAME_RUNNING = 1;
 	static final int GAME_PAUSE = 2;
+	static final int GAME_END = 3;
 	
 	private int state;
 	private float time = 0f;
 	private int threeSecond = 0;
+	private int totalTime = 0;
 	
 	private OrthographicCamera guiCam;
 	private Vector3 touchPoint;	
@@ -150,6 +152,12 @@ public class FlyGameScreen extends Screen{
 			renderRunning();
 			break;
 		case GAME_PAUSE:
+			FlyWorldRender.camSpeed = 0;
+			renderPausing();
+			break;
+		case GAME_END:
+			FlyWorldRender.camSpeed = 0;
+			renderEnding();
 			break;
 		}
 		spriteBatch.end();
@@ -168,6 +176,18 @@ public class FlyGameScreen extends Screen{
 	}
 	
 	private void renderRunning() {
+		renderStats();
+		renderProcessBar();
+	}
+	
+	private void renderPausing() {
+		spriteBatch.draw(Art.startButton, 160 - 64,  240 - 64, 64, 64);
+		renderStats();
+		renderProcessBar();
+	}
+	
+	private void renderEnding() {
+		spriteBatch.draw(Art.startButton, 160 - 64,  240 - 64, 64, 64);
 		renderStats();
 		renderProcessBar();
 	}
@@ -195,6 +215,8 @@ public class FlyGameScreen extends Screen{
 			break;
 		case GAME_PAUSE:
 			break;
+		case GAME_END:
+			break;
 		}
 	}
 	
@@ -213,7 +235,7 @@ public class FlyGameScreen extends Screen{
 			isPlaying = true;
 		}
 		if(Gdx.app.getType() == Application.ApplicationType.Android) { 
-			flyWorld.update(deltaTime, Gdx.input.getAccelerometerX(), Gdx.input.getAccelerometerY());
+			flyWorld.update(deltaTime, Gdx.input.getAccelerometerX() * 2, Gdx.input.getAccelerometerY() -6);
 		}
 		else {
 			float accelX = 0;
@@ -232,6 +254,7 @@ public class FlyGameScreen extends Screen{
 		if(time > 1f) {
 			Stats.removeEffect();
 			threeSecond += 1;
+			totalTime++;
 			time = 0f;
 			changeMagnetismString();
 		}
@@ -239,6 +262,10 @@ public class FlyGameScreen extends Screen{
 			threeSecond = 0;
 			Stats.removeBlood(1);
 			updateMuteState();
+		}
+		if(totalTime >= Stats.currentSong.getTotalTime()) {
+			state = GAME_END;
+			totalTime = 0;
 		}
 	}
 	
@@ -248,12 +275,49 @@ public class FlyGameScreen extends Screen{
 		if(Stats.blood <= 0)
 			musicService.setAllTracksMute();
 		//血为5以下静音部分音轨
-		else if (Stats.blood <= 9) {
+		else if (Stats.blood <= 5) {
 			musicService.setMuteOff();
 			musicService.setTrackMute();
 		}
 		//血在5以上
 		else 
 			musicService.setMuteOff();
+	}
+	
+	private void pauseGame() {
+		state = GAME_PAUSE;
+		musicService.pause();
+	}
+	
+	private void resumeGame() {
+		state = GAME_RUNNING;
+		musicService.play();
+	}
+	
+	private void restartGame() {
+		
+	}
+	
+	private void endGame() {
+		musicService.release();
+	}
+	
+	@Override
+	public void resize(int width, int height) {
+	}
+	
+	@Override
+	public void pause() {
+		pauseGame();
+	}
+	
+	@Override
+	public void resume() {
+		pauseGame();
+	}
+	
+	@Override
+	public void dispose() {
+		endGame();
 	}
 }

@@ -39,6 +39,8 @@ public interface IMusicControl {
 	 */
 	public boolean setMuteFlag(int trackId, boolean muteFlag, boolean sync);
 	
+	public void release();
+	
 	public boolean setAllTrackMute();
 	
 	public boolean setAllTrackMuteOff();

@@ -27,7 +27,7 @@ public class FlyWorld {
 	}
 	
 	public static final float WORLD_WIDTH = 10;
-    public static final float WORLD_HEIGHT = 15 * 20;
+//    public static final float WORLD_HEIGHT = 15 * 20;
 	public static final Vector2 gravity = new Vector2(0, 0);
 	
 	public final Superman superman;
@@ -79,7 +79,7 @@ public class FlyWorld {
 		Prop prop = null;
 		
 		Art.current_change_rates = Art.changeRates.get(Stats.gameStyle);
-		while(start < WORLD_HEIGHT){
+		while(start < Stats.currentWorldHeight){
 			start += 4;//superman.velocity.y * Stats.currentSong.getPauseTime() / 1000;
 			
 			generateMusicNote(start);
@@ -153,16 +153,15 @@ public class FlyWorld {
 		int len = musicNotes.size();
 		for(int i = 0; i < len; i++){
 			MusicNote musicNote = musicNotes.get(i);
-			updateMusicNotePosition(deltaTime, musicNote);
-			if(OverlapTester.overlapRectangles(superman.bounds, musicNote.bounds)){
-				flyWorldListener.catchNote(musicNote.musicLevel, musicNote.musicKind);
-				musicNotes.remove(musicNote);
-				len = musicNotes.size();
-//				if(new Random().nextInt(6) > 1){
-//					superman.velocity.y = superman.velocity.y + 2 > 10 ? 10 : superman.velocity.y + 2;
-//				}else{
-//					superman.velocity.y = superman.velocity.y - 1 < 0 ? 0 : superman.velocity.y - 1;
-//				}
+			if(musicNote.position.y > superman.position.y - FlyWorldRender.FRUSTUM_HEIGHT
+					&& musicNote.position.y < superman.position.y + FlyWorldRender.FRUSTUM_HEIGHT) {
+				
+				updateMusicNotePosition(deltaTime, musicNote);
+				if(OverlapTester.overlapRectangles(superman.bounds, musicNote.bounds)){
+					flyWorldListener.catchNote(musicNote.musicLevel, musicNote.musicKind);
+					musicNotes.remove(musicNote);
+					len = musicNotes.size();
+				}
 				
 			}
 		}

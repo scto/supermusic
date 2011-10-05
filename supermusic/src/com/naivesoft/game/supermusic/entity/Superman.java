@@ -1,6 +1,6 @@
 package com.naivesoft.game.supermusic.entity;
 
-import com.naivesoft.game.supermusic.world.MusicWorld;
+import com.naivesoft.game.supermusic.world.FlyWorld;
 
 
 public class Superman extends DynamicGameObject{
@@ -25,8 +25,21 @@ public class Superman extends DynamicGameObject{
 		
 	//	velocity.add(MusicWorld.gravity.x * deltaTime, MusicWorld.gravity.y * deltaTime);
 	//	if(velocity.y < 2) velocity.y = 2;
+//		if(velocity.x >= 0 && accel.x >= 0 || (velocity.x <= 0 && accel.x <= 0)) {
+//			velocity.add(accel.x * deltaTime, 0);
+//		} else {
+//			velocity.add(10 * accel.x * deltaTime, 0);
+//		}
+//		if(velocity.y >= 5 && accel.y >= 0 || (velocity.y <= 5 && accel.y <= 0)) {
+//			velocity.add(0, accel.y * deltaTime);
+//		} else {
+//			velocity.add(0, 10 * accel.y * deltaTime);
+//		}
 		
-		velocity.add(accel.x * deltaTime, accel.y * deltaTime);
+		velocity.x = accel.x;
+		velocity.y = accel.y + 5;
+		
+		//velocity.add(accel.x * deltaTime, accel.y * deltaTime);
 		
         position.add(velocity.x * deltaTime, velocity.y * deltaTime);
 //        position.add(velocity.x * deltaTime, velocity.y * deltaTime);
@@ -37,8 +50,8 @@ public class Superman extends DynamicGameObject{
         	position.x = 0.5f;
         	velocity.x = 0;
         }
-        if(position.x + 0.5f> MusicWorld.WORLD_WIDTH) {
-        	position.x = MusicWorld.WORLD_WIDTH - 0.5f;
+        if(position.x + 0.5f> FlyWorld.WORLD_WIDTH) {
+        	position.x = FlyWorld.WORLD_WIDTH - 0.5f;
         	velocity.x = 0;
         }
 		stateTime += deltaTime;

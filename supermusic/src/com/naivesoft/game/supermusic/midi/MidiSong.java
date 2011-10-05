@@ -19,7 +19,7 @@ public class MidiSong {
 		super();
 		this.fileID = fileID;
 		this.muteTracks = muteTracks;
-		this.totalTime = totalTime;
+		this.setTotalTime(totalTime);
 	}
 	
 	//根据BPM计算静音间隔
@@ -35,6 +35,14 @@ public class MidiSong {
 	}
 	public int[] getMuteTracks() {
 		return muteTracks;
+	}
+
+	public void setTotalTime(float totalTime) {
+		this.totalTime = totalTime;
+	}
+
+	public float getTotalTime() {
+		return totalTime;
 	}
 	
 	
