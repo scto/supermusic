@@ -20,6 +20,8 @@ public class ChoseMusicScreen extends Screen{
 	private Rectangle music2;
 	private Rectangle music3;
 	
+	private Rectangle highScore;
+	
 	public ChoseMusicScreen() {
 		super();
 		camera = new OrthographicCamera(320, 480);
@@ -29,6 +31,8 @@ public class ChoseMusicScreen extends Screen{
 		music1 = new Rectangle(160 + 80 - 45, 240, 90, 30);
 		music2 = new Rectangle(160 + 80 - 45, 240 + 40, 90, 30);
 		music3 = new Rectangle(160 + 80 - 45, 240 + 80, 90, 30);
+		
+		highScore = new Rectangle(0, 0, 30, 30);
 	}
 	
 	@Override
@@ -63,6 +67,11 @@ public class ChoseMusicScreen extends Screen{
 				setScreen(new FlyGameScreen());
 				return;
 			}
+			
+			if (OverlapTester.pointInRectangle(highScore, touchPoint.x, touchPoint.y)) {
+				setScreen(new HighScoreScreen());
+				return;
+			}
 		}
 	}
 
@@ -87,6 +96,8 @@ public class ChoseMusicScreen extends Screen{
 		spriteBatch.draw(Art.menuMusic2, 160 + 80 - 45, 240 + 40 + 15 - 8, 90, 16);
 		spriteBatch.draw(Art.menuButton, 160 + 80 - 45, 240 + 80, 90, 30);
 		spriteBatch.draw(Art.menuMusic3, 160 + 80 - 45, 240 + 80+ 15 - 8, 90, 16);
+		
+		spriteBatch.draw(Art.startButton, 0, 0, 30, 30);
 		spriteBatch.end();
 	}
 
