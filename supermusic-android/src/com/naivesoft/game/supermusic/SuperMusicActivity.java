@@ -1,12 +1,15 @@
 package com.naivesoft.game.supermusic;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.naivesoft.game.supermusic.control.impl.MusicControlImpl;
 import com.naivesoft.game.supermusic.midi.MidiSong;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.media.JetPlayer;
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 public class SuperMusicActivity extends AndroidApplication{
     /** Called when the activity is first created. */
@@ -15,18 +18,20 @@ public class SuperMusicActivity extends AndroidApplication{
     	
     	MusicControlImpl control = MusicControlImpl.getMusicControlImpl();
     	control.init(this);
-//    	control.loadJetFile(R.raw.shuaicong);
-//    	byte sSegmentID = 0;
-//    	control.queueJetSegment(0, -1, 0, 0, 0, sSegmentID);
+    	
+    	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		config.useWakelock = true;
     	
         super.onCreate(savedInstanceState);
         initialize(new SuperMusic(control), false);
-//        setContentView(R.layout.main);
-//        MidiSong midiSong = new MidiSong(R.raw.shuaicong,120,new int[]{1,5,6});
-//        JetPlayer jetPlayer = JzetPlayer.getJetPlayer();
-//        jetPlayer.loadJetFile(getResources().openRawResourceFd(R.raw.shuaicong));
-//        byte sSegmentID = 0;
-//        jetPlayer.queueJetSegment(0, -1, 0, 0, 0, sSegmentID);
-//        jetPlayer.play();
+    }
+    
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    	if(keyCode == KeyEvent.KEYCODE_BACK) {
+    		return true;
+    	}
+    	return false;
     }
 }
