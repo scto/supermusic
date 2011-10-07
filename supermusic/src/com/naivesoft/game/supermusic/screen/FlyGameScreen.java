@@ -26,9 +26,12 @@ public class FlyGameScreen extends Screen{
 	static final int GAME_RUNNING = 1;
 	static final int GAME_PAUSE = 2;
 	static final int GAME_END = 3;
+	static final int GAME_OVER = 4;
+	static final int GAME_FINISH = GAME_END;
 	
 	private int state;
 	private float time = 0f;
+	private float endingTime = 0f;
 	private int threeSecond = 0;
 	private int totalTime = 0;
 	
@@ -160,6 +163,10 @@ public class FlyGameScreen extends Screen{
 			FlyWorldRender.camSpeed = 0;
 			renderEnding();
 			break;
+		case GAME_OVER:
+			FlyWorldRender.camSpeed = 0;
+			renderOvering();
+			break;
 		}
 		spriteBatch.end();
 	}
@@ -179,18 +186,43 @@ public class FlyGameScreen extends Screen{
 	private void renderRunning() {
 		renderStats();
 		renderProcessBar();
+		if(Stats.noBlood()) {
+			displayEnding();
+		} else {
+			endingTime = 0f;
+		}
 	}
 	
+	//game pause
 	private void renderPausing() {
 		spriteBatch.draw(Art.startButton, 160 - 64,  240 - 64, 64, 64);
 		renderStats();
 		renderProcessBar();
 	}
 	
+	//game finish
 	private void renderEnding() {
 		spriteBatch.draw(Art.startButton, 160 - 64,  240 - 64, 64, 64);
 		renderStats();
 		renderProcessBar();
+	}
+	
+	//game over
+	private void renderOvering() {
+		spriteBatch.draw(Art.startButton, 160 - 64,  240 - 64, 64, 64);
+		renderStats();
+		renderProcessBar();
+	}
+	
+	// will fail if blood is null
+	private void displayEnding() {
+		if(endingTime < 1f) {
+			spriteBatch.draw(Art.time3, 160 - 16, 240 - 28, 32, 56);
+		} else if(endingTime < 2f) {
+			spriteBatch.draw(Art.time2, 160 - 16, 240 - 28, 32, 56);
+		} else if(endingTime < 3f) {
+			spriteBatch.draw(Art.time1, 160 - 16, 240 - 28, 32, 56);
+		}
 	}
 	
 	private void renderStats() {
@@ -217,6 +249,8 @@ public class FlyGameScreen extends Screen{
 		case GAME_PAUSE:
 			break;
 		case GAME_END:
+			break;
+		case GAME_OVER:
 			break;
 		}
 	}
@@ -272,6 +306,15 @@ public class FlyGameScreen extends Screen{
 		if(totalTime >= Stats.currentSong.getTotalTime()) {
 			state = GAME_END;
 			totalTime = 0;
+		}
+		if(Stats.noBlood()) {
+			endingTime += deltaTime;
+			if(endingTime > 3) {
+				state = GAME_OVER;
+				endingTime = 0;
+			}
+		} else {
+			endingTime = 0f;
 		}
 	}
 	

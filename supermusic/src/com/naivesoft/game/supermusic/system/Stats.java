@@ -52,6 +52,10 @@ public class Stats {
 		blood /= 2;
 	}
 	
+	public static boolean noBlood() {
+		return blood == MIN_BLOOD;
+	}
+	
 	public static void addScore(int addedScore) {
 		score += addedScore * doubleScore;
 	}
