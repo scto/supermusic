@@ -92,6 +92,7 @@ public class FlyGameScreen extends Screen{
 					changeMagnetismString();
 					break;
 				case protective:
+					Stats.addProjectiveEffect();
 					break;
 				case maxNotes:
 					flyWorld.generateMaxNotesInScreen(flyWorldRender.getCurrentCamPosition());
@@ -148,7 +149,7 @@ public class FlyGameScreen extends Screen{
 			renderPreparing();
 			break;
 		case GAME_RUNNING:
-			FlyWorldRender.camSpeed = 5;
+			FlyWorldRender.initCamSpeed();
 			renderRunning();
 			break;
 		case GAME_PAUSE:
@@ -229,6 +230,11 @@ public class FlyGameScreen extends Screen{
 	}
 	
 	private void updateRunning(float deltaTime) {
+		if(Gdx.input.isTouched()) {
+			flyWorldRender.setFastCamSpeed();
+		} else {
+			flyWorldRender.resetCamSpeed();
+		}
 		if(!isPlaying) {
 			superMusic.getControl().play();
 			musicService = new MusicService(superMusic.getControl(), Stats.currentSong);

@@ -25,7 +25,9 @@ public class FlyWorldRender {
 	private FlyWorld flyWorld;
 	private SpriteBatch spriteBatch;
 	private OrthographicCamera cam;
+	public final static float DEFAULT_CAM_SPEED = 5f;
 	public static float camSpeed = 0;
+	public static float speedRate = 1;
 //	private static float backgroundSpeed;
 	float scaleBackgroundHeight;
 	float scaleBackgroundWidth;
@@ -60,6 +62,18 @@ public class FlyWorldRender {
 	
 	public Vector3 getCurrentCamPosition() {
 		return cam.position;
+	}
+	
+	public void setFastCamSpeed() {
+		camSpeed = DEFAULT_CAM_SPEED * 1.5f;
+	}
+	
+	public void resetCamSpeed() {
+		camSpeed = DEFAULT_CAM_SPEED;
+	}
+	
+	public static void initCamSpeed() {
+		camSpeed = camSpeed == 0 ? DEFAULT_CAM_SPEED : camSpeed;
 	}
 	
 	public void render(){

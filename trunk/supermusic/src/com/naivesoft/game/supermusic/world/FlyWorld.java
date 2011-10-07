@@ -79,7 +79,7 @@ public class FlyWorld {
 		Prop prop = null;
 		
 		Art.current_change_rates = Art.changeRates.get(Stats.gameStyle);
-		while(start < Stats.currentWorldHeight){
+		while(start < Stats.currentWorldHeight * 1.5){//for the speed of 1.5
 			start += 4;//superman.velocity.y * Stats.currentSong.getPauseTime() / 1000;
 			
 			generateMusicNote(start);
