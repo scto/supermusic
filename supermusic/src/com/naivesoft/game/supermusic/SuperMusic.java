@@ -35,16 +35,27 @@ public class SuperMusic implements ApplicationListener{
 	public void create() {
 		// may be should set in android
 		//To avoid long wait, load a image first, and show
-//		Art.loadPre();
+		Art.loadPre();
 //		LoadingScreen loadingScreen = new LoadingScreen();
 //		setScreen(loadingScreen);
 //		loadingScreen.display();
 		//TODO using render(); ?
 		
-		Art.load();
+	//	Art.load();
 		//GameSound.load();
-		setScreen(new StartScreen());
+		setScreen(new LoadingScreen());
+		Gdx.app.postRunnable(runnable);
 	}
+	
+	Runnable runnable = new Runnable() {
+		
+		@Override
+		public void run() {
+			Art.load();
+			setScreen(new StartScreen());
+			
+		}
+	};
 
 	public void setScreen(Screen newScreen) {
 		if (screen != null)
