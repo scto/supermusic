@@ -55,10 +55,10 @@ public class HighScoreScreen extends Screen{
 				"\n mission four", 16, 480-40);
 		
 		Art.font.drawMultiLine(spriteBatch, 
-				ScoreStore.getHighScore(ScoreStore.HIGH_SCORE_MISSION_1)
-				+ "\n" + ScoreStore.getHighScore(ScoreStore.HIGH_SCORE_MISSION_2)
-				+ "\n" + ScoreStore.getHighScore(ScoreStore.HIGH_SCORE_MISSION_3)
-				+ "\n" + ScoreStore.getHighScore(ScoreStore.HIGH_SCORE_MISSION_4), 320 - 16, 480 - 40);
+				ScoreStore.getHighScore(superMusic.getControl().getJetList().get(0).getFileID())
+				+ "\n" + ScoreStore.getHighScore(superMusic.getControl().getJetList().get(1).getFileID())
+				+ "\n" + ScoreStore.getHighScore(superMusic.getControl().getJetList().get(2).getFileID())
+				+ "\n" + ScoreStore.getHighScore(superMusic.getControl().getJetList().get(3).getFileID()), 320 - 16, 480 - 40);
 		
 		spriteBatch.end();
 	}

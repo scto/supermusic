@@ -13,6 +13,7 @@ import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNODE_LEVEL;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
 import com.naivesoft.game.supermusic.entity.Prop.PROP_KIND;
 import com.naivesoft.game.supermusic.service.MusicService;
+import com.naivesoft.game.supermusic.store.ScoreStore;
 import com.naivesoft.game.supermusic.style.GameStyle;
 import com.naivesoft.game.supermusic.system.Art;
 import com.naivesoft.game.supermusic.system.GameSound;
@@ -214,7 +215,7 @@ public class FlyGameScreen extends Screen{
 		renderProcessBar();
 	}
 	
-	// will fail if blood is null
+	// will fail if blood is null, it belong to state running
 	private void displayEnding() {
 		if(endingTime < 1f) {
 			spriteBatch.draw(Art.time3, 160 - 16, 240 - 28, 32, 56);
@@ -305,16 +306,30 @@ public class FlyGameScreen extends Screen{
 		}
 		if(totalTime >= Stats.currentSong.getTotalTime()) {
 			state = GAME_END;
+			storeScore();
 			totalTime = 0;
 		}
 		if(Stats.noBlood()) {
 			endingTime += deltaTime;
 			if(endingTime > 3) {
 				state = GAME_OVER;
+				storeScore();
 				endingTime = 0;
 			}
 		} else {
 			endingTime = 0f;
+		}
+	}
+	
+	/**
+	 * return true if it is a new high score 
+	 */
+	private boolean storeScore() {
+		if(Stats.score > ScoreStore.getHighScore(Stats.currentSong.getFileID())) {
+			ScoreStore.setHighScore(Stats.currentSong.getFileID(), Stats.score);
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
