@@ -9,6 +9,7 @@ import com.naivesoft.game.supermusic.system.Art;
 
 public class LoadingScreen extends Screen{
 	private OrthographicCamera camera;
+	private boolean isPost = false;
 	
 	public LoadingScreen() {
 		super();
@@ -17,9 +18,22 @@ public class LoadingScreen extends Screen{
 		spriteBatch = new SpriteBatch();
 	}
 	
+	Runnable runnable = new Runnable() {
+		
+		@Override
+		public void run() {
+			Art.load();
+			setScreen(new StartScreen());
+			
+		}
+	};
+	
 	@Override
 	public void update(float deltaTime) {
-		//no need to do anything now
+		if(!isPost) {
+			Gdx.app.postRunnable(runnable);
+			isPost = true;
+		}
 	}
 
 	@Override
