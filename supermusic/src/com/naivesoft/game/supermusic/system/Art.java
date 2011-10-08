@@ -26,6 +26,8 @@ public class Art {
 	public static EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> musicNotes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 	public static BitmapFont font;
 	
+	public static Texture digitalTexture;
+	
 	//menu screen
 	private static Texture menuTexture;
 	public static TextureRegion menuButton;
@@ -105,6 +107,8 @@ public class Art {
 		processBar = new TextureRegion(processTexture, 0, 0, 24, 176);
 		processElement = new TextureRegion(processTexture, 0, 184, 24, 16);
 		
+		loadDigitals();
+		
 		loadStyle1();
 //		loadStyle2();
 		loadProps();
@@ -137,6 +141,10 @@ public class Art {
 		musicNotes.put(MUSICNOTE_KIND.XI, new TextureRegion(musicNotesTexture, 1621, 548, 157, 214));
 		
 		font = new BitmapFont(Gdx.files.internal("images/font.fnt"), Gdx.files.internal("images/font.png"), false);
+	}
+	
+	private static void loadDigitals() {
+		digitalTexture = loadTexture("images/digital.png");
 	}
 	
 	private static void loadProps() {
