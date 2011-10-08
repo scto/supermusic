@@ -26,12 +26,4 @@ public class SuperMusicActivity extends AndroidApplication{
         super.onCreate(savedInstanceState);
         initialize(new SuperMusic(control), config);
     }
-    
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-    	if(keyCode == KeyEvent.KEYCODE_BACK) {
-    		return true;
-    	}
-    	return false;
-    }
 }
