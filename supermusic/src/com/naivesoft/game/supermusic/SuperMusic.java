@@ -9,7 +9,8 @@ import com.naivesoft.game.supermusic.screen.Screen;
 import com.naivesoft.game.supermusic.screen.StartScreen;
 import com.naivesoft.game.supermusic.system.Art;
 import com.naivesoft.game.supermusic.system.GameSound;
-
+//TODO when finish using sprite.dispose()
+//TODO 
 public class SuperMusic implements ApplicationListener{
 	public static final int GAME_WIDTH = 320;
 	public static final int GAME_HEIGHT = 480;
