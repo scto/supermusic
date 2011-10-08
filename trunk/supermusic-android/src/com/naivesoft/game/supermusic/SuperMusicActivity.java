@@ -24,7 +24,7 @@ public class SuperMusicActivity extends AndroidApplication{
 		config.useWakelock = true;
     	
         super.onCreate(savedInstanceState);
-        initialize(new SuperMusic(control), false);
+        initialize(new SuperMusic(control), config);
     }
     
     @Override
