@@ -36,29 +36,13 @@ public class SuperMusic implements ApplicationListener{
 	public void create() {
 		Gdx.input.setCatchBackKey(true);
 		Gdx.input.setCatchMenuKey(true);
-		// may be should set in android
+
 		//To avoid long wait, load a image first, and show
 		Art.loadPre();
-//		LoadingScreen loadingScreen = new LoadingScreen();
-//		setScreen(loadingScreen);
-//		loadingScreen.display();
-		//TODO using render(); ?
-		
-	//	Art.load();
-		//GameSound.load();
 		setScreen(new LoadingScreen());
-		Gdx.app.postRunnable(runnable);
 	}
 	
-	Runnable runnable = new Runnable() {
-		
-		@Override
-		public void run() {
-			Art.load();
-			setScreen(new StartScreen());
-			
-		}
-	};
+	
 
 	public void setScreen(Screen newScreen) {
 		if (screen != null)
