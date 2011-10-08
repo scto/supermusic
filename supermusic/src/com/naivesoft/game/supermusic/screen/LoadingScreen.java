@@ -10,6 +10,7 @@ import com.naivesoft.game.supermusic.system.Art;
 public class LoadingScreen extends Screen{
 	private OrthographicCamera camera;
 	private boolean isPost = false;
+	private float time = 0;
 	
 	public LoadingScreen() {
 		super();
@@ -34,6 +35,7 @@ public class LoadingScreen extends Screen{
 			Gdx.app.postRunnable(runnable);
 			isPost = true;
 		}
+		time += deltaTime;
 	}
 
 	@Override
@@ -46,7 +48,15 @@ public class LoadingScreen extends Screen{
 		
 		spriteBatch.disableBlending();
 		spriteBatch.begin();
-		spriteBatch.draw(Art.startBackground, 0, 0, 320, 480);
+		if(time < 1f) {
+			spriteBatch.draw(Art.loadingBackground3, 0, 0, 320, 480);
+		} else if(time < 2f) {
+			spriteBatch.draw(Art.loadingBackground2, 0, 0, 320, 480);
+		} else if(time < 3f) {
+			spriteBatch.draw(Art.loadingBackground1, 0, 0, 320, 480);
+		} else {
+			time = 0f;
+		}
 		spriteBatch.end();
 	}
 
