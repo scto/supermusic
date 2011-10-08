@@ -34,6 +34,8 @@ public class SuperMusic implements ApplicationListener{
 
 	@Override
 	public void create() {
+		Gdx.input.setCatchBackKey(true);
+		Gdx.input.setCatchMenuKey(true);
 		// may be should set in android
 		//To avoid long wait, load a image first, and show
 		Art.loadPre();
