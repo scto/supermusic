@@ -17,6 +17,10 @@ import com.naivesoft.game.supermusic.style.GameStyle;
 
 public class Art {
 	
+	public static TextureRegion loadingBackground1;
+	public static TextureRegion loadingBackground2;
+	public static TextureRegion loadingBackground3;
+	
 	public static Texture background;
 	public static TextureRegion startBackground;
 	public static TextureRegion startButton;
@@ -78,9 +82,9 @@ public class Art {
 	 * load the resource for the loading page
 	 */
 	public static void loadPre() {
-		background = loadTexture("images/background2.png");
-		backgroundRegion = new TextureRegion(background, 400, 0, (int)(856/1.5), 856);
-		startBackground = load("images/mainbackground.jpg", 320, 480);
+		loadingBackground1 = new TextureRegion(loadTexture("images/loading1.png"), 0, 0, 320, 480);
+		loadingBackground2 = new TextureRegion(loadTexture("images/loading2.png"), 0, 0, 320, 480);
+		loadingBackground3 = new TextureRegion(loadTexture("images/loading3.png"), 0, 0, 320, 480);
 	}
 	
 	/**
