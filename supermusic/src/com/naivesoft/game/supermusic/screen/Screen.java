@@ -29,9 +29,10 @@ public abstract class Screen {
 	
 	public void drawDigital(int number, int x, int y) {
 		int out;
+		number = 123;
 		while(number / 10 != 0){
 			out = number % 10;
-			spriteBatch.draw(Art.digitalTexture, x, y, 0.1f, 0.1f, 0, 150, 120, 300);
+			spriteBatch.draw(Art.digitalTexture, x, y, 1f, 1f, 0, 150, 120, 300);
 			number /= 10;
 		}
 	}

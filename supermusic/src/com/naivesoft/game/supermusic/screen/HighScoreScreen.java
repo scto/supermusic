@@ -54,7 +54,7 @@ public class HighScoreScreen extends Screen{
 				"\n mission three" +
 				"\n mission four", 16, 480-40);
 		
-		drawDigital(ScoreStore.getHighScore(ScoreStore.getHighScore(superMusic.getControl().getJetList().get(0).getFileID())), 320 - 16, 480 - 40);
+		drawDigital(1, 320 - 16, 480 - 40);
 //		Art.font.drawMultiLine(spriteBatch, 
 //				ScoreStore.getHighScore(superMusic.getControl().getJetList().get(0).getFileID())
 //				+ "\n" + ScoreStore.getHighScore(superMusic.getControl().getJetList().get(1).getFileID())
