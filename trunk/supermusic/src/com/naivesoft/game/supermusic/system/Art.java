@@ -31,6 +31,17 @@ public class Art {
 	public static BitmapFont font;
 	
 	public static Texture digitalTexture;
+	public static TextureRegion digital0;
+	public static TextureRegion digital1;
+	public static TextureRegion digital2;
+	public static TextureRegion digital3;
+	public static TextureRegion digital4;
+	public static TextureRegion digital5;
+	public static TextureRegion digital6;
+	public static TextureRegion digital7;
+	public static TextureRegion digital8;
+	public static TextureRegion digital9;
+	
 	
 	//menu screen
 	private static Texture menuTexture;
@@ -149,6 +160,16 @@ public class Art {
 	
 	private static void loadDigitals() {
 		digitalTexture = loadTexture("images/digital.png");
+		digital0 = new TextureRegion(digitalTexture, 0, 0, 120, 150);
+		digital1 = new TextureRegion(digitalTexture, 120, 0, 120, 150);
+		digital2 = new TextureRegion(digitalTexture, 240, 0, 120, 150);
+		digital3 = new TextureRegion(digitalTexture, 360, 0, 120, 150);
+		digital4 = new TextureRegion(digitalTexture, 0, 150, 120, 150);
+		digital5 = new TextureRegion(digitalTexture, 120, 150, 120, 150);
+		digital6 = new TextureRegion(digitalTexture, 240, 150, 120, 150);
+		digital7 = new TextureRegion(digitalTexture, 360, 150, 120, 150);
+		digital8 = new TextureRegion(digitalTexture, 0, 300, 120, 150);
+		digital9 = new TextureRegion(digitalTexture, 120, 300, 120, 150);
 	}
 	
 	private static void loadProps() {

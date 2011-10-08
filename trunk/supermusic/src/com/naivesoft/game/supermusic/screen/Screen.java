@@ -27,12 +27,47 @@ public abstract class Screen {
 		spriteBatch.draw(region, x, y, width, -region.getRegionHeight());
 	}
 	
-	public void drawDigital(int number, int x, int y) {
+	public void drawDigital(int number, int x, int y, float size) {
 		int out;
-		number = 123;
-		while(number / 10 != 0){
+		if(number == 0) {
+			spriteBatch.draw(Art.digital0, x, y, 10 * size, 10 * size);
+			return;
+		}
+		while(number != 0){
 			out = number % 10;
-			spriteBatch.draw(Art.digitalTexture, x, y, 1f, 1f, 0, 150, 120, 300);
+			switch(out) {
+			case 0:
+				spriteBatch.draw(Art.digital0, x, y, 10 * size, 10 * size);
+				break;
+			case 1:
+				spriteBatch.draw(Art.digital1, x, y, 10 * size, 10 * size);
+				break;
+			case 2:
+				spriteBatch.draw(Art.digital2, x, y, 10 * size, 10 * size);
+				break;
+			case 3:
+				spriteBatch.draw(Art.digital3, x, y, 10 * size, 10 * size);
+				break;
+			case 4:
+				spriteBatch.draw(Art.digital4, x, y, 10 * size, 10 * size);
+				break;
+			case 5:
+				spriteBatch.draw(Art.digital5, x, y, 10 * size, 10 * size);
+				break;
+			case 6:
+				spriteBatch.draw(Art.digital6, x, y, 10 * size, 10 * size);
+				break;
+			case 7:
+				spriteBatch.draw(Art.digital7, x, y, 10 * size, 10 * size);
+				break;
+			case 8:
+				spriteBatch.draw(Art.digital8, x, y, 10 * size, 10 * size);
+				break;
+			case 9:
+				spriteBatch.draw(Art.digital9, x, y, 10 * size, 10 * size);
+				break;
+			}
+			x -= 10f * size;
 			number /= 10;
 		}
 	}
