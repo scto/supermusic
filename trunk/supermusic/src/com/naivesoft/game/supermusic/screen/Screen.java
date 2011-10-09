@@ -76,12 +76,11 @@ public abstract class Screen {
 	
 	public abstract void render();
 	
-	//below methods implement by sub class, however not all are necessary, so without abstract
-	public void resize(int width, int height) {}
+	public abstract void resize(int width, int height);
 	
-	public void pause() {}
+	public abstract void pause();
 	
-	public void resume() {}
+	public abstract void resume();
 	
-	public void dispose() {}
+	public abstract void dispose();
 }
