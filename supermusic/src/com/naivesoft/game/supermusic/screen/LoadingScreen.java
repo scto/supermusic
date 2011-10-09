@@ -48,6 +48,7 @@ public class LoadingScreen extends Screen{
 		
 		spriteBatch.disableBlending();
 		spriteBatch.begin();
+		
 		if(time < 1f) {
 			spriteBatch.draw(Art.loadingBackground3, 0, 0, 320, 480);
 		} else if(time < 2f) {

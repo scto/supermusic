@@ -90,7 +90,6 @@ public class Art {
 	
 	public static EnumMap<RAND_BACKGROUND, AnimationBackground> current_change_rates;
 	
-	private static Random rand = new Random();
 	public static int SUPERMAN_STATE = 0;
 	
 	/**
@@ -123,12 +122,13 @@ public class Art {
 		time1 = new TextureRegion(timeTexture, 0, 112, 32, 56);
 		
 		processTexture = loadTexture("images/processbar.png");
-		processBar = new TextureRegion(processTexture, 0, 0, 24, 176);
-		processElement = new TextureRegion(processTexture, 0, 184, 24, 16);
+		processBar = new TextureRegion(processTexture, 0, 0, 256, 37);
+		processElement = new TextureRegion(processTexture, 0, 37, 24, 18);
 		
 		loadDigitals();
 		
-		loadStyle1();
+		loadChinaStyle();
+
 //		loadStyle2();
 		loadProps();
 		
@@ -454,7 +454,7 @@ public class Art {
 		tr.add(new TextureRegion(china, 172, 602, 70, 109));
 		tr.add(new TextureRegion(china, 242, 602, 70, 109));
 		rbs.put(RandomBackground.RAND_BACKGROUND.RB2, tr);
-		changeRate.put(RandomBackground.RAND_BACKGROUND.RB2, new AnimationBackground(5, 0.5f, 0.5f, true));
+		changeRate.put(RandomBackground.RAND_BACKGROUND.RB2, new AnimationBackground(5, 0.3f, 0.5f, true));
 		
 		tr = new ArrayList<TextureRegion>();
 		tr.add(new TextureRegion(china, 312, 602, 70, 77));
@@ -465,7 +465,7 @@ public class Art {
 		random_backgrounds.put(GameStyle.STYLE1, rbs);
 	}
 	
-	private static void loadStyle1() {                //天空主题
+	private static void loadSkyStyle() {                //天空主题
 		SUPERMAN_STATE=0;
 		Texture sky = Art.loadTexture("images/sky_style/sky.png");
 		ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
@@ -628,7 +628,7 @@ public class Art {
 		tr.add(new TextureRegion(punk, 0, 601, 126, 120));
 		tr.add(new TextureRegion(punk, 126, 601, 126, 120));
 		rbs.put(RandomBackground.RAND_BACKGROUND.RB2, tr);
-		changeRate.put(RandomBackground.RAND_BACKGROUND.RB2, new AnimationBackground(5, 0.5f, 0.5f, true));
+		changeRate.put(RandomBackground.RAND_BACKGROUND.RB2, new AnimationBackground(5, 0.6f, 0.7f, true));
 		
 		tr = new ArrayList<TextureRegion>();
 		tr.add(new TextureRegion(punk, 0, 601, 126, 120));
@@ -709,7 +709,7 @@ public class Art {
 		tr = new ArrayList<TextureRegion>();
 		tr.add(new TextureRegion(star, 460, 0, 23, 23));
 		rbs.put(RandomBackground.RAND_BACKGROUND.RB2, tr);
-		changeRate.put(RandomBackground.RAND_BACKGROUND.RB2, new AnimationBackground(60, 0.5f, 0.5f, true));
+		changeRate.put(RandomBackground.RAND_BACKGROUND.RB2, new AnimationBackground(60, 0.6f, 0.2f, true));
 		
 		tr = new ArrayList<TextureRegion>();
 		tr.add(new TextureRegion(star, 400, 0, 60, 60));
