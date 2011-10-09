@@ -31,7 +31,7 @@ public class MusicControlImpl implements IMusicControl{
 
 		musicList = new ArrayList<MidiSong>();
 		musicList.add(new MidiSong(R.raw.star, new int[] {4}, 239 ));
-		musicList.add(new MidiSong(R.raw.china,new int[]{2,3}, 217));
+		musicList.add(new MidiSong(R.raw.china,new int[]{1}, 217));
 		musicList.add(new MidiSong(R.raw.sky,new int[]{9}, 151));
 		musicList.add(new MidiSong(R.raw.gowest,new int[]{4,7}, 200));
 		musicList.add(new MidiSong(R.raw.punk,new int[]{5}, 161));
