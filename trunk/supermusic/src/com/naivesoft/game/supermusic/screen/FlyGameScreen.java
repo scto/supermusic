@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNODE_LEVEL;
 import com.naivesoft.game.supermusic.entity.MusicNote.MUSICNOTE_KIND;
@@ -18,6 +19,7 @@ import com.naivesoft.game.supermusic.style.GameStyle;
 import com.naivesoft.game.supermusic.system.Art;
 import com.naivesoft.game.supermusic.system.GameSound;
 import com.naivesoft.game.supermusic.system.Stats;
+import com.naivesoft.game.supermusic.util.OverlapTester;
 import com.naivesoft.game.supermusic.world.FlyWorld;
 import com.naivesoft.game.supermusic.world.FlyWorld.FlyWorldListener;
 import com.naivesoft.game.supermusic.world.FlyWorldRender;
@@ -37,8 +39,16 @@ public class FlyGameScreen extends Screen{
 	private int threeSecond = 0;
 	private int totalTime = 0;
 	
+	private float pressTime = 0f;
+	
 	private OrthographicCamera guiCam;
 	private Vector3 touchPoint;	
+	
+	private boolean menuShown = false;
+	
+	private Rectangle menuBackButton;
+	private Rectangle menuPlayButton;
+	private Rectangle menuRetryButton;
 	
 	private FlyWorld flyWorld;
 	private FlyWorldListener flyWorldListener;
@@ -59,6 +69,10 @@ public class FlyGameScreen extends Screen{
 		guiCam.position.set(320 / 2, 480 / 2, 0);
 		touchPoint = new Vector3();
 		spriteBatch = new SpriteBatch();
+		
+		menuBackButton = new Rectangle(30, 110, 96, 106);
+		menuPlayButton = new Rectangle(30 + 96 + 10, 60, 96, 106);
+		menuRetryButton = new Rectangle(30 + 96 + 10 + 96 + 10, 60, 96, 106);
 		
 		flyWorldListener = new FlyWorldListener() {
 			
@@ -197,23 +211,31 @@ public class FlyGameScreen extends Screen{
 	
 	//game pause
 	private void renderPausing() {
-		spriteBatch.draw(Art.startButton, 160 - 64,  240 - 64, 64, 64);
 		renderStats();
 		renderProcessBar();
+		renderMenu();
 	}
 	
 	//game finish
 	private void renderEnding() {
-		spriteBatch.draw(Art.startButton, 160 - 64,  240 - 64, 64, 64);
 		renderStats();
 		renderProcessBar();
+		renderMenu();
+	}
+	
+	private void renderMenu() {
+		menuShown = true;
+		spriteBatch.draw(Art.menuBackground, 0, 0, 320, 480);
+		spriteBatch.draw(Art.menuBack, 30, 110, 96, 106);
+		spriteBatch.draw(Art.menuPlay, 30 + 96 + 10, 60, 96, 106);
+		spriteBatch.draw(Art.menuRetry, 30 + 96 + 10 + 96 + 10, 60, 96, 106);
 	}
 	
 	//game over
 	private void renderOvering() {
-		spriteBatch.draw(Art.startButton, 160 - 64,  240 - 64, 64, 64);
 		renderStats();
 		renderProcessBar();
+		renderMenu();
 	}
 	
 	// will fail if blood is null, it belong to state running
@@ -228,8 +250,9 @@ public class FlyGameScreen extends Screen{
 	}
 	
 	private void renderStats() {
-		Art.font.draw(spriteBatch, scoreString, 16, 480 - 20);
-		Art.font.draw(spriteBatch, magnetismString, 16, 480 - 40);
+		drawDigital(Stats.score, 160 + 40, 480 - 30, 2f);
+		//Art.font.draw(spriteBatch, scoreString, 16, 480 - 20);
+		//Art.font.draw(spriteBatch, magnetismString, 16, 480 - 40);
 	}
 	
 	private void renderProcessBar() {
@@ -241,6 +264,58 @@ public class FlyGameScreen extends Screen{
 
 	@Override
 	public void update(float deltaTime) {
+		
+		if(Gdx.input.isKeyPressed(Keys.BACK) || Gdx.input.isKeyPressed(Keys.MENU)) {
+			if(pressTime != 0f && pressTime < 0.5f) {
+				
+			} else {
+				switch(state) {
+				case GAME_RUNNING:
+					pauseGame();
+					break;
+				case GAME_PAUSE:
+					resumeGame();
+					break;
+				case GAME_FINISH:
+				case GAME_OVER:
+					backToMainScreen();
+					break;
+				}
+			}
+			pressTime += deltaTime;
+		}
+		if(pressTime != 0) {
+			pressTime += deltaTime;
+			if(pressTime >= 0.5f) {
+				pressTime = 0f;
+			}
+		}
+		
+		
+		
+		if(menuShown) {
+			if(Gdx.input.justTouched()) {
+				guiCam.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+				if (OverlapTester.pointInRectangle(menuBackButton, touchPoint.x, touchPoint.y)) {
+					backToMainScreen();
+					menuShown = false;
+				}
+				if (OverlapTester.pointInRectangle(menuPlayButton, touchPoint.x, touchPoint.y)) {
+					if(state == GAME_OVER || state ==GAME_FINISH) {
+						restartGame();
+						menuShown = false;
+						return;
+					}
+					resumeGame();
+					menuShown = false;
+				}
+				if (OverlapTester.pointInRectangle(menuRetryButton, touchPoint.x, touchPoint.y)) {
+					restartGame();
+					menuShown = false;
+				}
+			}
+		}
+		
 		switch (state) {
 		case GAME_PREPARING:
 			updatePreparing(deltaTime);
@@ -349,22 +424,34 @@ public class FlyGameScreen extends Screen{
 			musicService.setMuteOff();
 	}
 	
+	private void backToMainScreen() {
+		if(musicService != null) {
+			musicService.release();
+		}
+		spriteBatch.dispose();
+		setScreen(new ChoseMusicScreen());
+	}
+	
+	private void restartGame() {
+		spriteBatch.dispose();
+		setScreen(new FlyGameScreen());
+	}
+	
 	private void pauseGame() {
+		menuShown = true;
 		state = GAME_PAUSE;
 		musicService.pause();
 	}
 	
 	private void resumeGame() {
+		menuShown = false;
 		state = GAME_RUNNING;
 		musicService.play();
 	}
 	
-	private void restartGame() {
-		
-	}
-	
 	private void endGame() {
 		musicService.release();
+		spriteBatch.dispose();
 	}
 	
 	@Override
@@ -383,6 +470,17 @@ public class FlyGameScreen extends Screen{
 	
 	@Override
 	public void dispose() {
-		endGame();
+		switch(state) {
+		case GAME_RUNNING:
+			pauseGame();
+			break;
+		case GAME_PAUSE:
+			resumeGame();
+			break;
+		case GAME_FINISH:
+		case GAME_OVER:
+			backToMainScreen();
+			break;
+		}
 	}
 }

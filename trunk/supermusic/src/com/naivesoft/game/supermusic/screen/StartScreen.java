@@ -20,7 +20,7 @@ public class StartScreen extends Screen {
 		camera = new OrthographicCamera(320, 480);
 		camera.position.set(320 / 2, 480 / 2, 0);
 		spriteBatch = new SpriteBatch();
-		playBounds = new Rectangle(160 - 64, 240 - 64, 128, 128);
+		playBounds = new Rectangle(160 - 180/2, 240 - 165/2, 180, 165);
 		touchPoint = new Vector3();
 	}
 	
@@ -52,7 +52,7 @@ public class StartScreen extends Screen {
 		
 		spriteBatch.enableBlending();
 		spriteBatch.begin();
-		spriteBatch.draw(Art.startButton, 160 - 64, 240 - 64, 128, 128);
+		spriteBatch.draw(Art.startButton, 160 - 180/2, 240 - 165/2, 180, 165);
 		spriteBatch.end();
 		
 	}

@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL10;
 import com.naivesoft.game.supermusic.control.IMusicControl;
 import com.naivesoft.game.supermusic.screen.LoadingScreen;
 import com.naivesoft.game.supermusic.screen.Screen;
-import com.naivesoft.game.supermusic.screen.StartScreen;
 import com.naivesoft.game.supermusic.system.Art;
 import com.naivesoft.game.supermusic.system.GameSound;
 //TODO when finish using sprite.dispose()
