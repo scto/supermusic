@@ -159,17 +159,17 @@ public class FlyWorldRender {
 			float drawHeight = drawWidth * texture.getRegionHeight() / texture.getRegionWidth();
 			
 			if(animation.canMove()) {
-				float x = randomBackground.position.x + ((cam.position.y - FRUSTUM_HEIGHT / 2) * animation.getXrate()) % (FlyWorld.WORLD_WIDTH + 9);
+				randomBackground.position.x += AnimationBackground.speed * animation.getXrate();
 				float y = randomBackground.position.y + (cam.position.y - FRUSTUM_HEIGHT / 2) * animation.getYrate();
-				if(x > FlyWorld.WORLD_WIDTH + 4) {
-					x = randomBackground.position.x = -8 * rand.nextFloat();
+				if(randomBackground.position.x > FlyWorld.WORLD_WIDTH + 4) {
+					randomBackground.position.x  = -4f;
 					y = randomBackground.position.y;
 				}
-//				if(x < -4.001) {
-//					randomBackground.position.x = FlyWorld.WORLD_WIDTH + 5;
-//					y = randomBackground.position.y;
-//				}
-				spriteBatch.draw(texture, x, y, drawWidth, drawHeight);
+				if(randomBackground.position.x < -4.001) {
+					randomBackground.position.x = FlyWorld.WORLD_WIDTH + 3;
+					y = randomBackground.position.y;
+				}
+				spriteBatch.draw(texture, randomBackground.position.x, y, drawWidth, drawHeight);
 			}
 			else {
 				float y = randomBackground.position.y + (cam.position.y - FRUSTUM_HEIGHT / 2) * animation.getYrate();

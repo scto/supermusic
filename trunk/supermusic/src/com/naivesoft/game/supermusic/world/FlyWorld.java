@@ -88,6 +88,12 @@ public class FlyWorld {
 			if(factor < 10) {
 				randomBackground = new RandomBackground(rand.nextFloat()*WORLD_WIDTH, start + rand.nextInt(5) - 2,
 						Enums.random(RAND_BACKGROUND.class));
+				float random = rand.nextFloat();
+				if(random > 0.5)
+					randomBackground.getAnimation().setX_rate(rand.nextFloat());
+				else
+					randomBackground.getAnimation().setX_rate(-0.5f - rand.nextFloat());
+				
 				randomBackgrounds.add(randomBackground);
 			}
 			factor = rand.nextInt(10);

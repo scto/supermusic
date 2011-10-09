@@ -233,9 +233,9 @@ public class FlyGameScreen extends Screen{
 	}
 	
 	private void renderProcessBar() {
-		spriteBatch.draw(Art.processBar, 320 - 24 - 5, 240 - 176/2, 24, 176);
+		spriteBatch.draw(Art.processBar, 100, 400, 256, 37);
 		for(int i = 0; i < Stats.blood; i++) {
-			spriteBatch.draw(Art.processElement, 320 - 24 - 5, 240 - 176/2 + 8 + i*16, 24, 16);
+			spriteBatch.draw(Art.processElement, 125+i*19, 405, 24, 18);
 		}
 	}
 
@@ -277,7 +277,7 @@ public class FlyGameScreen extends Screen{
 			isPlaying = true;
 		}
 		if(Gdx.app.getType() == Application.ApplicationType.Android) { 
-			flyWorld.update(deltaTime, Gdx.input.getAccelerometerX() * 2, Gdx.input.getAccelerometerY() + yExcursion);
+			flyWorld.update(deltaTime, Gdx.input.getAccelerometerX() * 2, (Gdx.input.getAccelerometerY() + yExcursion )*1.5f);
 		}
 		else {
 			float accelX = 0;
@@ -337,10 +337,10 @@ public class FlyGameScreen extends Screen{
 	//更新静音状态，更改血的时候调用，传入更改，减少传入负数
 	private void updateMuteState() {
 		//血为零时全静音
-		if(Stats.blood <= 0)
+		if(Stats.blood <= 4)
 			musicService.setAllTracksMute();
 		//血为5以下静音部分音轨
-		else if (Stats.blood <= 5) {
+		else if (Stats.blood <= 6) {
 			musicService.setMuteOff();
 			musicService.setTrackMute();
 		}
