@@ -11,6 +11,7 @@ public class Stats {
 	public static final float MIN_MAGNET = 0.4f;
 	
 	public static MidiSong currentSong;
+	public static int currentSongNumber = 0;
 	
 	public static float currentWorldHeight;
 	

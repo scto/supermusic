@@ -16,9 +16,10 @@ public class ChoseMusicScreen extends Screen{
 	private OrthographicCamera camera;
 	private Vector3 touchPoint;
 	
-	private Rectangle music1;
-	private Rectangle music2;
-	private Rectangle music3;
+	private boolean start = false;
+	private float startY = 0;
+	
+	private Rectangle playButton;
 	
 	private Rectangle highScore;
 	
@@ -28,44 +29,48 @@ public class ChoseMusicScreen extends Screen{
 		camera.position.set(320 / 2, 480 / 2, 0);
 		spriteBatch = new SpriteBatch();
 		touchPoint = new Vector3();
-		music1 = new Rectangle(160 + 80 - 45, 240, 90, 30);
-		music2 = new Rectangle(160 + 80 - 45, 240 + 40, 90, 30);
-		music3 = new Rectangle(160 + 80 - 45, 240 + 80, 90, 30);
+		playButton = new Rectangle(160 - 193/2, 240 - 73/2, 193, 73);
 		
-		highScore = new Rectangle(0, 0, 30, 30);
+		highScore = new Rectangle(0, 0, 96, 106);
+		
+		if(Stats.currentSongNumber == 0) {
+			Stats.gameStyle = GameStyle.STYLE1;
+			Stats.currentSongNumber = 1;
+		}
+		loadCurrentState();
 	}
 	
 	@Override
 	public void update(float deltaTime) {
+		if(Gdx.input.isTouched()){
+			if(!start) {
+				startY = Gdx.input.getY();
+				start = true;
+			}
+		} else {
+			if(start) {
+				if(Math.abs(Gdx.input.getY() - startY) > 30) {
+					if((Gdx.input.getY() - startY) > 0) {
+						switchAddState();
+					} else {
+						switchDeleteState();
+					}
+					loadCurrentState();
+				}
+				start = false;
+				startY = 0;
+			}
+		}
+		
 		if (Gdx.input.justTouched()) {
 			camera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 			
-			if (OverlapTester.pointInRectangle(music1, touchPoint.x, touchPoint.y)) {
-				//GameSound.playSound(GameSound.hit);				
-				Stats.currentSong = superMusic.getControl().getJetList().get(1);
-				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(1).getFileID());
+			if(OverlapTester.pointInRectangle(playButton, touchPoint.x, touchPoint.y)) {
+				Stats.currentSong = superMusic.getControl().getJetList().get(Stats.currentSongNumber - 1);
+				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(Stats.currentSongNumber - 1).getFileID());
 				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
-				Stats.gameStyle = GameStyle.STYLE1;
 				Stats.currentWorldHeight = superMusic.getControl().getJetList().get(0).getTotalTime() * 5;
 				setScreen(new FlyGameScreen());
-				return;
-			}
-			if (OverlapTester.pointInRectangle(music2, touchPoint.x, touchPoint.y)) {
-				//GameSound.playSound(GameSound.hit);
-//				Stats.currentSong = superMusic.getControl().getJetList().get(1);
-//				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(1).getFileID());
-//				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
-				Stats.gameStyle = GameStyle.STYLE2;
-				setScreen(new FlyGameScreen());
-				return;
-			}
-			if (OverlapTester.pointInRectangle(music3, touchPoint.x, touchPoint.y)) {
-				//GameSound.playSound(GameSound.hit);
-				Stats.currentSong = superMusic.getControl().getJetList().get(2);
-				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(1).getFileID());
-				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
-				setScreen(new FlyGameScreen());
-				return;
 			}
 			
 			if (OverlapTester.pointInRectangle(highScore, touchPoint.x, touchPoint.y)) {
@@ -75,6 +80,53 @@ public class ChoseMusicScreen extends Screen{
 		}
 	}
 
+	private void loadCurrentState() {
+		Art.current_choseLevel_background = Art.choseLevel_background.get(Stats.gameStyle);
+		Art.current_choseLevel_title = Art.choseLevel_title.get(Stats.gameStyle);
+		Art.current_choseLevel_title_pressed = Art.choseLevel_title_pressed.get(Stats.gameStyle);
+	}
+	
+	private void switchAddState() {
+		switch(Stats.gameStyle) {
+		case STYLE1:
+			Stats.gameStyle = GameStyle.STYLE2;
+			Stats.currentSongNumber = 2;
+			break;
+		case STYLE2:
+			Stats.gameStyle = GameStyle.STYLE3;
+			Stats.currentSongNumber = 3;
+			break;
+		case STYLE3:
+			Stats.gameStyle = GameStyle.STYLE4;
+			Stats.currentSongNumber = 4;
+			break;
+		case STYLE4:
+			Stats.gameStyle = GameStyle.STYLE1;
+			Stats.currentSongNumber = 1;
+			break;
+		}
+	}
+	private void switchDeleteState() {
+		switch(Stats.gameStyle) {
+		case STYLE1:
+			Stats.gameStyle = GameStyle.STYLE4;
+			Stats.currentSongNumber = 4;
+			break;
+		case STYLE2:
+			Stats.gameStyle = GameStyle.STYLE1;
+			Stats.currentSongNumber = 1;
+			break;
+		case STYLE3:
+			Stats.gameStyle = GameStyle.STYLE2;
+			Stats.currentSongNumber = 2;
+			break;
+		case STYLE4:
+			Stats.gameStyle = GameStyle.STYLE3;
+			Stats.currentSongNumber = 3;
+			break;
+		}
+	}
+	
 	@Override
 	public void render() {
 		GLCommon gl = Gdx.gl;
@@ -85,19 +137,15 @@ public class ChoseMusicScreen extends Screen{
 		
 		spriteBatch.disableBlending();
 		spriteBatch.begin();
-		spriteBatch.draw(Art.startBackground, 0, 0, 320, 480);
+		spriteBatch.draw(Art.current_choseLevel_background, 0, 0, 320, 480);
 		spriteBatch.end();
 		
 		spriteBatch.enableBlending();
 		spriteBatch.begin();
-		spriteBatch.draw(Art.menuButton, 160 + 80 - 45, 240, 90, 30);
-		spriteBatch.draw(Art.menuMusic1, 160 + 80 - 45, 240 + 15 - 8, 90, 16);
-		spriteBatch.draw(Art.menuButton, 160 + 80 - 45, 240 + 40, 90, 30);
-		spriteBatch.draw(Art.menuMusic2, 160 + 80 - 45, 240 + 40 + 15 - 8, 90, 16);
-		spriteBatch.draw(Art.menuButton, 160 + 80 - 45, 240 + 80, 90, 30);
-		spriteBatch.draw(Art.menuMusic3, 160 + 80 - 45, 240 + 80+ 15 - 8, 90, 16);
+		spriteBatch.draw(Art.highScoreButton, 0, 0, 96, 106);
+		spriteBatch.draw(Art.current_choseLevel_title, 160 - 193/2, 240 - 73/2, 193, 73);
+		//spriteBatch.draw(Art.current_choseLevel_title_pressed, 160 - 193/2, 240 - 73/2, 193, 73);
 		
-		spriteBatch.draw(Art.startButton, 0, 0, 30, 30);
 		spriteBatch.end();
 	}
 
@@ -121,8 +169,7 @@ public class ChoseMusicScreen extends Screen{
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		spriteBatch.dispose();
 	}
 
 }

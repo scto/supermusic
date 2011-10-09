@@ -43,21 +43,16 @@ public class HighScoreScreen extends Screen{
 		
 		spriteBatch.disableBlending();
 		spriteBatch.begin();
-		spriteBatch.draw(Art.startBackground, 0, 0, 320, 480);
+		spriteBatch.draw(Art.highScoreBackground, 0, 0, 320, 480);
 		spriteBatch.end();
 		
 		spriteBatch.enableBlending();
 		spriteBatch.begin();
 		
-		Art.font.drawMultiLine(spriteBatch, " mission one" +
-				"\n mission two" +
-				"\n mission three" +
-				"\n mission four", 16, 480-40);
-		
-		drawDigital(ScoreStore.getHighScore(superMusic.getControl().getJetList().get(0).getFileID()), 320 - 30, 480 - 40, 2f);
-		drawDigital(ScoreStore.getHighScore(superMusic.getControl().getJetList().get(1).getFileID()), 320 - 30, 480 - 40 - 30, 2f);
-		drawDigital(ScoreStore.getHighScore(superMusic.getControl().getJetList().get(2).getFileID()), 320 - 30, 480 - 40 - 60, 2f);
-		drawDigital(ScoreStore.getHighScore(superMusic.getControl().getJetList().get(3).getFileID()), 320 - 30, 480 - 40 - 90, 2f);
+		drawDigital(ScoreStore.getHighScore(superMusic.getControl().getJetList().get(0).getFileID()), 320 - 50, 480 - 115 - 40, 2f);
+		drawDigital(ScoreStore.getHighScore(superMusic.getControl().getJetList().get(2).getFileID()), 320 - 50, 480 - 115 - 40 - 50, 2f);
+		drawDigital(ScoreStore.getHighScore(superMusic.getControl().getJetList().get(1).getFileID()), 320 - 50, 480 - 115 - 40 - 100, 2f);
+		drawDigital(ScoreStore.getHighScore(superMusic.getControl().getJetList().get(3).getFileID()), 320 - 50, 480 - 115 - 40 - 150, 2f);
 //		Art.font.drawMultiLine(spriteBatch, 
 //				ScoreStore.getHighScore(superMusic.getControl().getJetList().get(0).getFileID())
 //				+ "\n" + ScoreStore.getHighScore(superMusic.getControl().getJetList().get(1).getFileID())
