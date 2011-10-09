@@ -1,6 +1,7 @@
 package com.naivesoft.game.supermusic.world;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -115,25 +116,26 @@ public class FlyWorldRender {
 	//	spriteBatch.draw(Art.backgroundRegion, 0, 0, scaleBackgroundWidth,scaleBackgroundHeight);
 		//System.out.println(scaleBackgroundWidth + " " + scaleBackgroundHeight);
 		
-
-		if(( bottom + (cam.position.y - FRUSTUM_HEIGHT / 2) * backgroundPositionRate) % (scaleBackgroundHeight*2) < 1 && CHANGE_NEXT) {
-			NEXT_BACKGROUND = (NEXT_BACKGROUND + 1) % Art.currentBackground.size();
-			CHANGE_NEXT = false;
-		}
-		
-		if(( bottom + (cam.position.y - FRUSTUM_HEIGHT / 2) * backgroundPositionRate) % (scaleBackgroundHeight*2) > scaleBackgroundHeight && !CHANGE_NEXT) {
-			CHANGE_NEXT = true;
-		}
-		
-		if (CHANGE_NEXT)
-			THIS_BACKGROUND = NEXT_BACKGROUND;
+		//计算镜头和背景的相对速度
+//		if(CHANGE_NEXT &&((cam.position.y - FRUSTUM_HEIGHT / 2) * (1 - backgroundPositionRate)) % (scaleBackgroundHeight) < 1) {
+//			NEXT_BACKGROUND = (NEXT_BACKGROUND + 1) % Art.currentBackground.size();
+//			CHANGE_NEXT = false;
+//		}
+//		
+//		if(!CHANGE_NEXT && ((cam.position.y - FRUSTUM_HEIGHT / 2) * (1 - backgroundPositionRate)) % scaleBackgroundHeight > scaleBackgroundHeight - 0.1 ) {
+//			CHANGE_NEXT = true;
+//		}
+//		
+//		if (CHANGE_NEXT)
+//			THIS_BACKGROUND = NEXT_BACKGROUND;
 		
 		spriteBatch.draw(Art.currentBackground.get(THIS_BACKGROUND), (cam.position.x - FRUSTUM_WIDTH / 2) * backgroundPositionRate, bottom + (cam.position.y - FRUSTUM_HEIGHT / 2) * backgroundPositionRate, scaleBackgroundWidth,scaleBackgroundHeight);
 		if((cam.position.y - FRUSTUM_HEIGHT/ 2) * backgroundPositionRate + scaleBackgroundHeight < cam.position.y + FRUSTUM_HEIGHT / 2){
-			spriteBatch.draw(Art.currentBackground.get(NEXT_BACKGROUND), (cam.position.x - FRUSTUM_WIDTH / 2) * backgroundPositionRate, bottom + (cam.position.y - FRUSTUM_HEIGHT/ 2) * backgroundPositionRate + scaleBackgroundHeight, scaleBackgroundWidth,scaleBackgroundHeight);
+			spriteBatch.draw(Art.currentBackground.get((THIS_BACKGROUND+ 1) % Art.currentBackground.size()), (cam.position.x - FRUSTUM_WIDTH / 2) * backgroundPositionRate, bottom + (cam.position.y - FRUSTUM_HEIGHT/ 2) * backgroundPositionRate + scaleBackgroundHeight, scaleBackgroundWidth,scaleBackgroundHeight);
 		}
 		if((cam.position.y - FRUSTUM_HEIGHT/ 2) * backgroundPositionRate + scaleBackgroundHeight + bottom < cam.position.y - FRUSTUM_HEIGHT / 2){
 			bottom += scaleBackgroundHeight;
+			THIS_BACKGROUND = (THIS_BACKGROUND+ 1) % Art.currentBackground.size();
 		}
 		//spriteBatch.draw(Art.backgroundRegion, 0, 0);
 		spriteBatch.end();
@@ -146,26 +148,27 @@ public class FlyWorldRender {
 //		System.out.println(len);
 		RandomBackground randomBackground;
 		ArrayList<TextureRegion> textureRegions;
+		Random rand = new Random();
 		for(int i = 0; i < len; i++){
 			randomBackground = flyWorld.randomBackgrounds.get(i);
 			textureRegions = Art.current_random_backgrounds.get(randomBackground.type);
 			int index = randomBackground.getCount() % textureRegions.size();
 			AnimationBackground animation = randomBackground.getAnimation();
 			TextureRegion texture = textureRegions.get(index);
-			float drawWidth = 4;
+			float drawWidth = (float) (texture.getRegionWidth() * 0.03125);
 			float drawHeight = drawWidth * texture.getRegionHeight() / texture.getRegionWidth();
 			
 			if(animation.canMove()) {
-				float x = (randomBackground.position.x + (cam.position.y - FRUSTUM_HEIGHT / 2) * animation.getXrate()) % (FlyWorld.WORLD_WIDTH+8) - 2.5f;
+				float x = randomBackground.position.x + ((cam.position.y - FRUSTUM_HEIGHT / 2) * animation.getXrate()) % (FlyWorld.WORLD_WIDTH + 9);
 				float y = randomBackground.position.y + (cam.position.y - FRUSTUM_HEIGHT / 2) * animation.getYrate();
-				if(x > FlyWorld.WORLD_WIDTH + 5) {
-					randomBackground.position.x = -2f;
+				if(x > FlyWorld.WORLD_WIDTH + 4) {
+					x = randomBackground.position.x = -8 * rand.nextFloat();
 					y = randomBackground.position.y;
 				}
-				if(x < -2.001) {
-					randomBackground.position.x = FlyWorld.WORLD_WIDTH + 5;
-					y = randomBackground.position.y;
-				}
+//				if(x < -4.001) {
+//					randomBackground.position.x = FlyWorld.WORLD_WIDTH + 5;
+//					y = randomBackground.position.y;
+//				}
 				spriteBatch.draw(texture, x, y, drawWidth, drawHeight);
 			}
 			else {
@@ -192,7 +195,7 @@ public class FlyWorldRender {
 		float sideX = flyWorld.superman.accel.x;
 		float sideY = flyWorld.superman.accel.y;
 
-		TextureRegion superman = Art.timerAndroid[6][1];
+		TextureRegion superman = Art.timerAndroid[5][1];
 		if(sideX>-1.0&&sideX<1.0&&sideY>1.0){ //上
 			if(STATE != 0 ){
 				timer = 0;
@@ -241,9 +244,9 @@ public class FlyWorldRender {
 		}else if(sideY<-1.0&&sideX>1.0){     //右下
 			superman = Art.timerAndroid[3][1];
 		}else if(sideY>1.0&&sideX<-1.0){     //左上
-			superman = Art.timerAndroid[5][0];
+			superman = Art.timerAndroid[2][0];
 		}else if(sideY<-1.0&&sideX<-1.0){     //左下
-			superman = Art.timerAndroid[5][1];
+			superman = Art.timerAndroid[2][1];
 		}else{
 			if(STATE != 5) {
 				timer = 0;
@@ -251,16 +254,16 @@ public class FlyWorldRender {
 			}
 			switch ((timer / 5 )% 4){
 				case 0:
-					superman = Art.timerAndroid[6][0];
+					superman = Art.timerAndroid[4][0];
 					break;
 				case 1:
-					superman = Art.timerAndroid[6][1];
+					superman = Art.timerAndroid[4][1];
 					break;
 				case 2:
-					superman = Art.timerAndroid[7][0];
+					superman = Art.timerAndroid[5][0];
 					break;
 				case 3:
-					superman = Art.timerAndroid[7][1];
+					superman = Art.timerAndroid[5][1];
 					break;
 			}
 			timer++;

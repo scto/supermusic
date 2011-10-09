@@ -42,8 +42,8 @@ public class ChoseMusicScreen extends Screen{
 			
 			if (OverlapTester.pointInRectangle(music1, touchPoint.x, touchPoint.y)) {
 				//GameSound.playSound(GameSound.hit);				
-				Stats.currentSong = superMusic.getControl().getJetList().get(0);
-				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(0).getFileID());
+				Stats.currentSong = superMusic.getControl().getJetList().get(1);
+				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(1).getFileID());
 				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
 				Stats.gameStyle = GameStyle.STYLE1;
 				Stats.currentWorldHeight = superMusic.getControl().getJetList().get(0).getTotalTime() * 5;
@@ -62,7 +62,7 @@ public class ChoseMusicScreen extends Screen{
 			if (OverlapTester.pointInRectangle(music3, touchPoint.x, touchPoint.y)) {
 				//GameSound.playSound(GameSound.hit);
 				Stats.currentSong = superMusic.getControl().getJetList().get(2);
-				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(2).getFileID());
+				superMusic.getControl().loadJetFile(superMusic.getControl().getJetList().get(1).getFileID());
 				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
 				setScreen(new FlyGameScreen());
 				return;
