@@ -41,11 +41,20 @@ public class ChoseMusicScreen extends Screen{
 	@Override
 	public void update(float deltaTime) {
 		if(yOffs != 0) {
-			yOffs++;
-			if(yOffs == 480) {
-				yOffs = 0;
+			if(yOffs > 0) {
+				yOffs++;
+				if(yOffs == 480) {
+					yOffs = 0;
+				}
+				return;
+			} else {
+				yOffs--;
+				if(yOffs == -480) {
+					yOffs = 0;
+				}
+				return;
 			}
-			return;
+			
 		}
 		
 		if(Gdx.input.isKeyPressed(Keys.BACK)) {
@@ -66,7 +75,7 @@ public class ChoseMusicScreen extends Screen{
 						yOffs++;
 					} else {
 						switchDeleteState();
-						yOffs++;
+						yOffs--;
 					}
 					loadCurrentState();
 				}
@@ -161,7 +170,7 @@ public class ChoseMusicScreen extends Screen{
 			
 			spriteBatch.draw(Art.current_choseLevel_title, 160 - 193/2, 240 - 73/2, 193, 73);
 			//spriteBatch.draw(Art.current_choseLevel_title_pressed, 160 - 193/2, 240 - 73/2, 193, 73);
-		} else {
+		} else if(yOffs > 0) {
 			spriteBatch.disableBlending();
 			spriteBatch.begin();
 			spriteBatch.draw(Art.current_choseLevel_background, 0, 480 - yOffs, 320, 480);
@@ -172,6 +181,19 @@ public class ChoseMusicScreen extends Screen{
 			spriteBatch.begin();
 			
 			spriteBatch.draw(Art.current_choseLevel_title, 160 - 193/2, 480 - yOffs + 240 - 73/2, 193, 73);
+			spriteBatch.draw(Art.lastest_choseLevel_title, 160 - 193/2, 0 - yOffs + 240 - 73/2, 193, 73);
+			//spriteBatch.draw(Art.current_choseLevel_title_pressed, 160 - 193/2, 240 - 73/2, 193, 73);
+		} else {
+			spriteBatch.disableBlending();
+			spriteBatch.begin();
+			spriteBatch.draw(Art.current_choseLevel_background, 0, -480 + yOffs, 320, 480);
+			spriteBatch.draw(Art.lastest_choseLevel_background, 0, 0 - yOffs, 320, 480);
+			spriteBatch.end();
+			
+			spriteBatch.enableBlending();
+			spriteBatch.begin();
+			
+			spriteBatch.draw(Art.current_choseLevel_title, 160 - 193/2, -480 + yOffs + 240 - 73/2, 193, 73);
 			spriteBatch.draw(Art.lastest_choseLevel_title, 160 - 193/2, 0 - yOffs + 240 - 73/2, 193, 73);
 			//spriteBatch.draw(Art.current_choseLevel_title_pressed, 160 - 193/2, 240 - 73/2, 193, 73);
 		}
