@@ -22,7 +22,7 @@ public class StartScreen extends Screen {
 		camera = new OrthographicCamera(320, 480);
 		camera.position.set(320 / 2, 480 / 2, 0);
 		spriteBatch = new SpriteBatch();
-		playBounds = new Rectangle(160 - 180/2, 240 - 165/2, 180, 165);
+		playBounds = new Rectangle(160 - 180/2, 240, 180, 165);
 		highScore = new Rectangle(0, 0, 96, 106);
 		touchPoint = new Vector3();
 	}
@@ -63,7 +63,17 @@ public class StartScreen extends Screen {
 		
 		spriteBatch.enableBlending();
 		spriteBatch.begin();
-		spriteBatch.draw(Art.startButton, 160 - 180/2, 240 - 165/2, 180, 165);
+		if (Gdx.input.justTouched()) {
+			camera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+			
+			if (OverlapTester.pointInRectangle(playBounds, touchPoint.x, touchPoint.y)) {
+				//GameSound.playSound(GameSound.hit);
+				spriteBatch.draw(Art.startButton_pressed, 70, 240, 180, 165);
+				return;
+			}
+		}
+		else
+			spriteBatch.draw(Art.startButton, 70, 240, 180, 165);
 		spriteBatch.draw(Art.highScoreButton, 0, 0, 96, 106);
 		spriteBatch.end();
 		
