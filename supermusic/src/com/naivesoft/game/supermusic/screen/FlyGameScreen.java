@@ -387,7 +387,7 @@ public class FlyGameScreen extends Screen{
 		}
 		if(Stats.noBlood()) {
 			endingTime += deltaTime;
-			if(endingTime > 2) {
+			if(endingTime > 3) {
 				state = GAME_OVER;
 				storeScore();
 				endingTime = 0;
