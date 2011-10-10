@@ -29,7 +29,7 @@ public class HighScoreScreen extends Screen{
 	@Override
 	public void update(float deltaTime) {
 		if (Gdx.input.isKeyPressed(Keys.BACK)) {
-			setScreen(new ChoseMusicScreen());
+			setScreen(new StartScreen());
 		}
 	}
 
