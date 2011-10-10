@@ -32,8 +32,8 @@ public class ChoseMusicScreen extends Screen{
 		playButton = new Rectangle(160 - 193/2, 240 - 73/2, 193, 73);
 		
 		if(Stats.currentSongNumber == 0) {
-			Stats.gameStyle = GameStyle.STYLE1;
-			Stats.currentSongNumber = 1;
+			Stats.gameStyle = GameStyle.STYLE3;
+			Stats.currentSongNumber = 3;
 		}
 		loadCurrentState();
 	}
