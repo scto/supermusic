@@ -19,7 +19,6 @@ public class ChoseMusicScreen extends Screen{
 	
 	private boolean start = false;
 	private float startY = 0;
-	private int yOffs = 0;
 	
 	private Rectangle playButton;
 	
@@ -40,6 +39,8 @@ public class ChoseMusicScreen extends Screen{
 	
 	@Override
 	public void update(float deltaTime) {
+<<<<<<< .mine
+=======
 		if(yOffs != 0) {
 			if(yOffs > 0) {
 				yOffs++;
@@ -57,6 +58,7 @@ public class ChoseMusicScreen extends Screen{
 			
 		}
 		
+>>>>>>> .r68
 		if(Gdx.input.isKeyPressed(Keys.BACK)) {
 			setScreen(new StartScreen());
 		}
@@ -69,13 +71,14 @@ public class ChoseMusicScreen extends Screen{
 		} else {
 			if(start) {
 				if(Math.abs(Gdx.input.getY() - startY) > 30) {
-					storeCurrentState();
 					if((Gdx.input.getY() - startY) > 0) {
 						switchAddState();
-						yOffs++;
 					} else {
 						switchDeleteState();
+<<<<<<< .mine
+=======
 						yOffs--;
+>>>>>>> .r68
 					}
 					loadCurrentState();
 				}
@@ -101,12 +104,6 @@ public class ChoseMusicScreen extends Screen{
 		Art.current_choseLevel_background = Art.choseLevel_background.get(Stats.gameStyle);
 		Art.current_choseLevel_title = Art.choseLevel_title.get(Stats.gameStyle);
 		Art.current_choseLevel_title_pressed = Art.choseLevel_title_pressed.get(Stats.gameStyle);
-	}
-	
-	private void storeCurrentState() {
-		Art.lastest_choseLevel_background = Art.current_choseLevel_background;
-		Art.lastest_choseLevel_title = Art.current_choseLevel_title;
-		Art.lastest_choseLevel_title_pressed = Art.current_choseLevel_title_pressed;
 	}
 	
 	private void switchAddState() {
@@ -159,6 +156,12 @@ public class ChoseMusicScreen extends Screen{
 		camera.update();
 		spriteBatch.setProjectionMatrix(camera.combined);
 		
+<<<<<<< .mine
+		spriteBatch.disableBlending();
+		spriteBatch.begin();
+		spriteBatch.draw(Art.current_choseLevel_background, 0, 0, 320, 480);
+		spriteBatch.end();
+=======
 		if(yOffs == 0) {
 			spriteBatch.disableBlending();
 			spriteBatch.begin();
@@ -197,7 +200,13 @@ public class ChoseMusicScreen extends Screen{
 			spriteBatch.draw(Art.lastest_choseLevel_title, 160 - 193/2, 0 - yOffs + 240 - 73/2, 193, 73);
 			//spriteBatch.draw(Art.current_choseLevel_title_pressed, 160 - 193/2, 240 - 73/2, 193, 73);
 		}
+>>>>>>> .r68
 		
+		spriteBatch.enableBlending();
+		spriteBatch.begin();
+		
+		spriteBatch.draw(Art.current_choseLevel_title, 160 - 193/2, 240 - 73/2, 193, 73);
+		//spriteBatch.draw(Art.current_choseLevel_title_pressed, 160 - 193/2, 240 - 73/2, 193, 73);
 		
 		spriteBatch.end();
 	}
