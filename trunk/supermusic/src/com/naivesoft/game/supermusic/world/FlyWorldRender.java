@@ -194,17 +194,22 @@ public class FlyWorldRender {
 
 		float sideX = flyWorld.superman.accel.x;
 		float sideY = flyWorld.superman.accel.y;
+		TextureRegion[][] timerAndroid;
+		if (Art.SUPERMAN_STATE == 0)
+			timerAndroid = Art.timerAndroid1;
+		else
+			timerAndroid = Art.timerAndroid2;
 
-		TextureRegion superman = Art.timerAndroid[5][1];
+		TextureRegion superman = timerAndroid[5][1];
 		if(sideX>-1.0&&sideX<1.0&&sideY>1.0){ //上
 			if(STATE != 0 ){
 				timer = 0;
 				STATE = 0;
 			}
 			if(timer <= 5)
-				superman = Art.timerAndroid[0][0];
+				superman = timerAndroid[0][0];
 			else
-				superman = Art.timerAndroid[0][1];
+				superman = timerAndroid[0][1];
 			timer++;
 		}else if(sideX>-1.0&&sideX<1.0&&sideY<-1.0){  //下
 			if(STATE != 1 ){
@@ -212,9 +217,9 @@ public class FlyWorldRender {
 				STATE= 1;
 			}
 			if(timer <= 5)
-				superman = Art.timerAndroid[1][0];
+				superman = timerAndroid[1][0];
 			else
-				superman = Art.timerAndroid[1][1];
+				superman = timerAndroid[1][1];
 			timer++;
 		}
 //		else if(sideY<-1.0&&sideY>1.0&&sideX<-1.0){  //右
@@ -223,9 +228,9 @@ public class FlyWorldRender {
 //				STATE = 2;
 //			}
 //			if(timer <= 5)
-//				superman = Art.timerAndroid[2][0];
+//				superman = timerAndroid[2][0];
 //			else
-//				superman = Art.timerAndroid[2][1];
+//				superman = timerAndroid[2][1];
 //			timer++;
 //		}
 //		else if(sideY<-1.0&&sideY>1.0&&sideX>1.0){  //左
@@ -234,19 +239,19 @@ public class FlyWorldRender {
 //				STATE = 3;
 //			}
 //			if(timer <= 5)
-//				superman = Art.timerAndroid[4][0];
+//				superman = timerAndroid[4][0];
 //			else
-//				superman = Art.timerAndroid[4][1];
+//				superman = timerAndroid[4][1];
 //			timer++;
 //		}
 		else if(sideY>1.0&&sideX>1.0){     //右上
-			superman = Art.timerAndroid[3][0];
+			superman = timerAndroid[3][0];
 		}else if(sideY<-1.0&&sideX>1.0){     //右下
-			superman = Art.timerAndroid[3][1];
+			superman = timerAndroid[3][1];
 		}else if(sideY>1.0&&sideX<-1.0){     //左上
-			superman = Art.timerAndroid[2][0];
+			superman = timerAndroid[2][0];
 		}else if(sideY<-1.0&&sideX<-1.0){     //左下
-			superman = Art.timerAndroid[2][1];
+			superman = timerAndroid[2][1];
 		}else{
 			if(STATE != 5) {
 				timer = 0;
@@ -254,23 +259,23 @@ public class FlyWorldRender {
 			}
 			switch ((timer / 5 )% 4){
 				case 0:
-					superman = Art.timerAndroid[4][0];
+					superman = timerAndroid[4][0];
 					break;
 				case 1:
-					superman = Art.timerAndroid[4][1];
+					superman = timerAndroid[4][1];
 					break;
 				case 2:
-					superman = Art.timerAndroid[5][0];
+					superman = timerAndroid[5][0];
 					break;
 				case 3:
-					superman = Art.timerAndroid[5][1];
+					superman = timerAndroid[5][1];
 					break;
 			}
 			timer++;
 		}
 		float superManWidth = 3;
-		float superManHeight = superManWidth * Art.timerAndroid[0][0].getRegionHeight() / Art.timerAndroid[0][0].getRegionWidth();
-		spriteBatch.draw(superman, flyWorld.superman.position.x - 1.5f,flyWorld.superman.position.y - 1.5f* Art.timerAndroid[0][0].getRegionHeight() / Art.timerAndroid[0][0].getRegionWidth(), superManWidth, superManHeight);
+		float superManHeight = superManWidth * timerAndroid[0][0].getRegionHeight() / timerAndroid[0][0].getRegionWidth();
+		spriteBatch.draw(superman, flyWorld.superman.position.x - 1.5f,flyWorld.superman.position.y - 1.5f* timerAndroid[0][0].getRegionHeight() / timerAndroid[0][0].getRegionWidth(), superManWidth, superManHeight);
 		
 		//spriteBatch.draw(superman, flyWorld.superman.position.x, flyWorld.superman.position.y,32,32);
 	}

@@ -412,7 +412,7 @@ public class FlyGameScreen extends Screen{
 	//更新静音状态，更改血的时候调用，传入更改，减少传入负数
 	private void updateMuteState() {
 		//血为零时全静音
-		if(Stats.blood <= 4)
+		if(Stats.blood <= 3)
 			musicService.setAllTracksMute();
 		//血为5以下静音部分音轨
 		else if (Stats.blood <= 6) {
