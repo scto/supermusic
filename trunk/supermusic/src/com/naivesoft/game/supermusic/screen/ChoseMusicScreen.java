@@ -186,14 +186,14 @@ public class ChoseMusicScreen extends Screen{
 		} else {
 			spriteBatch.disableBlending();
 			spriteBatch.begin();
-			spriteBatch.draw(Art.current_choseLevel_background, 0, -480 + yOffs, 320, 480);
+			spriteBatch.draw(Art.current_choseLevel_background, 0, -480 - yOffs, 320, 480);
 			spriteBatch.draw(Art.lastest_choseLevel_background, 0, 0 - yOffs, 320, 480);
 			spriteBatch.end();
 			
 			spriteBatch.enableBlending();
 			spriteBatch.begin();
 			
-			spriteBatch.draw(Art.current_choseLevel_title, 160 - 193/2, -480 + yOffs + 240 - 73/2, 193, 73);
+			spriteBatch.draw(Art.current_choseLevel_title, 160 - 193/2, -480 - yOffs + 240 - 73/2, 193, 73);
 			spriteBatch.draw(Art.lastest_choseLevel_title, 160 - 193/2, 0 - yOffs + 240 - 73/2, 193, 73);
 			//spriteBatch.draw(Art.current_choseLevel_title_pressed, 160 - 193/2, 240 - 73/2, 193, 73);
 		}
