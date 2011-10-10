@@ -64,7 +64,7 @@ public class HighScoreScreen extends Screen{
 	
 	@Override
 	public void dispose() {
-		setScreen(new ChoseMusicScreen());
+		setScreen(new StartScreen());
 	}
 
 	@Override

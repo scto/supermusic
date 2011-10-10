@@ -22,8 +22,6 @@ public class ChoseMusicScreen extends Screen{
 	
 	private Rectangle playButton;
 	
-	private Rectangle highScore;
-	
 	public ChoseMusicScreen() {
 		super();
 		camera = new OrthographicCamera(320, 480);
@@ -31,8 +29,6 @@ public class ChoseMusicScreen extends Screen{
 		spriteBatch = new SpriteBatch();
 		touchPoint = new Vector3();
 		playButton = new Rectangle(160 - 193/2, 240 - 73/2, 193, 73);
-		
-		highScore = new Rectangle(0, 0, 96, 106);
 		
 		if(Stats.currentSongNumber == 0) {
 			Stats.gameStyle = GameStyle.STYLE1;
@@ -76,11 +72,6 @@ public class ChoseMusicScreen extends Screen{
 				superMusic.getControl().queueJetSegment(0, -1, 0, 0, 0, (byte) 0);
 				Stats.currentWorldHeight = superMusic.getControl().getJetList().get(0).getTotalTime() * 5;
 				setScreen(new FlyGameScreen());
-			}
-			
-			if (OverlapTester.pointInRectangle(highScore, touchPoint.x, touchPoint.y)) {
-				setScreen(new HighScoreScreen());
-				return;
 			}
 		}
 	}
@@ -147,7 +138,7 @@ public class ChoseMusicScreen extends Screen{
 		
 		spriteBatch.enableBlending();
 		spriteBatch.begin();
-		spriteBatch.draw(Art.highScoreButton, 0, 0, 96, 106);
+		
 		spriteBatch.draw(Art.current_choseLevel_title, 160 - 193/2, 240 - 73/2, 193, 73);
 		//spriteBatch.draw(Art.current_choseLevel_title_pressed, 160 - 193/2, 240 - 73/2, 193, 73);
 		
