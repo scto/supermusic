@@ -375,7 +375,7 @@ public class FlyGameScreen extends Screen{
 			time = 0f;
 			changeMagnetismString();
 		}
-		if(threeSecond == 3) {
+		if(threeSecond == 2) {// make it harder
 			threeSecond = 0;
 			Stats.removeBlood(1);
 			updateMuteState();
