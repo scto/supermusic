@@ -37,6 +37,9 @@ public interface IMusicControl {
 	 * @see JetPlayer
 	 * @return
 	 */
+	
+	public void closeFile();
+	
 	public boolean setMuteFlag(int trackId, boolean muteFlag, boolean sync);
 	
 	public void release();

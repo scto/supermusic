@@ -2,7 +2,6 @@ package com.naivesoft.game.supermusic.system;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -123,8 +122,8 @@ public class Art {
 	 * load all the resources
 	 */
 	public static void load(){
-		background = loadTexture("images/background2.png");
-		backgroundRegion = new TextureRegion(background, 400, 0, (int)(856/1.5), 856);
+		
+		
 		
 		loadStartScreen();
 		
@@ -184,16 +183,7 @@ public class Art {
 			timerAndroid[5][1] = new TextureRegion(timerAndroidPic,183, 216, 183, 108);
 		}
 		
-		musicNotesTexture = loadTexture("images/musicnote.png");
-		musicNotes.put(MUSICNOTE_KIND.DO, new TextureRegion(musicNotesTexture, 90, 158, 511, 963));
-		musicNotes.put(MUSICNOTE_KIND.RE, new TextureRegion(musicNotesTexture, 658, 359, 183, 183));
-		musicNotes.put(MUSICNOTE_KIND.MI, new TextureRegion(musicNotesTexture, 647, 561, 292, 408));
-		musicNotes.put(MUSICNOTE_KIND.FA, new TextureRegion(musicNotesTexture, 945, 509, 329, 399));
-		musicNotes.put(MUSICNOTE_KIND.SO, new TextureRegion(musicNotesTexture, 1266, 777, 184, 290));
-		musicNotes.put(MUSICNOTE_KIND.LA, new TextureRegion(musicNotesTexture, 1477, 645, 157, 261));
-		musicNotes.put(MUSICNOTE_KIND.XI, new TextureRegion(musicNotesTexture, 1621, 548, 157, 214));
 		
-		font = new BitmapFont(Gdx.files.internal("images/font.fnt"), Gdx.files.internal("images/font.png"), false);
 	}
 	
 	private static void loadStartScreen() {
@@ -283,228 +273,63 @@ public class Art {
 				0, 0, 140, 180));
 	}
 	
-	/*private static void loadStyle1() {
-		backgrounds.put(GameStyle.STYLE1, new TextureRegion(
-				loadTexture("images/star/bg.png"),0,0,320,600));
-		
-		EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
-		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level1_1.png"), 0, 0, 293, 359));
-		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level1_2.png"), 0, 0, 293, 359));
-		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level1_3.png"), 0, 0, 282, 369));
-		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level1_4.png"), 0, 0, 293, 359));
-		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level1_5.png"), 0, 0, 330, 369));
-		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level1_6.png"), 0, 0, 350, 369));
-		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level1_6.png"), 0, 0, 350, 369));
-		nodes_level1.put(GameStyle.STYLE1, nodes);
-		
-		nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
-		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level2_1.png"), 0, 0, 293, 359));
-		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level2_2.png"), 0, 0, 293, 359));
-		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level2_3.png"), 0, 0, 282, 369));
-		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level2_4.png"), 0, 0, 293, 359));
-		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level2_5.png"), 0, 0, 330, 369));
-		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level2_6.png"), 0, 0, 350, 369));
-		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level2_6.png"), 0, 0, 350, 369));
-		nodes_level2.put(GameStyle.STYLE1, nodes);
-		
-		nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
-		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level3_1.png"), 0, 0, 293, 359));
-		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level3_2.png"), 0, 0, 293, 359));
-		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level3_3.png"), 0, 0, 282, 369));
-		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level3_4.png"), 0, 0, 293, 359));
-		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level3_5.png"), 0, 0, 330, 369));
-		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
-		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
-		nodes_level3.put(GameStyle.STYLE1, nodes);
-		
-		EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>> rbs = new EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>>(RandomBackground.RAND_BACKGROUND.class);
-		EnumMap<RAND_BACKGROUND, AnimationBackground> changeRate = new EnumMap<RAND_BACKGROUND, AnimationBackground>(RAND_BACKGROUND.class);
-		
-		ArrayList<TextureRegion> tr = new ArrayList<TextureRegion>();
-		tr.add(new TextureRegion(loadTexture("images/style1/random_background1.png"), 0, 0, 200, 200));
-		tr.add(new TextureRegion(loadTexture("images/style1/random_background2.png"), 0, 0, 200, 200));
-		rbs.put(RandomBackground.RAND_BACKGROUND.RB1, tr);
-		changeRate.put(RandomBackground.RAND_BACKGROUND.RB1, new AnimationBackground(200, 0.9f, 0.9f, false));
-		
-		tr = new ArrayList<TextureRegion>();
-		tr.add(new TextureRegion(loadTexture("images/style1/random_background3.png"), 0, 0, 200, 200));
-		tr.add(new TextureRegion(loadTexture("images/style1/random_background4.png"), 0, 0, 200, 200));
-		rbs.put(RandomBackground.RAND_BACKGROUND.RB2, tr);
-		changeRate.put(RandomBackground.RAND_BACKGROUND.RB2, new AnimationBackground(60, 0.5f, 0.5f, true));
-		
-		tr = new ArrayList<TextureRegion>();
-		tr.add(new TextureRegion(loadTexture("images/style1/random_background5.png"), 0, 0, 200, 200));
-		rbs.put(RandomBackground.RAND_BACKGROUND.RB3, tr);
-		changeRate.put(RandomBackground.RAND_BACKGROUND.RB3, new AnimationBackground(60, 0, 0.9f, false));
-		
-		changeRates.put(GameStyle.STYLE1, changeRate);
-		random_backgrounds.put(GameStyle.STYLE1, rbs);
-	}*/
-	
-//	private static void loadStyle11() {
-//		Texture punk = Art.loadTexture("images/punk_style/punk.png");
-//		ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
-//		textureRegions.add(new TextureRegion(punk,0,0,320,600));
-//		textureRegions.add(new TextureRegion(punk,320,0,320,600));
-//		textureRegions.add(new TextureRegion(punk,640,0,320,600));
-//		backgrounds.put(GameStyle.STYLE1, textureRegions);
-//		
-//		EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
-//		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-//				loadTexture("images/style1/node_level1_1.png"), 0, 0, 293, 359));
-//		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-//				loadTexture("images/style1/node_level1_2.png"), 0, 0, 293, 359));
-//		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-//				loadTexture("images/style1/node_level1_3.png"), 0, 0, 282, 369));
-//		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-//				loadTexture("images/style1/node_level1_4.png"), 0, 0, 293, 359));
-//		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-//				loadTexture("images/style1/node_level1_5.png"), 0, 0, 330, 369));
-//		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-//				loadTexture("images/style1/node_level1_6.png"), 0, 0, 350, 369));
-//		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-//				loadTexture("images/style1/node_level1_6.png"), 0, 0, 350, 369));
-//		nodes_level1.put(GameStyle.STYLE1, nodes);
-//		
-//		nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
-//		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-//				loadTexture("images/style1/node_level2_1.png"), 0, 0, 293, 359));
-//		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-//				loadTexture("images/style1/node_level2_2.png"), 0, 0, 293, 359));
-//		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-//				loadTexture("images/style1/node_level2_3.png"), 0, 0, 282, 369));
-//		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-//				loadTexture("images/style1/node_level2_4.png"), 0, 0, 293, 359));
-//		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-//				loadTexture("images/style1/node_level2_5.png"), 0, 0, 330, 369));
-//		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-//				loadTexture("images/style1/node_level2_6.png"), 0, 0, 350, 369));
-//		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-//				loadTexture("images/style1/node_level2_6.png"), 0, 0, 350, 369));
-//		nodes_level2.put(GameStyle.STYLE1, nodes);
-//		
-//		nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
-//		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-//				loadTexture("images/style1/node_level3_1.png"), 0, 0, 293, 359));
-//		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-//				loadTexture("images/style1/node_level3_2.png"), 0, 0, 293, 359));
-//		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-//				loadTexture("images/style1/node_level3_3.png"), 0, 0, 282, 369));
-//		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-//				loadTexture("images/style1/node_level3_4.png"), 0, 0, 293, 359));
-//		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-//				loadTexture("images/style1/node_level3_5.png"), 0, 0, 330, 369));
-//		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-//				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
-//		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-//				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
-//		nodes_level3.put(GameStyle.STYLE1, nodes);
-//		
-//		EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>> rbs = new EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>>(RandomBackground.RAND_BACKGROUND.class);
-//		EnumMap<RAND_BACKGROUND, AnimationBackground> changeRate = new EnumMap<RAND_BACKGROUND, AnimationBackground>(RAND_BACKGROUND.class);
-//		
-//		ArrayList<TextureRegion> tr = new ArrayList<TextureRegion>();
-//		tr.add(new TextureRegion(punk, 0, 600, 124, 66));
-//		tr.add(new TextureRegion(punk, 124, 600, 124, 66));
-//		tr.add(new TextureRegion(punk, 0, 600, 124, 66));
-//		tr.add(new TextureRegion(punk, 248, 600, 124, 66));
-//		rbs.put(RandomBackground.RAND_BACKGROUND.RB1, tr);
-//		changeRate.put(RandomBackground.RAND_BACKGROUND.RB1, new AnimationBackground(200, 0.9f, 0.9f, false));
-//		
-//		tr = new ArrayList<TextureRegion>();
-//		tr.add(new TextureRegion(punk, 0, 666, 111, 26));
-//		tr.add(new TextureRegion(punk, 111, 666, 111, 26));
-//		tr.add(new TextureRegion(punk, 0, 666, 111, 26));
-//		tr.add(new TextureRegion(punk, 222, 666, 111, 26));
-//		rbs.put(RandomBackground.RAND_BACKGROUND.RB2, tr);
-//		changeRate.put(RandomBackground.RAND_BACKGROUND.RB2, new AnimationBackground(60, 0.5f, 0.5f, true));
-//		
-//		tr = new ArrayList<TextureRegion>();
-//		tr.add(new TextureRegion(punk, 0, 692, 200, 160));
-//		rbs.put(RandomBackground.RAND_BACKGROUND.RB3, tr);
-//		changeRate.put(RandomBackground.RAND_BACKGROUND.RB3, new AnimationBackground(60, 0, 0.9f, false));
-//		
-//		changeRates.put(GameStyle.STYLE1, changeRate);
-//		random_backgrounds.put(GameStyle.STYLE1, rbs);
-//	}
-	
-	private static void loadChinaStyle() {                        //中国主题
+ static void loadChinaStyle() {                        //中国主题
 		SUPERMAN_STATE=1;
 		Texture china = Art.loadTexture("images/china_style/china.png");
 		ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 		textureRegions.add(new TextureRegion(china,640,0,320,600));
 		backgrounds.put(GameStyle.STYLE3, textureRegions);
 		
+		Texture musicNode = Art.loadTexture("images/style1/musicnode.png");
 		EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level1_1.png"), 0, 0, 293, 359));
+				musicNode, 0, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level1_2.png"), 0, 0, 293, 359));
+				musicNode, 100, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level1_3.png"), 0, 0, 282, 369));
+				musicNode, 200, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level1_4.png"), 0, 0, 293, 359));
+				musicNode, 300, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level1_5.png"), 0, 0, 330, 369));
+				musicNode, 400, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level1_6.png"), 0, 0, 350, 369));
+				musicNode, 0, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level1_6.png"), 0, 0, 350, 369));
+				musicNode, 0, 120, 100, 120));
 		nodes_level1.put(GameStyle.STYLE3, nodes);
 		
 		nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level2_1.png"), 0, 0, 293, 359));
+				musicNode, 100, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level2_2.png"), 0, 0, 293, 359));
+				musicNode, 200, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level2_3.png"), 0, 0, 282, 369));
+				musicNode, 300, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level2_4.png"), 0, 0, 293, 359));
+				musicNode, 400, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level2_5.png"), 0, 0, 330, 369));
+				musicNode, 0, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level2_6.png"), 0, 0, 350, 369));
+				musicNode, 100, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level2_6.png"), 0, 0, 350, 369));
+				musicNode, 100, 240, 100, 120));
 		nodes_level2.put(GameStyle.STYLE3, nodes);
 		
 		nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level3_1.png"), 0, 0, 293, 359));
+				musicNode, 200, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level3_2.png"), 0, 0, 293, 359));
+				musicNode, 300, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level3_3.png"), 0, 0, 282, 369));
+				musicNode, 400, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level3_4.png"), 0, 0, 293, 359));
+				musicNode, 0, 360, 100, 120));
 		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level3_5.png"), 0, 0, 330, 369));
+				musicNode, 100, 360, 100, 120));
 		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
+				musicNode, 200, 360, 100, 120));
 		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
+				musicNode, 200, 360, 100, 120));
 		nodes_level3.put(GameStyle.STYLE3, nodes);
 		
 		EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>> rbs = new EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>>(RandomBackground.RAND_BACKGROUND.class);
@@ -541,55 +366,56 @@ public class Art {
 		textureRegions.add(new TextureRegion(Art.loadTexture("images/china_style/china.png"),0,0,320,600));
 		backgrounds.put(GameStyle.STYLE1, textureRegions);
 		
+		Texture musicNode = Art.loadTexture("images/style1/musicnode.png");
 		EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level1_1.png"), 0, 0, 293, 359));
+				musicNode, 0, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level1_2.png"), 0, 0, 293, 359));
+				musicNode, 100, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level1_3.png"), 0, 0, 282, 369));
+				musicNode, 200, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level1_4.png"), 0, 0, 293, 359));
+				musicNode, 300, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level1_5.png"), 0, 0, 330, 369));
+				musicNode, 400, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level1_6.png"), 0, 0, 350, 369));
+				musicNode, 0, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level1_6.png"), 0, 0, 350, 369));
+				musicNode, 0, 120, 100, 120));
 		nodes_level1.put(GameStyle.STYLE1, nodes);
 		
 		nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level2_1.png"), 0, 0, 293, 359));
+				musicNode, 100, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level2_2.png"), 0, 0, 293, 359));
+				musicNode, 200, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level2_3.png"), 0, 0, 282, 369));
+				musicNode, 300, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level2_4.png"), 0, 0, 293, 359));
+				musicNode, 400, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level2_5.png"), 0, 0, 330, 369));
+				musicNode, 0, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level2_6.png"), 0, 0, 350, 369));
+				musicNode, 100, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level2_6.png"), 0, 0, 350, 369));
+				musicNode, 100, 240, 100, 120));
 		nodes_level2.put(GameStyle.STYLE1, nodes);
 		
 		nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level3_1.png"), 0, 0, 293, 359));
+				musicNode, 200, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level3_2.png"), 0, 0, 293, 359));
+				musicNode, 300, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level3_3.png"), 0, 0, 282, 369));
+				musicNode, 400, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level3_4.png"), 0, 0, 293, 359));
+				musicNode, 0, 360, 100, 120));
 		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level3_5.png"), 0, 0, 330, 369));
+				musicNode, 100, 360, 100, 120));
 		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
+				musicNode, 200, 360, 100, 120));
 		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
+				musicNode, 200, 360, 100, 120));
 		nodes_level3.put(GameStyle.STYLE1, nodes);
 		
 		EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>> rbs = new EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>>(RandomBackground.RAND_BACKGROUND.class);
@@ -630,56 +456,58 @@ public class Art {
 		textureRegions.add(new TextureRegion(Art.loadTexture("images/china_style/china.png"),320,0,320,600));
 		backgrounds.put(GameStyle.STYLE4, textureRegions);
 		
+		Texture musicNode = Art.loadTexture("images/style1/musicnode.png");
 		EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level1_1.png"), 0, 0, 293, 359));
+				musicNode, 0, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level1_2.png"), 0, 0, 293, 359));
+				musicNode, 100, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level1_3.png"), 0, 0, 282, 369));
+				musicNode, 200, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level1_4.png"), 0, 0, 293, 359));
+				musicNode, 300, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level1_5.png"), 0, 0, 330, 369));
+				musicNode, 400, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level1_6.png"), 0, 0, 350, 369));
+				musicNode, 0, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level1_6.png"), 0, 0, 350, 369));
+				musicNode, 0, 120, 100, 120));
 		nodes_level1.put(GameStyle.STYLE4, nodes);
 		
 		nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level2_1.png"), 0, 0, 293, 359));
+				musicNode, 100, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level2_2.png"), 0, 0, 293, 359));
+				musicNode, 200, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level2_3.png"), 0, 0, 282, 369));
+				musicNode, 300, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level2_4.png"), 0, 0, 293, 359));
+				musicNode, 400, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level2_5.png"), 0, 0, 330, 369));
+				musicNode, 0, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level2_6.png"), 0, 0, 350, 369));
+				musicNode, 100, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level2_6.png"), 0, 0, 350, 369));
+				musicNode, 100, 240, 100, 120));
 		nodes_level2.put(GameStyle.STYLE4, nodes);
 		
 		nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level3_1.png"), 0, 0, 293, 359));
+				musicNode, 200, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level3_2.png"), 0, 0, 293, 359));
+				musicNode, 300, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level3_3.png"), 0, 0, 282, 369));
+				musicNode, 400, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level3_4.png"), 0, 0, 293, 359));
+				musicNode, 0, 360, 100, 120));
 		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level3_5.png"), 0, 0, 330, 369));
+				musicNode, 100, 360, 100, 120));
 		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
+				musicNode, 200, 360, 100, 120));
 		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
+				musicNode, 200, 360, 100, 120));
 		nodes_level3.put(GameStyle.STYLE4, nodes);
+		
 		
 		EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>> rbs = new EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>>(RandomBackground.RAND_BACKGROUND.class);
 		EnumMap<RAND_BACKGROUND, AnimationBackground> changeRate = new EnumMap<RAND_BACKGROUND, AnimationBackground>(RAND_BACKGROUND.class);
@@ -712,55 +540,56 @@ public class Art {
 		textureRegions.add(new TextureRegion(star,0,0,256,480));
 		backgrounds.put(GameStyle.STYLE2, textureRegions);
 		
+		Texture musicNode = Art.loadTexture("images/style1/musicnode.png");
 		EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level1_1.png"), 0, 0, 293, 359));
+				musicNode, 0, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level1_2.png"), 0, 0, 293, 359));
+				musicNode, 100, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level1_3.png"), 0, 0, 282, 369));
+				musicNode, 200, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level1_4.png"), 0, 0, 293, 359));
+				musicNode, 300, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level1_5.png"), 0, 0, 330, 369));
+				musicNode, 400, 0, 100, 120));
 		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level1_6.png"), 0, 0, 350, 369));
+				musicNode, 0, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level1_6.png"), 0, 0, 350, 369));
+				musicNode, 0, 120, 100, 120));
 		nodes_level1.put(GameStyle.STYLE2, nodes);
 		
 		nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level2_1.png"), 0, 0, 293, 359));
+				musicNode, 100, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level2_2.png"), 0, 0, 293, 359));
+				musicNode, 200, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level2_3.png"), 0, 0, 282, 369));
+				musicNode, 300, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level2_4.png"), 0, 0, 293, 359));
+				musicNode, 400, 120, 100, 120));
 		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level2_5.png"), 0, 0, 330, 369));
+				musicNode, 0, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level2_6.png"), 0, 0, 350, 369));
+				musicNode, 100, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level2_6.png"), 0, 0, 350, 369));
+				musicNode, 100, 240, 100, 120));
 		nodes_level2.put(GameStyle.STYLE2, nodes);
 		
 		nodes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 		nodes.put(MUSICNOTE_KIND.DO, new TextureRegion(
-				loadTexture("images/style1/node_level3_1.png"), 0, 0, 293, 359));
+				musicNode, 200, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.RE, new TextureRegion(
-				loadTexture("images/style1/node_level3_2.png"), 0, 0, 293, 359));
+				musicNode, 300, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.MI, new TextureRegion(
-				loadTexture("images/style1/node_level3_3.png"), 0, 0, 282, 369));
+				musicNode, 400, 240, 100, 120));
 		nodes.put(MUSICNOTE_KIND.FA, new TextureRegion(
-				loadTexture("images/style1/node_level3_4.png"), 0, 0, 293, 359));
+				musicNode, 0, 360, 100, 120));
 		nodes.put(MUSICNOTE_KIND.SO, new TextureRegion(
-				loadTexture("images/style1/node_level3_5.png"), 0, 0, 330, 369));
+				musicNode, 100, 360, 100, 120));
 		nodes.put(MUSICNOTE_KIND.LA, new TextureRegion(
-				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
+				musicNode, 200, 360, 100, 120));
 		nodes.put(MUSICNOTE_KIND.XI, new TextureRegion(
-				loadTexture("images/style1/node_level3_6.png"), 0, 0, 350, 369));
+				musicNode, 200, 360, 100, 120));
 		nodes_level3.put(GameStyle.STYLE2, nodes);
 		
 		EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>> rbs = new EnumMap<RandomBackground.RAND_BACKGROUND, ArrayList<TextureRegion>>(RandomBackground.RAND_BACKGROUND.class);
