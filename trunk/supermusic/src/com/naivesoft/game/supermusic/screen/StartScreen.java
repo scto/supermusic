@@ -14,6 +14,7 @@ import com.naivesoft.game.supermusic.util.OverlapTester;
 public class StartScreen extends Screen {
 	private OrthographicCamera camera;
 	private Rectangle playBounds;
+	private Rectangle highScore;
 	private Vector3 touchPoint;
 	
 	public StartScreen() {
@@ -22,6 +23,7 @@ public class StartScreen extends Screen {
 		camera.position.set(320 / 2, 480 / 2, 0);
 		spriteBatch = new SpriteBatch();
 		playBounds = new Rectangle(160 - 180/2, 240 - 165/2, 180, 165);
+		highScore = new Rectangle(0, 0, 96, 106);
 		touchPoint = new Vector3();
 	}
 	
@@ -33,6 +35,10 @@ public class StartScreen extends Screen {
 			if (OverlapTester.pointInRectangle(playBounds, touchPoint.x, touchPoint.y)) {
 				//GameSound.playSound(GameSound.hit);
 				setScreen(new ChoseMusicScreen());
+				return;
+			}
+			if (OverlapTester.pointInRectangle(highScore, touchPoint.x, touchPoint.y)) {
+				setScreen(new HighScoreScreen());
 				return;
 			}
 		}
@@ -58,6 +64,7 @@ public class StartScreen extends Screen {
 		spriteBatch.enableBlending();
 		spriteBatch.begin();
 		spriteBatch.draw(Art.startButton, 160 - 180/2, 240 - 165/2, 180, 165);
+		spriteBatch.draw(Art.highScoreButton, 0, 0, 96, 106);
 		spriteBatch.end();
 		
 	}
