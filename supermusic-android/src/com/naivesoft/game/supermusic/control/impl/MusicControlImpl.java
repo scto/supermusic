@@ -30,9 +30,9 @@ public class MusicControlImpl implements IMusicControl{
 		jetPlayer = JetPlayer.getJetPlayer();
 
 		musicList = new ArrayList<MidiSong>();
-		musicList.add(new MidiSong(R.raw.star, new int[] {4}, 238 ));
 		musicList.add(new MidiSong(R.raw.sky,new int[]{1}, 206));
-		musicList.add(new MidiSong(R.raw.china,new int[]{9}, 150));
+		musicList.add(new MidiSong(R.raw.star, new int[] {4}, 238 ));
+		musicList.add(new MidiSong(R.raw.china,new int[]{1}, 206));
 		musicList.add(new MidiSong(R.raw.punk,new int[]{5}, 160));
 	}
 	
