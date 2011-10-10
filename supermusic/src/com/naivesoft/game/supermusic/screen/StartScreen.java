@@ -16,6 +16,7 @@ public class StartScreen extends Screen {
 	private Rectangle playBounds;
 	private Rectangle highScore;
 	private Vector3 touchPoint;
+	private float stayTime = 0;
 	
 	public StartScreen() {
 		super();
@@ -29,6 +30,10 @@ public class StartScreen extends Screen {
 	
 	@Override
 	public void update(float deltaTime) {
+		if(stayTime < 0.5f) {
+			stayTime +=deltaTime;
+			return;
+		}
 		if (Gdx.input.justTouched()) {
 			camera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 			
