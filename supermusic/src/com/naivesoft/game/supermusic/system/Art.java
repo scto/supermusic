@@ -27,7 +27,8 @@ public class Art {
 	public static TextureRegion startButton_pressed;
 	
 	public static TextureRegion backgroundRegion;
-	public static TextureRegion[][] timerAndroid = new TextureRegion[6][2];
+	public static TextureRegion[][] timerAndroid1 = new TextureRegion[6][2];
+	public static TextureRegion[][] timerAndroid2 = new TextureRegion[6][2];
 	public static Texture musicNotesTexture;
 	public static EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion> musicNotes = new EnumMap<MusicNote.MUSICNOTE_KIND, TextureRegion>(MusicNote.MUSICNOTE_KIND.class);
 	public static BitmapFont font;
@@ -49,6 +50,11 @@ public class Art {
 	public static TextureRegion highScoreBackground;
 	public static TextureRegion highScoreButton;
 	public static TextureRegion highScoreButton_pressed;
+	
+	//help
+	private static Texture helpTexture;
+	public static TextureRegion helpBackground;
+	public static TextureRegion helpButton;
 	
 	//menu screen
 	private static Texture menuTexture;
@@ -136,6 +142,8 @@ public class Art {
 		
 		loadHighScore();
 		
+		loadHelp();
+		
 		timeTexture = loadTexture("images/time321.png");
 		time3 = new TextureRegion(timeTexture, 0, 0, 32, 56);
 		time2 = new TextureRegion(timeTexture, 0, 56, 32, 56);
@@ -155,36 +163,36 @@ public class Art {
 		loadSkyStyle();
 		
 		//backgroundRegion = load("images/background.png", 320, 480);
-		if(SUPERMAN_STATE == 0){
+		
 			Texture timerAndroidPic = Art.loadTexture("images/timerandroid.png");
-			timerAndroid[0][0] = new TextureRegion(timerAndroidPic,0, 0, 183, 61);
-			timerAndroid[0][1] = new TextureRegion(timerAndroidPic,183, 0, 183, 61);
-			timerAndroid[1][0] = new TextureRegion(timerAndroidPic,0, 61, 183, 61);
-			timerAndroid[1][1] = new TextureRegion(timerAndroidPic,183, 61, 183, 61);
-			timerAndroid[3][0] = new TextureRegion(timerAndroidPic,0, 183, 183, 61);
-			timerAndroid[3][1] = new TextureRegion(timerAndroidPic,183, 183, 183, 61);
-			timerAndroid[2][0] = new TextureRegion(timerAndroidPic,0, 305, 183, 61);
-			timerAndroid[2][1] = new TextureRegion(timerAndroidPic,183, 305, 183, 61);
-			timerAndroid[4][0] = new TextureRegion(timerAndroidPic,0, 366, 183, 61);
-			timerAndroid[4][1] = new TextureRegion(timerAndroidPic,183, 366, 183, 61);
-			timerAndroid[5][0] = new TextureRegion(timerAndroidPic,0, 427, 183, 61);
-			timerAndroid[5][1] = new TextureRegion(timerAndroidPic,183, 366, 183, 61);
-		}else{
-			Texture timerAndroidPic = Art.loadTexture("images/timerandroid_china.png");
+			timerAndroid1[0][0] = new TextureRegion(timerAndroidPic,0, 0, 183, 61);
+			timerAndroid1[0][1] = new TextureRegion(timerAndroidPic,183, 0, 183, 61);
+			timerAndroid1[1][0] = new TextureRegion(timerAndroidPic,0, 61, 183, 61);
+			timerAndroid1[1][1] = new TextureRegion(timerAndroidPic,183, 61, 183, 61);
+			timerAndroid1[3][0] = new TextureRegion(timerAndroidPic,0, 183, 183, 61);
+			timerAndroid1[3][1] = new TextureRegion(timerAndroidPic,183, 183, 183, 61);
+			timerAndroid1[2][0] = new TextureRegion(timerAndroidPic,0, 305, 183, 61);
+			timerAndroid1[2][1] = new TextureRegion(timerAndroidPic,183, 305, 183, 61);
+			timerAndroid1[4][0] = new TextureRegion(timerAndroidPic,0, 366, 183, 61);
+			timerAndroid1[4][1] = new TextureRegion(timerAndroidPic,183, 366, 183, 61);
+			timerAndroid1[5][0] = new TextureRegion(timerAndroidPic,0, 427, 183, 61);
+			timerAndroid1[5][1] = new TextureRegion(timerAndroidPic,183, 366, 183, 61);
+		
+			timerAndroidPic = Art.loadTexture("images/timerandroid_china.png");
 			Texture timerAndroidPic1 = Art.loadTexture("images/timerandroid_china1.png");
-			timerAndroid[0][0] = new TextureRegion(timerAndroidPic1,0, 0, 183, 108);
-			timerAndroid[0][1] = new TextureRegion(timerAndroidPic1,183, 0, 183, 108);
-			timerAndroid[1][0] = new TextureRegion(timerAndroidPic,0, 324, 183, 108);
-			timerAndroid[1][1] = new TextureRegion(timerAndroidPic,183, 324, 183, 108);
-			timerAndroid[3][0] = new TextureRegion(timerAndroidPic1,0, 108, 183, 108);
-			timerAndroid[3][1] = new TextureRegion(timerAndroidPic1,183, 108, 183, 108);
-			timerAndroid[2][0] = new TextureRegion(timerAndroidPic,0, 0, 183, 108);
-			timerAndroid[2][1] = new TextureRegion(timerAndroidPic,183, 0, 183, 108);
-			timerAndroid[4][0] = new TextureRegion(timerAndroidPic,0, 108, 183, 108);
-			timerAndroid[4][1] = new TextureRegion(timerAndroidPic,183, 108, 183, 108);
-			timerAndroid[5][0] = new TextureRegion(timerAndroidPic,0, 216, 183, 108);
-			timerAndroid[5][1] = new TextureRegion(timerAndroidPic,183, 216, 183, 108);
-		}
+			timerAndroid2[0][0] = new TextureRegion(timerAndroidPic1,0, 0, 183, 108);
+			timerAndroid2[0][1] = new TextureRegion(timerAndroidPic1,183, 0, 183, 108);
+			timerAndroid2[1][0] = new TextureRegion(timerAndroidPic,0, 324, 183, 108);
+			timerAndroid2[1][1] = new TextureRegion(timerAndroidPic,183, 324, 183, 108);
+			timerAndroid2[3][0] = new TextureRegion(timerAndroidPic1,0, 108, 183, 108);
+			timerAndroid2[3][1] = new TextureRegion(timerAndroidPic1,183, 108, 183, 108);
+			timerAndroid2[2][0] = new TextureRegion(timerAndroidPic,0, 0, 183, 108);
+			timerAndroid2[2][1] = new TextureRegion(timerAndroidPic,183, 0, 183, 108);
+			timerAndroid2[4][0] = new TextureRegion(timerAndroidPic,0, 108, 183, 108);
+			timerAndroid2[4][1] = new TextureRegion(timerAndroidPic,183, 108, 183, 108);
+			timerAndroid2[5][0] = new TextureRegion(timerAndroidPic,0, 216, 183, 108);
+			timerAndroid2[5][1] = new TextureRegion(timerAndroidPic,183, 216, 183, 108);
+		
 		
 		
 	}
@@ -231,8 +239,14 @@ public class Art {
 	private static void loadHighScore() {
 		highScoreTexture = loadTexture("images/highscore.png");
 		highScoreBackground = new TextureRegion(highScoreTexture, 0, 0, 320, 480);
-		highScoreButton = new TextureRegion(highScoreTexture, 320, 0, 96, 106);
+		highScoreButton = new TextureRegion(highScoreTexture, 320, 106, 96, 106);
 		highScoreButton_pressed = new TextureRegion(highScoreTexture, 320 + 96, 0, 96, 106);
+	}
+	
+	private static void loadHelp() {
+		helpTexture = loadTexture("images/help.png");
+		helpBackground = new TextureRegion( helpTexture, 0,0,320,480);
+		helpButton = new TextureRegion(highScoreTexture, 320, 0, 96, 106);
 	}
 	
 	private static void loadDigitals() {
@@ -252,32 +266,32 @@ public class Art {
 	private static void loadProps() {
 		props.put(PROP_KIND.magnet_positive, new TextureRegion(
 				loadTexture("images/props/prop_magnet_positive.png"),
-				0, 0, 140, 180));
+				0, 0, 100, 100));
 		props.put(PROP_KIND.magnet_negative, new TextureRegion(
 				loadTexture("images/props/prop_magnet_positive.png"),
-				0, 0, 140, 180));
+				100, 0, 100, 100));
 		props.put(PROP_KIND.protective, new TextureRegion(
 				loadTexture("images/props/prop_magnet_positive.png"),
-				0, 0, 140, 180));
+				200, 0, 100, 100));
 		props.put(PROP_KIND.maxNotes, new TextureRegion(
 				loadTexture("images/props/prop_magnet_positive.png"),
-				0, 0, 140, 180));
+				300, 0, 100, 100));
 		props.put(PROP_KIND.doubleScores, new TextureRegion(
 				loadTexture("images/props/prop_magnet_positive.png"),
-				0, 0, 140, 180));
+				400, 0, 100, 100));
 		props.put(PROP_KIND.eatAll, new TextureRegion(
 				loadTexture("images/props/prop_magnet_positive.png"),
-				0, 0, 140, 180));
+				0, 100, 100, 100));
 		props.put(PROP_KIND.fillBlood, new TextureRegion(
 				loadTexture("images/props/prop_magnet_positive.png"),
-				0, 0, 140, 180));
+				100, 100, 100, 100));
 		props.put(PROP_KIND.halfBlood, new TextureRegion(
 				loadTexture("images/props/prop_magnet_positive.png"),
-				0, 0, 140, 180));
+				200, 100, 100, 100));
 	}
 	
  static void loadChinaStyle() {                        //中国主题
-		SUPERMAN_STATE=1;
+		
 		Texture china = Art.loadTexture("images/china_style/china.png");
 		ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 		textureRegions.add(new TextureRegion(china,640,0,320,600));
@@ -360,7 +374,6 @@ public class Art {
 	}
 	
 	private static void loadSkyStyle() {                //天空主题
-		SUPERMAN_STATE=0;
 		Texture sky = Art.loadTexture("images/sky_style/sky.png");
 		ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 		textureRegions.add(new TextureRegion(sky,0,0,320,600));
@@ -450,7 +463,6 @@ public class Art {
 	}
 	
 	private static void loadPunkStyle() {
-		SUPERMAN_STATE=0;
 		Texture punk = Art.loadTexture("images/punk_style/punk.png");
 		ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 		textureRegions.add(new TextureRegion(punk,0,0,320,600));
@@ -537,7 +549,6 @@ public class Art {
 	}
 	
 	private static void loadStarStyle() {
-		SUPERMAN_STATE=0;
 		Texture star = Art.loadTexture("images/star_style/star.png");
 		ArrayList<TextureRegion> textureRegions = new ArrayList<TextureRegion>();
 		textureRegions.add(new TextureRegion(star,0,0,256,480));

@@ -42,14 +42,14 @@ public class ChoseMusicScreen extends Screen{
 	public void update(float deltaTime) {
 		if(yOffs != 0) {
 			if(yOffs > 0) {
-				yOffs++;
-				if(yOffs == 480) {
+				yOffs+=8;
+				if(yOffs >= 480) {
 					yOffs = 0;
 				}
 				return;
-			} else {
-				yOffs--;
-				if(yOffs == -480) {
+			} else if(yOffs<0){
+				yOffs-=8;
+				if(yOffs <=-480) {
 					yOffs = 0;
 				}
 				return;
@@ -112,19 +112,22 @@ public class ChoseMusicScreen extends Screen{
 	private void switchAddState() {
 		switch(Stats.gameStyle) {
 		case STYLE1:
+			Art.SUPERMAN_STATE=0;
 			Stats.gameStyle = GameStyle.STYLE2;
 			Stats.currentSongNumber = 2;
 			break;
 		case STYLE2:
+			Art.SUPERMAN_STATE=1;
 			Stats.gameStyle = GameStyle.STYLE3;
 			Stats.currentSongNumber = 3;
 			break;
 		case STYLE3:
-			
+			Art.SUPERMAN_STATE=0;
 			Stats.gameStyle = GameStyle.STYLE4;
 			Stats.currentSongNumber = 4;
 			break;
 		case STYLE4:
+			Art.SUPERMAN_STATE=0;
 			Stats.gameStyle = GameStyle.STYLE1;
 			Stats.currentSongNumber = 1;
 			break;
@@ -133,18 +136,22 @@ public class ChoseMusicScreen extends Screen{
 	private void switchDeleteState() {
 		switch(Stats.gameStyle) {
 		case STYLE1:
+			Art.SUPERMAN_STATE=0;
 			Stats.gameStyle = GameStyle.STYLE4;
 			Stats.currentSongNumber = 4;
 			break;
 		case STYLE2:
+			Art.SUPERMAN_STATE=0;
 			Stats.gameStyle = GameStyle.STYLE1;
 			Stats.currentSongNumber = 1;
 			break;
 		case STYLE3:
+			Art.SUPERMAN_STATE=0;
 			Stats.gameStyle = GameStyle.STYLE2;
 			Stats.currentSongNumber = 2;
 			break;
 		case STYLE4:
+			Art.SUPERMAN_STATE=1;
 			Stats.gameStyle = GameStyle.STYLE3;
 			Stats.currentSongNumber = 3;
 			break;
