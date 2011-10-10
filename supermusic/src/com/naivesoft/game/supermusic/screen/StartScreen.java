@@ -1,6 +1,7 @@
 package com.naivesoft.game.supermusic.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -34,6 +35,10 @@ public class StartScreen extends Screen {
 				setScreen(new ChoseMusicScreen());
 				return;
 			}
+		}
+		
+		if(Gdx.input.isKeyPressed(Keys.BACK)) {
+			Gdx.app.exit();
 		}
 	}
 
