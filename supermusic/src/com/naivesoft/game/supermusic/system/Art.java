@@ -67,6 +67,9 @@ public class Art {
 	public static TextureRegion current_choseLevel_background;
 	public static TextureRegion current_choseLevel_title;
 	public static TextureRegion current_choseLevel_title_pressed;
+	public static TextureRegion lastest_choseLevel_background;
+	public static TextureRegion lastest_choseLevel_title;
+	public static TextureRegion lastest_choseLevel_title_pressed;
 	
 	//game screen
 	private static Texture timeTexture;
