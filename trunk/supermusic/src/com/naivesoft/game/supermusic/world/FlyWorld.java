@@ -57,6 +57,7 @@ public class FlyWorld {
 					&& musicNote.position.y < currentCamPosition.y + FlyWorldRender.FRUSTUM_HEIGHT) {
 				flyWorldListener.catchNote(musicNote.musicLevel, musicNote.musicKind);
 				musicNotes.remove(musicNote);
+				i--;
 				len = musicNotes.size();
 			}
 		}
