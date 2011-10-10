@@ -30,8 +30,14 @@ public class MusicService {
 		control.play();
 	}
 	
-	public void release() {
-		control.release();
+	public void stop() {
+		control.clearQueue();
+		control.closeFile();
+	}
+	
+	public void restart() {
+		control.clearQueue();
+		control.queueJetSegment(0, -1, 0, 0, 0, (byte)0);
 	}
 	
 	//…Ë÷√Õ£÷πæ≤“Ù£¨≤•∑≈“ÙπÏ

@@ -426,7 +426,7 @@ public class FlyGameScreen extends Screen{
 	
 	private void backToMainScreen() {
 		if(musicService != null) {
-			musicService.release();
+			musicService.stop();
 		}
 		spriteBatch.dispose();
 		setScreen(new ChoseMusicScreen());
@@ -434,6 +434,7 @@ public class FlyGameScreen extends Screen{
 	
 	private void restartGame() {
 		spriteBatch.dispose();
+		musicService.restart();
 		setScreen(new FlyGameScreen());
 	}
 	
@@ -450,7 +451,7 @@ public class FlyGameScreen extends Screen{
 	}
 	
 	private void endGame() {
-		musicService.release();
+		musicService.stop();
 		spriteBatch.dispose();
 	}
 	

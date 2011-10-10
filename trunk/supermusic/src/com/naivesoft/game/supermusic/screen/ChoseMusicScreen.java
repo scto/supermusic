@@ -93,6 +93,7 @@ public class ChoseMusicScreen extends Screen{
 			Stats.currentSongNumber = 3;
 			break;
 		case STYLE3:
+			
 			Stats.gameStyle = GameStyle.STYLE4;
 			Stats.currentSongNumber = 4;
 			break;
