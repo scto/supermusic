@@ -53,8 +53,8 @@ public class FlyWorld {
 		int len = musicNotes.size();
 		for(int i = 0; i < len; i++){
 			MusicNote musicNote = musicNotes.get(i);
-			if(musicNote.position.y > currentCamPosition.y - FlyWorldRender.FRUSTUM_HEIGHT / 2
-					&& musicNote.position.y < currentCamPosition.y + FlyWorldRender.FRUSTUM_HEIGHT / 2) {
+			if(musicNote.position.y > currentCamPosition.y - FlyWorldRender.FRUSTUM_HEIGHT 
+					&& musicNote.position.y < currentCamPosition.y + FlyWorldRender.FRUSTUM_HEIGHT) {
 				flyWorldListener.catchNote(musicNote.musicLevel, musicNote.musicKind);
 				musicNotes.remove(musicNote);
 				len = musicNotes.size();

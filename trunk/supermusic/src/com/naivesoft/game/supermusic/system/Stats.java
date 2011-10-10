@@ -72,7 +72,7 @@ public class Stats {
 	
 	public static void addMagnetLevel() {
 		if(magnetism != MAX_MAGNET) {
-			magnetism *= 2.5f;
+			magnetism = 1f;
 		}
 		magnetTime = 5;
 	}
@@ -80,7 +80,7 @@ public class Stats {
 	public static void cutDownMagnetLevel() {
 		if(projectiveTime != 0) return;
 		if(magnetism != MIN_MAGNET) {
-			magnetism /= 2.5f;
+			magnetism = -1f;
 		}
 		magnetTime = 5;
 	}
