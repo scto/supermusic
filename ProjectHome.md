@@ -1,0 +1,1 @@
+A project of naivesoft, a game on Android
